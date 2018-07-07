@@ -13,9 +13,8 @@
 
 <script>
     export default {
-        name: 'DisplayBookmarks',
         props: {
-            bookmarksItems: []
+            bookmarksItems: Array
         }
     }
 </script>

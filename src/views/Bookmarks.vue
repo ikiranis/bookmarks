@@ -12,7 +12,6 @@
     import DisplayBookmarks from '@/components/DisplayBookmarks.vue'
 
     export default {
-        name: 'bookmarks',
         components: {
             DisplayBookmarks
         },
