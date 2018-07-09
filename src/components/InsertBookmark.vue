@@ -29,7 +29,17 @@
         },
         methods: {
             saveBookmark() {
-                console.log(this.description + ' ' + this.url);
+
+                let myData = {
+                    url: this.url,
+                    description: this.description
+                };
+
+                axios.post('http://localhost:7893/api/bookmark', myData)
+                    .then(response => {
+                        console.log(response.data.id);
+                    })
+                    .catch(e => console.log(e));
             }
         }
     }

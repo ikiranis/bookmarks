@@ -15,24 +15,15 @@
     export default {
         data: function () {
             return {
-                bookmarksItems: [
-                    {
-                        id: 1,
-                        description: 'error.gr blog',
-                        url: 'http://error.gr'
-                    },
-                    {
-                        id: 2,
-                        description: 'West Macedonia Sports',
-                        url: 'https://wmsports.gr'
-                    },
-                    {
-                        id: 3,
-                        description: 'Apps 4 net',
-                        url: 'http://apps4net.eu'
-                    }
-                ]
+                bookmarksItems: ''
             }
+        },
+        mounted: function() {
+            axios.get('http://localhost:7893/api/bookmarks')
+                .then(response => {
+                    this.bookmarksItems = response.data;
+                })
+                .catch(e => console.log(e));
         }
     }
 </script>
