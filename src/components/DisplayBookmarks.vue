@@ -1,10 +1,10 @@
 <template>
-    <div class="displayBookmarks">
+    <div class="displayBookmarks container">
         <h3>List of bookmarks</h3>
 
-        <ul v-for="bookmark in bookmarksItems" :key="bookmark.id">
-            <li>
-                <a :href="bookmark.url">{{ bookmark.text }}</a>
+        <ul v-for="bookmark in bookmarksItems" :key="bookmark.id" class="list-group">
+            <li class="list-group-item">
+                <a :href="bookmark.url">{{ bookmark.description }} - {{ bookmark.url }}</a>
             </li>
         </ul>
 
@@ -18,17 +18,17 @@
                 bookmarksItems: [
                     {
                         id: 1,
-                        text: 'error.gr blog',
+                        description: 'error.gr blog',
                         url: 'http://error.gr'
                     },
                     {
                         id: 2,
-                        text: 'West Macedonia Sports',
+                        description: 'West Macedonia Sports',
                         url: 'https://wmsports.gr'
                     },
                     {
                         id: 3,
-                        text: 'Apps 4 net',
+                        description: 'Apps 4 net',
                         url: 'http://apps4net.eu'
                     }
                 ]
