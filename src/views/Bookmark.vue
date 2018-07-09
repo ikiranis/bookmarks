@@ -1,7 +1,5 @@
 <template>
     <div class="bookmark">
-        <h1>Insert Bookmark</h1>
-
         <InsertBookmark></InsertBookmark>
     </div>
 </template>

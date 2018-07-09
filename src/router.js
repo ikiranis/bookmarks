@@ -4,9 +4,10 @@ import Home from './views/Home.vue'
 import Bookmarks from './views/Bookmarks.vue'
 import Bookmark from './views/Bookmark.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
+    mode: 'history', // removes # from url
     routes: [
         {
             path: '/',
