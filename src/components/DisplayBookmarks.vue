@@ -13,8 +13,26 @@
 
 <script>
     export default {
-        props: {
-            bookmarksItems: Array
+        data: function () {
+            return {
+                bookmarksItems: [
+                    {
+                        id: 1,
+                        text: 'error.gr blog',
+                        url: 'http://error.gr'
+                    },
+                    {
+                        id: 2,
+                        text: 'West Macedonia Sports',
+                        url: 'https://wmsports.gr'
+                    },
+                    {
+                        id: 3,
+                        text: 'Apps 4 net',
+                        url: 'http://apps4net.eu'
+                    }
+                ]
+            }
         }
     }
 </script>
