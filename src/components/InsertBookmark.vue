@@ -20,6 +20,8 @@
 
 <script>
 
+    import api from '@/api';
+
     export default {
         data: function () {
             return {
@@ -30,16 +32,17 @@
         methods: {
             saveBookmark() {
 
-                let myData = {
+                let args = {
                     url: this.url,
                     description: this.description
                 };
 
-                axios.post(process.env.ROOT_API + '/bookmark', myData)
+                api.saveBookmark(args)
                     .then(response => {
-                        console.log(response.data.id);
+                        console.log(response.id);
                     })
                     .catch(e => console.log(e));
+
             }
         }
     }

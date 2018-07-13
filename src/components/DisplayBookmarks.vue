@@ -12,6 +12,8 @@
 </template>
 
 <script>
+    import api from '@/api';
+
     export default {
         data: function () {
             return {
@@ -19,11 +21,11 @@
             }
         },
         mounted: function() {
-            axios.get(process.env.VUE_APP_ROOT_API + '/bookmarks')
+            api.getAllBookmarks()
                 .then(response => {
-                    this.bookmarksItems = response.data;
-                })
-                .catch(e => console.log(e));
-        }
+                        this.bookmarksItems = response;
+                    })
+                        .catch(e => console.log(e));
+                }
     }
 </script>
