@@ -7,6 +7,8 @@ selenium-debug.log
 
 # local env files
 .env
+.env.development
+.env.production
 .env.local
 .env.*.local
 

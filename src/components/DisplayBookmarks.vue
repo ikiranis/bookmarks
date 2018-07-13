@@ -19,6 +19,7 @@
             }
         },
         mounted: function() {
+            console.log(process.env.NODE_ENV)
             axios.get(process.env.VUE_APP_ROOT_API + '/bookmarks')
                 .then(response => {
                     this.bookmarksItems = response.data;
