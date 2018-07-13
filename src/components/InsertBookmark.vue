@@ -35,7 +35,7 @@
                     description: this.description
                 };
 
-                axios.post('http://localhost:7891/api/bookmark', myData)
+                axios.post(process.env.ROOT_API + '/bookmark', myData)
                     .then(response => {
                         console.log(response.data.id);
                     })
