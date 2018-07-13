@@ -19,7 +19,7 @@
             }
         },
         mounted: function() {
-            axios.get('http://localhost:7893/api/bookmarks')
+            axios.get(root_api + '/bookmarks')
                 .then(response => {
                     this.bookmarksItems = response.data;
                 })
