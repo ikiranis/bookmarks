@@ -4,7 +4,6 @@
     </div>
 </template>
 
-
 <script>
     // @ is an alias to /src
     import InsertBookmark from '@/components/InsertBookmark.vue'
