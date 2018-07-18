@@ -1,35 +1,80 @@
 <template>
-    <div>
-        <div class="alert alert-danger" v-if="error && !success">
-            <p>There was an error, unable to complete registration.</p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-default">
+                    <div class="card-header">Register</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" v-model="name" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" v-model="email" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control" v-model="password" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" v-model="password_confirmation" required>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary" @click.prevent="register">
+                                        Register
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="alert alert-success" v-if="success">
-            <p>Registration completed. You can now <router-link :to="{name:'login'}">sign in.</router-link></p>
-        </div>
-
-        <form autocomplete="off" @submit.prevent="register" v-if="!success" method="post">
-
-            <div class="form-group" v-bind:class="{ 'has-error': error && errors.name }">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" v-model="name" required>
-                <span class="help-block" v-if="error && errors.name">{{ errors.name }}</span>
-            </div>
-
-            <div class="form-group" v-bind:class="{ 'has-error': error && errors.email }">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email" required>
-                <span class="help-block" v-if="error && errors.email">{{ errors.email }}</span>
-            </div>
-
-            <div class="form-group" v-bind:class="{ 'has-error': error && errors.password }">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" v-model="password" required>
-                <span class="help-block" v-if="error && errors.password">{{ errors.password }}</span>
-            </div>
-
-            <button type="submit" class="btn btn-default">Submit</button>
-
-        </form>
     </div>
 </template>
+
+
+<script>
+    import api from '@/api';
+
+    export default {
+        data: function () {
+            return {
+                responseMessage: '',
+                responseStatus: '',
+                myCredentials: {
+                    username: 'rocean74@gmail.com',
+                    password: '123456'
+                }
+            }
+        },
+        methods: {
+            register() {
+                // api.login(this.myCredentials.username, this.myCredentials.password)
+                //     .then(response => {
+                //         localStorage.accessToken = response.data.access_token;
+                //         localStorage.tokenType = response.data.token_type;
+                //
+                //         this.responseMessage = response.statusText;
+                //         this.responseStatus = true;
+                //     })
+                //     .catch(error => {
+                //         this.responseMessage = error.response.data.message;
+                //         this.responseStatus = false;
+                //     });
+            }
+        }
+    }
+</script>

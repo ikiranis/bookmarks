@@ -28,16 +28,17 @@
                                 </div>
                             </div>
 
-                            <div v-if="responseMessage"
-                                 class="alert my-3"
-                                 :class="responseStatus ? 'alert-success' : 'alert-danger'"
-                                 role="alert">
-                                {{ responseMessage }}
-                            </div>
-
                         </form>
                     </div>
                 </div>
+
+                <div v-if="responseMessage"
+                     class="alert my-3"
+                     :class="responseStatus ? 'alert-success' : 'alert-danger'"
+                     role="alert">
+                    {{ responseMessage }}
+                </div>
+
             </div>
         </div>
     </div>
