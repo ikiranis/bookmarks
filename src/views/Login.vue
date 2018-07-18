@@ -1,6 +1,45 @@
 <template>
-    <div class="login">
-        <span class="btn btn-info" v-on:click="login()">Login</span>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-default">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-4 col-form-label text-md-right">E-Mail Address</label>
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" v-model="myCredentials.username"
+                                           required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control"
+                                           v-model="myCredentials.password" required>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-8 offset-md-4">
+                                    <button type="submit" class="btn btn-primary" @click.prevent="login">
+                                        Login
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div v-if="responseMessage"
+                                 class="alert my-3"
+                                 :class="responseStatus ? 'alert-success' : 'alert-danger'"
+                                 role="alert">
+                                {{ responseMessage }}
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -10,7 +49,8 @@
     export default {
         data: function () {
             return {
-                bookmarksItems: '',
+                responseMessage: '',
+                responseStatus: '',
                 myCredentials: {
                     username: 'rocean74@gmail.com',
                     password: '123456'
@@ -21,9 +61,16 @@
             login() {
                 api.login(this.myCredentials.username, this.myCredentials.password)
                     .then(response => {
-                        console.log(response);
+                        localStorage.accessToken = response.data.access_token;
+                        localStorage.tokenType = response.data.token_type;
+
+                        this.responseMessage = response.statusText;
+                        this.responseStatus = true;
                     })
-                    .catch(e => console.log(e));
+                    .catch(error => {
+                        this.responseMessage = error.response.data.message;
+                        this.responseStatus = false;
+                    });
             }
         }
     }

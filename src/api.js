@@ -43,7 +43,7 @@ let api = {
             scope: "*"
         };
 
-        let {data} = await axios.post(API_HOST + '/oauth/token', args);
+        let data = await axios.post(API_HOST + '/oauth/token', args);
 
         return data;
     }
