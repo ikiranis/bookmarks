@@ -25,7 +25,7 @@
                 .then(response => {
                         this.bookmarksItems = response;
                     })
-                        .catch(e => console.log(e));
+                        .catch(error => console.log(error.response));
                 }
     }
 </script>

@@ -21,8 +21,8 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary" @click.prevent="login">
+                                <div class="col-md-8 ml-auto mr-auto">
+                                    <button type="submit" class="btn btn-primary w-100" @click.prevent="login">
                                         Login
                                     </button>
                                 </div>
@@ -62,6 +62,7 @@
             login() {
                 api.login(this.myCredentials.username, this.myCredentials.password)
                     .then(response => {
+                        console.log(response)
                         localStorage.accessToken = response.data.access_token;
                         localStorage.tokenType = response.data.token_type;
 
