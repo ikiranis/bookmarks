@@ -18,11 +18,7 @@
         },
         computed: {
             loggedId: function() {
-                if(this.username === 'Not Logged In') {
-                    return false;
-                }
-
-                return true;
+                return this.username !== 'Not Logged In';
             }
         },
         created: function () {
