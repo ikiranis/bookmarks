@@ -12,14 +12,9 @@ import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue);
 
-import axios from 'axios';
+import user from '@/library/user'
 
-// axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-if(typeof localStorage.accessToken !== 'undefined') {
-    axios.defaults.headers.common['Accept'] = 'application/json';
-    axios.defaults.headers.common['Authorization'] = localStorage.tokenType + " " + localStorage.accessToken;
-}
+user.sendUserTokenHeader();
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

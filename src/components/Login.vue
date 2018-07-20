@@ -46,6 +46,8 @@
 
 <script>
     import api from '@/api';
+    import user from '@/library/user';
+
 
     export default {
         data: function () {
@@ -64,6 +66,8 @@
                     .then(response => {
                         localStorage.accessToken = response.data.access_token;
                         localStorage.tokenType = response.data.token_type;
+
+                        user.sendUserTokenHeader();
 
                         this.responseMessage = response.statusText;
                         this.responseStatus = true;
