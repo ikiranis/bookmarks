@@ -16,14 +16,30 @@
                 username: ''
             }
         },
+
         computed: {
             loggedId: function () {
                 return this.username !== 'Not Logged In';
+            },
+
+            userLoggedIn: function() {
+                return this.$store.state.userLoggedIn;
             }
         },
+
+        watch: {
+            userLoggedIn: function () {
+                if(this.userLoggedIn) {
+                    this.getCurrentUser();
+                }
+
+            }
+        },
+
         created: function () {
             this.getCurrentUser();
         },
+
         methods: {
             getCurrentUser() {
                 api.getCurrentUser()
@@ -34,11 +50,15 @@
                         if (error.response.statusText === 'Unauthorized') {
                             this.username = 'Not Logged In';
                         }
-                    })
+                    });
+
+                this.$store.state.userLoggedIn = false;
             },
 
             logout() {
                 user.logout();
+                user.setUserTokenHeader();
+                this.$store.state.userLoggedIn = true;
                 console.log('LOGOUT')
             }
         }
