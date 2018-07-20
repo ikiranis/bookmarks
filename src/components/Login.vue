@@ -46,8 +46,7 @@
 
 <script>
     import api from '@/api';
-    import user from '@/library/user';
-
+    import user from "@/library/user";
 
     export default {
         data: function () {
@@ -64,10 +63,7 @@
             login() {
                 api.login(this.credentials.username, this.credentials.password)
                     .then(response => {
-                        localStorage.accessToken = response.data.access_token;
-                        localStorage.tokenType = response.data.token_type;
-
-                        user.sendUserTokenHeader();
+                        user.login(response.data.access_token, response.data.token_type);
 
                         this.responseMessage = response.statusText;
                         this.responseStatus = true;

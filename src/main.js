@@ -14,7 +14,7 @@ Vue.use(BootstrapVue);
 
 import user from '@/library/user'
 
-user.sendUserTokenHeader();
+user.setUserTokenHeader();
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
