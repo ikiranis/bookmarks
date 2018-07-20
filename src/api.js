@@ -10,8 +10,8 @@ let api = {
      *
      * @returns {Promise<void>}
      */
-    async getAllBookmarks() {
-        let {data} = await axios.get(ROOT_API + '/bookmarks');
+    async getUsersCount() {
+        let {data} = await axios.get(ROOT_API + '/usersCount');
 
         return data;
     },
@@ -20,8 +20,8 @@ let api = {
      *
      * @returns {Promise<void>}
      */
-    async getUsersCount() {
-        let {data} = await axios.get(ROOT_API + '/usersCount');
+    async getAllBookmarks() {
+        let {data} = await axios.get(ROOT_API + '/bookmarks');
 
         return data;
     },

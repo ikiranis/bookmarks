@@ -1,15 +1,16 @@
 <template>
     <div class="home">
-        <Login/>
+        <Login v-if="!displayRegister"/>
         <Register v-if="displayRegister"/>
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
+    import api from '@/api';
+
     import Login from '@/components/Login.vue'
     import Register from '@/components/Register.vue'
-    import api from '@/api';
 
     export default {
         name: 'home',
@@ -21,7 +22,6 @@
         beforeCreate: function () {
             api.getUsersCount()
                 .then(response => {
-                    console.log(response.count)
                     if(response.count === 0) {
                         this.displayRegister = true;
                     }
