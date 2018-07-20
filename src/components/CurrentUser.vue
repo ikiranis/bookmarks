@@ -59,7 +59,6 @@
                 user.logout();
                 user.setUserTokenHeader();
                 this.$store.state.userLoggedIn = true;
-                console.log('LOGOUT')
             }
         }
     }
