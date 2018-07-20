@@ -16,6 +16,12 @@ let api = {
         return data;
     },
 
+    async getCurrentUser() {
+        let {data} = await axios.get(ROOT_API + '/user');
+
+        return data;
+    },
+
     /**
      *
      * @returns {Promise<void>}

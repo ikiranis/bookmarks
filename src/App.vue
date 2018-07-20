@@ -4,8 +4,10 @@
             <router-link to="/">Home</router-link> |
             <router-link to="/bookmarks">Bookmarks</router-link> |
             <router-link to="/bookmark">Insert Bookmark</router-link>
+            <CurrentUser />
         </div>
         <router-view/>
+
     </div>
 </template>
 
@@ -30,3 +32,9 @@
     }
 </style>
 
+<script>
+    import CurrentUser from "./components/CurrentUser";
+    export default {
+        components: {CurrentUser}
+    }
+</script>

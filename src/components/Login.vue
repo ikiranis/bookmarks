@@ -60,7 +60,7 @@
         },
         methods: {
             login() {
-                api.login(this.myCredentials.username, this.myCredentials.password)
+                api.login(this.credentials.username, this.credentials.password)
                     .then(response => {
                         localStorage.accessToken = response.data.access_token;
                         localStorage.tokenType = response.data.token_type;
