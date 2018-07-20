@@ -54,8 +54,8 @@ let api = {
         };
 
         return await axios.post(API_HOST + '/oauth/token', args);
-
     }
+
 };
 
 export default api;
