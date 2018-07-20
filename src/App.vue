@@ -15,6 +15,14 @@
 
 </template>
 
+<script>
+    import CurrentUser from "./components/CurrentUser";
+
+    export default {
+        components: {CurrentUser}
+    }
+</script>
+
 <style lang="scss">
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -36,10 +44,3 @@
     }
 </style>
 
-<script>
-    import CurrentUser from "./components/CurrentUser";
-
-    export default {
-        components: {CurrentUser}
-    }
-</script>

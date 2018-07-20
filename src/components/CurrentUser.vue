@@ -17,22 +17,26 @@
             }
         },
         computed: {
-            loggedId: function() {
+            loggedId: function () {
                 return this.username !== 'Not Logged In';
             }
         },
         created: function () {
-            api.getCurrentUser()
-                .then(response => {
-                    this.username = response.name;
-                })
-                .catch(error => {
-                    if(error.response.statusText === 'Unauthorized') {
-                        this.username = 'Not Logged In';
-                    }
-                });
+            this.getCurrentUser();
         },
         methods: {
+            getCurrentUser() {
+                api.getCurrentUser()
+                    .then(response => {
+                        this.username = response.name;
+                    })
+                    .catch(error => {
+                        if (error.response.statusText === 'Unauthorized') {
+                            this.username = 'Not Logged In';
+                        }
+                    })
+            },
+
             logout() {
                 user.logout();
                 console.log('LOGOUT')
