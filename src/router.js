@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Bookmarks from './views/Bookmarks.vue'
 import Bookmark from './views/Bookmark.vue'
-import Login from './views/Login.vue'
+import Login from './components/Login.vue'
 
 Vue.use(Router);
 

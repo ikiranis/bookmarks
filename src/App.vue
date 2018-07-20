@@ -3,8 +3,7 @@
         <div id="nav">
             <router-link to="/">Home</router-link> |
             <router-link to="/bookmarks">Bookmarks</router-link> |
-            <router-link to="/bookmark">Insert Bookmark</router-link> |
-            <router-link to="/login">Login</router-link>
+            <router-link to="/bookmark">Insert Bookmark</router-link>
         </div>
         <router-view/>
     </div>
