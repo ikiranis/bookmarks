@@ -20,7 +20,7 @@
                 bookmarksItems: ''
             }
         },
-        mounted: function() {
+        created: function() {
             api.getAllBookmarks()
                 .then(response => {
                         this.bookmarksItems = response;

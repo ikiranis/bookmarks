@@ -16,6 +16,12 @@ let api = {
         return data;
     },
 
+    async getUsersCount() {
+        let {data} = await axios.get(ROOT_API + '/usersCount');
+
+        return data;
+    },
+
     /**
      *
      * @param args
