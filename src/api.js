@@ -16,6 +16,10 @@ let api = {
         return data;
     },
 
+    /**
+     *
+     * @returns {Promise<void>}
+     */
     async getUsersCount() {
         let {data} = await axios.get(ROOT_API + '/usersCount');
 
@@ -49,9 +53,8 @@ let api = {
             scope: "*"
         };
 
-        let data = await axios.post(API_HOST + '/oauth/token', args);
+        return await axios.post(API_HOST + '/oauth/token', args);
 
-        return data;
     }
 };
 
