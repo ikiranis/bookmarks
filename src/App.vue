@@ -1,14 +1,18 @@
 <template>
     <div id="app">
+
         <div id="nav">
             <router-link to="/">Home</router-link> |
             <router-link to="/bookmarks">Bookmarks</router-link> |
-            <router-link to="/bookmark">Insert Bookmark</router-link>
-            <CurrentUser />
+            <router-link to="/bookmark">Insert Bookmark</router-link> |
+
+            <CurrentUser/>
         </div>
+
         <router-view/>
 
     </div>
+
 </template>
 
 <style lang="scss">
@@ -34,6 +38,7 @@
 
 <script>
     import CurrentUser from "./components/CurrentUser";
+
     export default {
         components: {CurrentUser}
     }

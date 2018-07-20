@@ -1,7 +1,7 @@
 <template>
-    <div class="currentUser">
+    <span class="currentUser">
         {{ username }}
-    </div>
+    </span>
 </template>
 
 <script>
@@ -18,7 +18,12 @@
                 .then(response => {
                     this.username = response.name;
                 })
-                .catch(error => console.log(error.response.status));
+                .catch(error => {
+                    console.log(error.response.statusText);
+                    if(error.response.statusText === 'Unauthorized') {
+                        this.username = 'Not Logged In';
+                    }
+                });
         }
     }
 </script>
