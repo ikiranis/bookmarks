@@ -16,7 +16,7 @@
             ...mapState(['username'])
         },
 
-        created: function () {
+        beforeCreate: function () {
             this.$store.dispatch('getCurrentUser');
         },
 

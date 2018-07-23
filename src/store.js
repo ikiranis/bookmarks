@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 import api from '@/api';
 
@@ -10,21 +10,21 @@ export default new Vuex.Store({
         username: ''
     },
     mutations: {
-        getCurrentUser(state) {
-            api.getCurrentUser()
-                .then(response => {
-                    state.username = response.name;
-                })
-                .catch(error => {
-                    if (error.response.statusText === 'Unauthorized') {
-                        state.username = '';
-                    }
-                });
+        setUsername(state, username) {
+            state.username = username;
         }
     },
     actions: {
         getCurrentUser (context) {
-            context.commit('getCurrentUser');
+            return api.getCurrentUser()
+                .then(response => {
+                    context.commit('setUsername', response.name);
+                })
+                .catch(error => {
+                    if (error.response.statusText === 'Unauthorized') {
+                        context.commit('setUsername', '');
+                    }
+                });
         }
     }
 })
