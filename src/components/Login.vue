@@ -68,9 +68,9 @@
                         this.responseMessage = response.statusText;
                         this.responseStatus = true;
 
-                        this.$store.state.userLoggedIn = true;
-
                         user.setUserTokenHeader();
+
+                        this.$store.dispatch('getCurrentUser');
                     })
                     .catch(error => {
                         this.responseMessage = error.response.data.message;
