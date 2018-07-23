@@ -31,8 +31,8 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary" @click.prevent="register">
+                                <div class="col-md-8 ml-auto mr-auto">
+                                    <button type="submit" class="btn btn-primary w-100" @click.prevent="register">
                                         Register
                                     </button>
                                 </div>
@@ -56,6 +56,7 @@
 
 <script>
     import api from '@/api';
+    import { mapMutations } from 'vuex';
 
     export default {
         data: function () {
@@ -71,13 +72,15 @@
             }
         },
         methods: {
+            ...mapMutations(['setDisplayRegister']),
+
             register() {
                 if(this.userInfo.password === this.password_confirmation) {
                     api.register(this.userInfo)
                         .then(response => {
-                            console.log(response);
                             this.responseMessage = response.statusText;
                             this.responseStatus = true;
+                            this.setDisplayRegister(false);
                         })
                         .catch(error => {
                             console.log(error);

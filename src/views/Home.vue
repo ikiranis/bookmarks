@@ -3,6 +3,7 @@
         <Login v-if="!displayRegister"/>
         <Register v-if="displayRegister"/>
         <span class="btn btn-info my-3" v-if="!displayRegister" @click="displayRegisterComponent">Register User</span>
+        <span class="btn btn-info my-3" v-if="displayRegister" @click="displayLoginComponent">Login User</span>
     </div>
 </template>
 
@@ -12,26 +13,30 @@
 
     import Login from '@/components/Login.vue'
     import Register from '@/components/Register.vue'
+    import { mapState, mapMutations } from 'vuex';
 
     export default {
         name: 'home',
-        data: function () {
-            return {
-                displayRegister: false
-            }
+        computed: {
+            ...mapState(['displayRegister'])
         },
         beforeCreate: function () {
             api.getUsersCount()
                 .then(response => {
                     if(response.count === 0) {
-                        this.displayRegister = true;
+                        this.setDisplayRegister(true);
                     }
                 })
                 .catch(error => console.log(error.response));
         },
         methods: {
+            ...mapMutations(['setDisplayRegister']),
+
             displayRegisterComponent() {
-                this.displayRegister = true;
+                this.setDisplayRegister(true);
+            },
+            displayLoginComponent() {
+                this.setDisplayRegister(false);
             }
         },
         components: {
