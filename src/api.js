@@ -47,6 +47,10 @@ let api = {
         return data;
     },
 
+    async register(args) {
+        return await axios.post(ROOT_API + '/register', args);
+    },
+
     /**
      *
      * @param username

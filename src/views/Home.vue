@@ -2,6 +2,7 @@
     <div class="home">
         <Login v-if="!displayRegister"/>
         <Register v-if="displayRegister"/>
+        <span class="btn btn-info my-3" v-if="!displayRegister" @click="displayRegisterComponent">Register User</span>
     </div>
 </template>
 
@@ -27,6 +28,11 @@
                     }
                 })
                 .catch(error => console.log(error.response));
+        },
+        methods: {
+            displayRegisterComponent() {
+                this.displayRegister = true;
+            }
         },
         components: {
             Login,

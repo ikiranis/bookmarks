@@ -27,7 +27,7 @@
                             <div class="form-group row">
                                 <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" v-model="userInfo.password_confirmation" required>
+                                    <input id="password-confirm" type="password" class="form-control" v-model="password_confirmation" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -65,25 +65,29 @@
                 userInfo: {
                     name: '',
                     email: '',
-                    password: '',
-                    password_confirmation: ''
-                }
+                    password: ''
+                },
+                password_confirmation: ''
             }
         },
         methods: {
             register() {
-                // api.login(this.myCredentials.username, this.myCredentials.password)
-                //     .then(response => {
-                //         localStorage.accessToken = response.data.access_token;
-                //         localStorage.tokenType = response.data.token_type;
-                //
-                //         this.responseMessage = response.statusText;
-                //         this.responseStatus = true;
-                //     })
-                //     .catch(error => {
-                //         this.responseMessage = error.response.data.message;
-                //         this.responseStatus = false;
-                //     });
+                if(this.userInfo.password === this.password_confirmation) {
+                    api.register(this.userInfo)
+                        .then(response => {
+                            console.log(response);
+                            this.responseMessage = response.statusText;
+                            this.responseStatus = true;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            this.responseMessage = error.response.data.message;
+                            this.responseStatus = false;
+                        });
+                } else {
+                    this.responseMessage = 'Passwords not validated';
+                    this.responseStatus = false;
+                }
             }
         }
     }
