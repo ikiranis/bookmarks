@@ -11,7 +11,6 @@ export default new Vuex.Store({
     },
     mutations: {
         getCurrentUser(state) {
-            console.log('run')
             api.getCurrentUser()
                 .then(response => {
                     state.username = response.name;

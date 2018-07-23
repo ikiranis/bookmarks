@@ -11,15 +11,9 @@
     import {mapState, mapActions} from 'vuex';
 
     export default {
-        data: function () {
-            return {
-                //
-            }
-        },
 
         computed: {
-            ...mapState(['username']),
-            ...mapActions(['getCurrentUser'])
+            ...mapState(['username'])
         },
 
         created: function () {
@@ -27,12 +21,15 @@
         },
 
         methods: {
+            ...mapActions(['getCurrentUser']),
+
             logout() {
                 user.logout();
                 user.setUserTokenHeader();
                 this.$store.dispatch('getCurrentUser');
             }
         }
+
     }
 </script>
 
