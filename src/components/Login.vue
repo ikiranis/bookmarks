@@ -66,10 +66,6 @@
                         // Store token to localStorage
                         user.login(response.data.access_token, response.data.token_type);
 
-                        // Display message
-                        this.responseMessage = response.statusText;
-                        this.responseStatus = true;
-
                         // Set the header for axios
                         user.setUserTokenHeader();
 

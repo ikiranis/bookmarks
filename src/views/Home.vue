@@ -1,12 +1,17 @@
 <template>
     <div class="home">
+
         <div v-if="username === ''">
             <Login v-if="!displayRegister"/>
-            <span class="btn btn-info my-3" v-if="!displayRegister" @click="displayRegisterComponent">Register User</span>
+            <span class="btn btn-info my-3" v-if="!displayRegister"
+                  @click="displayRegisterComponent">Register User</span>
         </div>
+
+        <display-bookmarks v-else/>
 
         <Register v-if="displayRegister"/>
         <span class="btn btn-info my-3" v-if="displayRegister" @click="displayLoginComponent">Login User</span>
+
     </div>
 </template>
 
@@ -16,7 +21,8 @@
 
     import Login from '@/components/Login.vue'
     import Register from '@/components/Register.vue'
-    import { mapState, mapMutations } from 'vuex';
+    import {mapState, mapMutations} from 'vuex';
+    import DisplayBookmarks from "../components/DisplayBookmarks";
 
     export default {
         name: 'home',
@@ -26,7 +32,7 @@
         beforeCreate: function () {
             api.getUsersCount()
                 .then(response => {
-                    if(response.count === 0) {
+                    if (response.count === 0) {
                         this.setDisplayRegister(true);
                     }
                 })
@@ -43,6 +49,7 @@
             }
         },
         components: {
+            DisplayBookmarks,
             Login,
             Register
         }
