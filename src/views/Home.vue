@@ -1,8 +1,11 @@
 <template>
     <div class="home">
-        <Login v-if="(!displayRegister && username === '')"/>
+        <div v-if="username === ''">
+            <Login v-if="!displayRegister"/>
+            <span class="btn btn-info my-3" v-if="!displayRegister" @click="displayRegisterComponent">Register User</span>
+        </div>
+
         <Register v-if="displayRegister"/>
-        <span class="btn btn-info my-3" v-if="!displayRegister" @click="displayRegisterComponent">Register User</span>
         <span class="btn btn-info my-3" v-if="displayRegister" @click="displayLoginComponent">Login User</span>
     </div>
 </template>
