@@ -47,6 +47,12 @@ let api = {
         return data;
     },
 
+    /**
+     * Register new user
+     *
+     * @param args
+     * @returns {Promise<any>}
+     */
     async register(args) {
         return await axios.post(ROOT_API + '/register', args);
     },

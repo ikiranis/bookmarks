@@ -63,13 +63,17 @@
             login() {
                 api.login(this.credentials.username, this.credentials.password)
                     .then(response => {
+                        // Store token to localStorage
                         user.login(response.data.access_token, response.data.token_type);
 
+                        // Display message
                         this.responseMessage = response.statusText;
                         this.responseStatus = true;
 
+                        // Set the header for axios
                         user.setUserTokenHeader();
 
+                        // Get the current username and store it
                         this.$store.dispatch('getCurrentUser');
                     })
                     .catch(error => {
