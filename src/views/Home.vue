@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <Login v-if="!displayRegister"/>
+        <Login v-if="(!displayRegister && username === '')"/>
         <Register v-if="displayRegister"/>
         <span class="btn btn-info my-3" v-if="!displayRegister" @click="displayRegisterComponent">Register User</span>
         <span class="btn btn-info my-3" v-if="displayRegister" @click="displayLoginComponent">Login User</span>
@@ -18,7 +18,7 @@
     export default {
         name: 'home',
         computed: {
-            ...mapState(['displayRegister'])
+            ...mapState(['displayRegister', 'username'])
         },
         beforeCreate: function () {
             api.getUsersCount()
