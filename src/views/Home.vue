@@ -6,7 +6,6 @@
             <span class="btn btn-info my-3" v-if="!displayRegister"
                   @click="displayRegisterComponent">Register User</span>
         </div>
-
         <display-bookmarks v-else/>
 
         <Register v-if="displayRegister"/>
@@ -22,7 +21,7 @@
     import Login from '@/components/Login.vue'
     import Register from '@/components/Register.vue'
     import {mapState, mapMutations} from 'vuex';
-    import DisplayBookmarks from "../components/DisplayBookmarks";
+    import DisplayBookmarks from "@/components/DisplayBookmarks";
 
     export default {
         name: 'home',

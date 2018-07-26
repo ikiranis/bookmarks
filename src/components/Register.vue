@@ -58,6 +58,8 @@
     import api from '@/api';
     import { mapMutations } from 'vuex';
 
+    // TODO insert role field
+
     export default {
         data: function () {
             return {
