@@ -14,6 +14,13 @@
         </div>
 
         <span class="btn btn-sm btn-success my-3" v-on:click="saveBookmark()">Insert bookmark</span>
+
+        <div v-if="responseMessage"
+             class="alert my-3"
+             :class="responseStatus ? 'alert-success' : 'alert-danger'"
+             role="alert">
+            {{ responseMessage }}
+        </div>
     </div>
 
 </template>
@@ -25,6 +32,8 @@
     export default {
         data: function () {
             return {
+                responseMessage: '',
+                responseStatus: '',
                 description: '',
                 url: ''
             }
@@ -41,9 +50,14 @@
 
                 api.saveBookmark(args)
                     .then(response => {
-                        console.log(response.id);
+                        this.responseMessage = response.id;
+                        this.responseStatus = true;
                     })
-                    .catch(e => console.log(e));
+                    .catch(error => {
+                        console.log(error);
+                        this.responseMessage = error.response.data.message;
+                        this.responseStatus = false;
+                    });
 
             }
         }
