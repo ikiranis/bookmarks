@@ -65,7 +65,8 @@
                 userInfo: {
                     name: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    role_id: 2
                 },
                 password_confirmation: ''
             }
