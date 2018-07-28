@@ -15,12 +15,7 @@
 
         <span class="btn btn-sm btn-success my-3" v-on:click="saveBookmark()">Insert bookmark</span>
 
-        <div v-if="responseMessage"
-             class="alert my-3"
-             :class="responseStatus ? 'alert-success' : 'alert-danger'"
-             role="alert">
-            {{ responseMessage }}
-        </div>
+        <display-error v-if="response.message" :response="response"/>
     </div>
 
 </template>
@@ -28,35 +23,45 @@
 <script>
 
     import api from '@/api';
+    import { mapState } from 'vuex';
+    import DisplayError from "./DisplayError";
 
     export default {
+        components: {DisplayError},
         data: function () {
             return {
-                responseMessage: '',
-                responseStatus: '',
+                response: {
+                    message: '',
+                    status: ''
+                },
                 description: '',
                 url: ''
             }
         },
+
+        computed: {
+            ...mapState(['userId'])
+        },
+
         methods: {
             saveBookmark() {
 
                 let args = {
                     url: this.url,
                     description: this.description,
-                    user_id: '1',
+                    user_id: this.userId,
                     group_id: '0'
                 };
 
                 api.saveBookmark(args)
                     .then(response => {
-                        this.responseMessage = response.id;
-                        this.responseStatus = true;
+                        this.response.message = response.id;
+                        this.response.status = true;
                     })
                     .catch(error => {
                         console.log(error);
-                        this.responseMessage = error.response.data.message;
-                        this.responseStatus = false;
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
                     });
 
             }

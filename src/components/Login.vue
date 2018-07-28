@@ -32,12 +32,7 @@
                     </div>
                 </div>
 
-                <div v-if="responseMessage"
-                     class="alert my-3"
-                     :class="responseStatus ? 'alert-success' : 'alert-danger'"
-                     role="alert">
-                    {{ responseMessage }}
-                </div>
+                <display-error v-if="response.message" :response="response"/>
 
             </div>
         </div>
@@ -47,12 +42,16 @@
 <script>
     import api from '@/api';
     import user from "@/library/user";
+    import DisplayError from "./DisplayError";
 
     export default {
+        components: {DisplayError},
         data: function () {
             return {
-                responseMessage: '',
-                responseStatus: '',
+                response: {
+                    message: '',
+                    status: ''
+                },
                 credentials: {
                     username: 'rocean74@gmail.com',
                     password: '123456'
@@ -73,8 +72,8 @@
                         this.$store.dispatch('getCurrentUser');
                     })
                     .catch(error => {
-                        this.responseMessage = error.response.data.message;
-                        this.responseStatus = false;
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
                     });
             }
         }

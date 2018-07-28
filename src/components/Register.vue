@@ -41,12 +41,7 @@
                     </div>
                 </div>
 
-                <div v-if="responseMessage"
-                     class="alert my-3"
-                     :class="responseStatus ? 'alert-success' : 'alert-danger'"
-                     role="alert">
-                    {{ responseMessage }}
-                </div>
+                <display-error v-if="response.message" :response="response"/>
 
             </div>
         </div>
@@ -57,14 +52,16 @@
 <script>
     import api from '@/api';
     import { mapMutations } from 'vuex';
-
-    // TODO insert role field
+    import DisplayError from "./DisplayError";
 
     export default {
+        components: {DisplayError},
         data: function () {
             return {
-                responseMessage: '',
-                responseStatus: '',
+                response: {
+                    message: '',
+                    status: ''
+                },
                 userInfo: {
                     name: '',
                     email: '',
@@ -80,18 +77,18 @@
                 if(this.userInfo.password === this.password_confirmation) {
                     api.register(this.userInfo)
                         .then(response => {
-                            this.responseMessage = response.statusText;
-                            this.responseStatus = true;
+                            this.response.message = response.statusText;
+                            this.response.status = true;
                             this.setDisplayRegister(false);
                         })
                         .catch(error => {
                             console.log(error);
-                            this.responseMessage = error.response.data.message;
-                            this.responseStatus = false;
+                            this.response.message = error.response.data.message;
+                            this.response.status = false;
                         });
                 } else {
-                    this.responseMessage = 'Passwords not validated';
-                    this.responseStatus = false;
+                    this.response.message = 'Passwords not validated';
+                    this.response.status = false;
                 }
             }
         }
