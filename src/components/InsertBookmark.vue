@@ -34,7 +34,9 @@
 
                 let args = {
                     url: this.url,
-                    description: this.description
+                    description: this.description,
+                    user_id: '1',
+                    group_id: '0'
                 };
 
                 api.saveBookmark(args)
