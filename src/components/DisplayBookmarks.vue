@@ -13,6 +13,7 @@
 
 <script>
     import api from '@/api';
+    import {mapState} from 'vuex';
 
     export default {
         data: function () {
@@ -20,12 +21,17 @@
                 bookmarksItems: ''
             }
         },
-        created: function() {
-            api.getAllBookmarks()
+
+        computed: {
+            ...mapState(['userId'])
+        },
+
+        created: function () {
+            api.getAllBookmarks(this.userId)
                 .then(response => {
-                        this.bookmarksItems = response;
-                    })
-                        .catch(error => console.log(error.response));
-                }
+                    this.bookmarksItems = response;
+                })
+                .catch(error => console.log(error.response));
+        }
     }
 </script>

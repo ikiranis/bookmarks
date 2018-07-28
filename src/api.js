@@ -28,10 +28,11 @@ let api = {
 
     /**
      *
+     * @param userId
      * @returns {Promise<void>}
      */
-    async getAllBookmarks() {
-        let {data} = await axios.get(ROOT_API + '/bookmarks');
+    async getAllBookmarks(userId) {
+        let {data} = await axios.get(ROOT_API + '/bookmarks/' + userId);
 
         return data;
     },
