@@ -87,7 +87,18 @@ let api = {
         let {data} = await axios.get(ROOT_API + '/groups/' + userId);
 
         return data;
-    }
+    },
+
+    /**
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async saveGroup(args) {
+        let {data} = await axios.post(ROOT_API + '/group', args);
+
+        return data;
+    },
 
 };
 
