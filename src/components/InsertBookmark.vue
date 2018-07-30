@@ -15,7 +15,7 @@
 
         <div class="form-group my-3">
             <label for="group_id" class="sr-only">Group</label>
-            <select class="form-control form-control-sm" id="group_id" name="group_id" v-bind="selectedGroupId">
+            <select class="form-control form-control-sm" id="group_id" name="group_id" v-model="selectedGroupId">
                 <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
             </select>
          </div>
@@ -24,7 +24,8 @@
             <div class="input-group-prepend">
                 <label for="group_name" class="input-group-text">Insert new group</label>
             </div>
-            <input type="text" max="800" class="form-control form-control-sm" id="group_name" name="group_name" v-bind="groupName">
+            <input type="text" max="50" class="form-control form-control-sm"
+                   id="group_name" name="group_name" v-model="groupName">
         </div>
 
         <span class="btn btn-sm btn-success my-3" v-on:click="saveGroup()">Save group</span>
@@ -91,12 +92,17 @@
                     name: this.groupName
                 };
 
+                console.log(args.name);
+
                 api.saveGroup(args)
                     .then(response => {
                         console.log(response);
+                        this.groups.push(response);
                     })
                     .catch(error => {
                         console.log(error);
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
                     });
 
             },
