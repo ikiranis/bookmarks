@@ -1,6 +1,6 @@
 <template>
     <div class="bookmark">
-        <InsertBookmark v-if="userId !== 0"></InsertBookmark>
+        <InsertBookmark v-if="userId !== 0" />
     </div>
 </template>
 

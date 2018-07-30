@@ -3,7 +3,9 @@
 
         <div id="nav">
             <router-link to="/">Home</router-link> |
-            <router-link to="/bookmark">Insert Bookmark</router-link> |
+            <span v-if="userId !== 0">
+                <router-link to="/bookmark">Insert Bookmark </router-link> |
+            </span>
 
             <CurrentUser/>
         </div>
@@ -16,9 +18,14 @@
 
 <script>
     import CurrentUser from "./components/CurrentUser";
+    import {mapState} from 'vuex';
 
     export default {
-        components: {CurrentUser}
+        components: {CurrentUser},
+
+        computed: {
+            ...mapState(['userId'])
+        }
     }
 </script>
 

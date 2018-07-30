@@ -32,6 +32,7 @@ export default new Vuex.Store({
                 .catch(error => {
                     if (error.response.statusText === 'Unauthorized') {
                         context.commit('setUsername', '');
+                        context.commit('setUserId', 0);
                     }
                 });
         }
