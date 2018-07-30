@@ -84,8 +84,6 @@ let api = {
      * @returns {Promise<void>}
      */
     async getGroups(userId) {
-        console.log(userId);
-
         let {data} = await axios.get(ROOT_API + '/groups/' + userId);
 
         return data;

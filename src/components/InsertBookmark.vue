@@ -71,7 +71,6 @@
             getGroups() {
                 api.getGroups(this.userId)
                     .then(response => {
-                        console.log(response);
                         this.groups = response;
                     })
                     .catch(error => {
