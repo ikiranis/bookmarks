@@ -13,11 +13,10 @@
             <input type="text" max="800" class="form-control form-control-sm" id="url" name="url" v-model="url">
         </div>
 
-        <div class="form-group my-1">
+        <div class="form-group my-3">
             <label for="group_id" class="sr-only">Group</label>
-            <select v-for="group in groups" :key="group.id"
-                    class="form-control form-control-sm" id="group_id" name="group_id" v-bind="group_id">
-                <option value="{{ group.id }}">group.name</option>
+            <select class="form-control form-control-sm" id="group_id" name="group_id" v-bind="group_id">
+                <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
             </select>
          </div>
 
@@ -51,7 +50,17 @@
                 },
                 description: '',
                 url: '',
-                groups: {}
+                groups: [
+                    {
+                        id: 'dsadsds',
+                        name: 'paokares'
+                    },
+                    {
+                        id: 'ddffdsfgffd',
+                        name: 'pasokares'
+                    }
+                ],
+                group_id: ''
             }
         },
 
@@ -67,7 +76,7 @@
             getGroups() {
                 api.getGroups(this.userId)
                     .then(response => {
-                        //
+                        console.log(response);
                     })
                     .catch(error => {
                         console.log(error);
