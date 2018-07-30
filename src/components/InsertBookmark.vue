@@ -53,16 +53,7 @@
                 },
                 description: '',
                 url: '',
-                groups: [
-                    {
-                        id: 'dsadsds',
-                        name: 'paokares'
-                    },
-                    {
-                        id: 'ddffdsfgffd',
-                        name: 'pasokares'
-                    }
-                ],
+                groups: [],
                 selectedGroupId: 0,
                 groupName: ''
             }
@@ -81,6 +72,7 @@
                 api.getGroups(this.userId)
                     .then(response => {
                         console.log(response);
+                        this.groups = response;
                     })
                     .catch(error => {
                         console.log(error);
@@ -89,18 +81,15 @@
 
             saveGroup() {
                 let args = {
+                    user_id: this.userId,
                     name: this.groupName
                 };
 
-                console.log(args.name);
-
                 api.saveGroup(args)
                     .then(response => {
-                        console.log(response);
                         this.groups.push(response);
                     })
                     .catch(error => {
-                        console.log(error);
                         this.response.message = error.response.data.message;
                         this.response.status = false;
                     });
@@ -112,7 +101,7 @@
                     url: this.url,
                     description: this.description,
                     user_id: this.userId,
-                    group_id: '0'
+                    group_id: this.selectedGroupId
                 };
 
                 api.saveBookmark(args)
@@ -121,7 +110,6 @@
                         this.response.status = true;
                     })
                     .catch(error => {
-                        console.log(error);
                         this.response.message = error.response.data.message;
                         this.response.status = false;
                     });
