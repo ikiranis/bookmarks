@@ -18,7 +18,7 @@
             <select class="form-control form-control-sm" id="group_id" name="group_id" v-model="selectedGroupId">
                 <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
             </select>
-         </div>
+        </div>
 
         <div class="input-group">
             <div class="input-group-prepend">
@@ -40,7 +40,7 @@
 <script>
 
     import api from '@/api';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import DisplayError from "./DisplayError";
 
     export default {
