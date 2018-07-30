@@ -13,6 +13,21 @@
             <input type="text" max="800" class="form-control form-control-sm" id="url" name="url" v-model="url">
         </div>
 
+        <div class="form-group my-1">
+            <label for="group_id" class="sr-only">Group</label>
+            <select v-for="group in groups" :key="group.id"
+                    class="form-control form-control-sm" id="group_id" name="group_id" v-bind="group_id">
+                <option value="{{ group.id }}">group.name</option>
+            </select>
+         </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label for="group_name" class="input-group-text">Insert new group</label>
+            </div>
+            <input type="text" max="800" class="form-control form-control-sm" id="group_name" name="group_name" >
+        </div>
+
         <span class="btn btn-sm btn-success my-3" v-on:click="saveBookmark()">Insert bookmark</span>
 
         <display-error v-if="response.message" :response="response"/>
@@ -35,7 +50,8 @@
                     status: ''
                 },
                 description: '',
-                url: ''
+                url: '',
+                groups: {}
             }
         },
 
@@ -43,7 +59,22 @@
             ...mapState(['userId'])
         },
 
+        created: function() {
+            this.getGroups();
+        },
+
         methods: {
+            getGroups() {
+                api.getGroups(this.userId)
+                    .then(response => {
+                        //
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        //
+                    });
+            },
+
             saveBookmark() {
 
                 let args = {

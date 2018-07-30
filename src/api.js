@@ -75,6 +75,18 @@ let api = {
         };
 
         return await axios.post(API_HOST + '/oauth/token', args);
+    },
+
+    /**
+     * Get all groups for userId
+     *
+     * @param userId
+     * @returns {Promise<void>}
+     */
+    async getGroups(userId) {
+        let {data} = await axios.get(ROOT_API + '/groups/' + userId);
+
+        return data;
     }
 
 };
