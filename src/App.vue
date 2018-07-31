@@ -3,6 +3,7 @@
 
         <div id="nav">
             <router-link to="/">Home</router-link> |
+
             <span v-if="userId !== 0">
                 <router-link to="/bookmark">Insert Bookmark </router-link> |
             </span>

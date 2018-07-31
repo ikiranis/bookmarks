@@ -27,11 +27,13 @@
         },
 
         created: function () {
-            api.getAllBookmarks(this.userId)
-                .then(response => {
-                    this.bookmarksItems = response;
-                })
-                .catch(error => console.log(error.response));
+            if (this.userId !== 0) {
+                api.getAllBookmarks(this.userId)
+                    .then(response => {
+                        this.bookmarksItems = response;
+                    })
+                    .catch(error => console.log(error.response));
+            }
         }
     }
 </script>
