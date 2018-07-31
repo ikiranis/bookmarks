@@ -13,22 +13,26 @@
             <input type="text" max="800" class="form-control form-control-sm" id="url" name="url" v-model="url">
         </div>
 
-        <div class="form-group my-3">
-            <label for="group_id" class="sr-only">Group</label>
-            <select class="form-control form-control-sm" id="group_id" name="group_id" v-model="selectedGroupId">
-                <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label for="group_name" class="input-group-text">Insert new group</label>
+        <div class="row my-3">
+            <div class="input-group col-lg-6 col-12">
+                <div class="input-group-prepend">
+                    <label for="group_id" class="input-group-text">Choose group</label>
+                </div>
+                <select class="form-control " id="group_id" name="group_id" v-model="selectedGroupId">
+                    <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
+                </select>
             </div>
-            <input type="text" max="50" class="form-control form-control-sm"
-                   id="group_name" name="group_name" v-model="groupName">
-        </div>
 
-        <span class="btn btn-sm btn-success my-3" v-on:click="saveGroup()">Save group</span>
+            <div class="input-group col-lg-6 col-12">
+                <div class="input-group-prepend">
+                    <label for="group_name" class="input-group-text">Group name</label>
+                </div>
+                <input type="text" max="50" class="form-control"
+                       id="group_name" name="group_name" v-model="groupName">
+
+                <span class="btn btn-info mx-1" v-on:click="saveGroup()">Insert new group</span>
+            </div>
+        </div>
 
         <span class="btn btn-sm btn-success my-3" v-on:click="saveBookmark()">Insert bookmark</span>
 
@@ -63,7 +67,7 @@
             ...mapState(['userId'])
         },
 
-        created: function() {
+        created: function () {
             this.getGroups();
         },
 
