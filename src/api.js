@@ -90,6 +90,18 @@ let api = {
     },
 
     /**
+     * Get the group with id
+     *
+     * @param id
+     * @returns {Promise<void>}
+     */
+    async getGroup(id) {
+        let {data} = await axios.get(ROOT_API + '/group/' + id);
+
+        return data;
+    },
+
+    /**
      *
      * @param args
      * @returns {Promise<void>}
