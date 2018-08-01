@@ -6,6 +6,7 @@
 
             <span v-if="userId !== 0">
                 <router-link to="/bookmark">Insert Bookmark </router-link> |
+                <router-link to="/groups">Manage groups </router-link> |
             </span>
 
             <CurrentUser/>
