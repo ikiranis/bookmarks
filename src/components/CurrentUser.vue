@@ -22,6 +22,9 @@
         methods: {
             ...mapActions(['getCurrentUser']),
 
+            /**
+             * Do the logout
+             */
             logout() {
                 user.logout();
                 user.setUserTokenHeader();

@@ -74,6 +74,9 @@
         methods: {
             ...mapMutations(['setDisplayRegister']),
 
+            /**
+             * Register new user
+             */
             register() {
                 if(this.userInfo.password === this.password_confirmation) {
                     api.register(this.userInfo)
@@ -92,6 +95,7 @@
                     this.response.status = false;
                 }
             }
+
         }
     }
 </script>

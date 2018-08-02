@@ -59,6 +59,10 @@
             }
         },
         methods: {
+
+            /**
+             * Do the login
+             */
             login() {
                 api.login(this.credentials.username, this.credentials.password)
                     .then(response => {
@@ -76,6 +80,7 @@
                         this.response.status = false;
                     });
             }
+
         }
     }
 </script>

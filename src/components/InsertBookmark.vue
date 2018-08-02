@@ -72,6 +72,10 @@
         },
 
         methods: {
+
+            /**
+             * Get the list of groups for the user with userId
+             */
             getGroups() {
                 api.getGroups(this.userId)
                     .then(response => {
@@ -82,6 +86,9 @@
                     });
             },
 
+            /**
+             * Store the new group under the groups of the user with userId
+             */
             saveGroup() {
                 let args = {
                     user_id: this.userId,
@@ -99,6 +106,9 @@
 
             },
 
+            /**
+             * Store the new bookmark under the bookmarks of user with userId and in group with selectedGroupId
+             */
             saveBookmark() {
                 let args = {
                     url: this.url,

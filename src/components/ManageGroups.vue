@@ -4,7 +4,7 @@
 
         <ul v-for="group in groups" :key="group.id" class="list-group">
             <li class="list-group-item">
-                <router-link :to="{ name: 'group', params: { id: group.id }}">{{ group.name }}</router-link>
+                <router-link :to="{ name: 'group', params: { id: group.id } }">{{ group.name }}</router-link>
             </li>
         </ul>
 
