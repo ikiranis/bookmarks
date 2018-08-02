@@ -82,7 +82,7 @@
             insertUserInGroup() {
                 let args = {
                     email: this.email,
-                    groupId: this.id
+                    id: this.id
                 };
 
                 api.insertUserInGroup(args)
