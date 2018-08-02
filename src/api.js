@@ -131,9 +131,7 @@ let api = {
      * @returns {Promise<void>}
      */
     async insertUserInGroup(args) {
-        let {data} = await axios.post(ROOT_API + '/groupUser', args);
-
-        return data;
+        return await axios.patch(ROOT_API + '/groupUser', args);
     },
 
 };

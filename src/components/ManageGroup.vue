@@ -20,15 +20,24 @@
             <span class="btn btn-info mx-1" v-on:click="insertUserInGroup()">Insert user</span>
         </div>
 
+        <display-error v-if="response.message" :response="response"/>
+
     </div>
 </template>
 
 <script>
     import api from '@/api';
+    import DisplayError from "./DisplayError";
 
     export default {
 
+        components: {DisplayError},
+
         data: () => ({
+            response: {
+                message: '',
+                status: ''
+            },
             group: {},
             users: [],
             email: ''
@@ -78,9 +87,12 @@
 
                 api.insertUserInGroup(args)
                     .then(response => {
-                        this.users.push(response);
+                        this.users.push(response.data);
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    });
             }
 
         }
