@@ -102,12 +102,36 @@ let api = {
     },
 
     /**
+     * Get all the users for group with id
+     *
+     * @param id
+     * @returns {Promise<void>}
+     */
+    async getGroupUsers(id) {
+        let {data} = await axios.get(ROOT_API + '/groupUsers/' + id);
+
+        return data;
+    },
+
+    /**
      *
      * @param args
      * @returns {Promise<void>}
      */
     async saveGroup(args) {
         let {data} = await axios.post(ROOT_API + '/group', args);
+
+        return data;
+    },
+
+    /**
+     * Insert a user in group
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async insertUserInGroup(args) {
+        let {data} = await axios.post(ROOT_API + '/groupUser', args);
 
         return data;
     },
