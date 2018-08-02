@@ -6,7 +6,7 @@
             <ul v-for="user in users" :key="user.id" class="list-group">
                 <li class="list-group-item">
                     {{ user.name }} ({{ user.email }})
-                    <span class="btn btn-sm btn-info mx-1" v-on:click="removeUserFromGroup(user.id)">Remove user</span>
+                    <span class="btn btn-sm btn-danger mx-1" v-on:click="removeUserFromGroup(user.id)">Remove user</span>
                 </li>
             </ul>
         </div>

@@ -79,10 +79,13 @@
             getGroups() {
                 api.getGroups(this.userId)
                     .then(response => {
-                        this.groups = response;
+                        if(response.length !== 0) {
+                            this.groups = response;
+                        }
                     })
                     .catch(error => {
-                        console.log(error);
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
                     });
             },
 

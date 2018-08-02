@@ -5,6 +5,7 @@
         <ul v-for="group in groups" :key="group.id" class="list-group">
             <li class="list-group-item">
                 <router-link :to="{ name: 'group', params: { id: group.id } }">{{ group.name }}</router-link>
+                <span class="btn btn-sm btn-danger mx-1" v-on:click="removeGroup(group.id)">Remove group</span>
             </li>
         </ul>
 
@@ -13,6 +14,7 @@
 
 <script>
     import api from '@/api';
+    import utility from '@/library/utilities';
     import {mapState} from 'vuex';
 
     export default {
@@ -26,11 +28,37 @@
         },
 
         created: function () {
-            api.getGroups(this.userId)
-                .then(response => {
-                    this.groups = response;
-                })
-                .catch(error => console.log(error.response));
+            this.getGroups();
+        },
+
+        methods: {
+
+            /**
+             * Get the list of groups for user with userId
+             */
+            getGroups() {
+                api.getGroups(this.userId)
+                    .then(response => {
+                        this.groups = response;
+                    })
+                    .catch(error => console.log(error.response));
+            },
+
+            /**
+             * Remove group with groupId
+             *
+             * @param groupId
+             */
+            removeGroup(groupId) {
+                api.removeGroup(groupId)
+                    .then(response => {
+                        this.groups = utility.removeObjFromArray(this.groups, 'id', response.data.id);
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    });
+            }
         }
 
     }

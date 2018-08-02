@@ -125,6 +125,16 @@ let api = {
     },
 
     /**
+     * Remove group with groupId
+     *
+     * @param groupId
+     * @returns {Promise<void>}
+     */
+    async removeGroup(groupId) {
+        return await axios.delete(ROOT_API + '/group/' + groupId);
+    },
+
+    /**
      * Insert a user in group
      *
      * @param args
