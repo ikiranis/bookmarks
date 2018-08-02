@@ -26,4 +26,5 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-// TODO οθόνες δημιουργίας και επιλογής groups
+// TODO forms validation
+// TODO check if api works and display errors when api fails
