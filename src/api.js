@@ -49,6 +49,16 @@ let api = {
     },
 
     /**
+     * Remove bookmark woth bookmarkId
+     *
+     * @param bookmarkId
+     * @returns {Promise<void>}
+     */
+    async removeBookmark(bookmarkId) {
+        return await axios.delete(ROOT_API + '/bookmark/' + bookmarkId);
+    },
+
+    /**
      * Register new user
      *
      * @param args

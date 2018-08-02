@@ -2,9 +2,10 @@
     <div class="displayBookmarks container">
         <h3>List of bookmarks</h3>
 
-        <ul v-for="bookmark in bookmarksItems" :key="bookmark.id" class="list-group">
+        <ul v-for="bookmark in bookmarks" :key="bookmark.id" class="list-group">
             <li class="list-group-item">
                 <a :href="bookmark.url">{{ bookmark.description }} - {{ bookmark.url }}</a>
+                <span class="btn btn-sm btn-danger mx-1" v-on:click="removeBookmark(bookmark.id)">Remove</span>
             </li>
         </ul>
 
@@ -13,12 +14,13 @@
 
 <script>
     import api from '@/api';
+    import utility from '@/library/utilities';
     import {mapState} from 'vuex';
 
     export default {
 
         data: () => ({
-            bookmarksItems: ''
+            bookmarks: ''
         }),
 
         computed: {
@@ -26,11 +28,37 @@
         },
 
         created: function () {
-            api.getAllBookmarks(this.userId)
-                .then(response => {
-                    this.bookmarksItems = response;
-                })
-                .catch(error => console.log(error.response));
+            this.getAllBookmarks();
+        },
+
+        methods: {
+
+            /**
+             * Get the list of bookmarks for user with userId
+             */
+            getAllBookmarks() {
+                api.getAllBookmarks(this.userId)
+                    .then(response => {
+                        this.bookmarks = response;
+                    })
+                    .catch(error => console.log(error.response));
+            },
+
+            /**
+             * Remove bookmark with bookmarkId
+             *
+             * @param bookmarkId
+             */
+            removeBookmark(bookmarkId) {
+                api.removeBookmark(bookmarkId)
+                    .then(response => {
+                        this.bookmarks = utility.removeObjFromArray(this.bookmarks, 'id', response.data.id);
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    });
+            }
         }
     }
 </script>
