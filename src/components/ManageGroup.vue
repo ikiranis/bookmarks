@@ -6,6 +6,7 @@
             <ul v-for="user in users" :key="user.id" class="list-group">
                 <li class="list-group-item">
                     {{ user.name }} ({{ user.email }})
+                    <span class="btn btn-sm btn-info mx-1" v-on:click="removeUserFromGroup(user.id)">Remove user</span>
                 </li>
             </ul>
         </div>
@@ -27,6 +28,7 @@
 
 <script>
     import api from '@/api';
+    import utility from '@/library/utilities';
     import DisplayError from "./DisplayError";
 
     export default {
@@ -88,6 +90,27 @@
                 api.insertUserInGroup(args)
                     .then(response => {
                         this.users.push(response.data);
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    });
+            },
+
+            /**
+             * Remove user with userId from group
+             *
+             * @param userId
+             */
+            removeUserFromGroup(userId) {
+                let args = {
+                    userId: userId,
+                    groupId: this.id
+                };
+
+                api.removeUserFromGroup(args)
+                    .then(response => {
+                        this.users = utility.removeObjFromArray(this.users, 'id', response.data.id);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
