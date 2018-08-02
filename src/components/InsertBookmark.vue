@@ -48,20 +48,20 @@
     import DisplayError from "./DisplayError";
 
     export default {
+
         components: {DisplayError},
-        data: function () {
-            return {
-                response: {
-                    message: '',
-                    status: ''
-                },
-                description: '',
-                url: '',
-                groups: [],
-                selectedGroupId: 0,
-                groupName: ''
-            }
-        },
+
+        data: () => ({
+            response: {
+                message: '',
+                status: ''
+            },
+            description: '',
+            url: '',
+            groups: [],
+            selectedGroupId: 0,
+            groupName: ''
+        }),
 
         computed: {
             ...mapState(['userId'])

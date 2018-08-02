@@ -45,19 +45,20 @@
     import DisplayError from "./DisplayError";
 
     export default {
+
         components: {DisplayError},
-        data: function () {
-            return {
-                response: {
-                    message: '',
-                    status: ''
-                },
-                credentials: {
-                    username: 'rocean74@gmail.com',
-                    password: '123456'
-                }
+
+        data: () => ({
+            response: {
+                message: '',
+                status: ''
+            },
+            credentials: {
+                username: 'rocean74@gmail.com',
+                password: '123456'
             }
-        },
+        }),
+
         methods: {
 
             /**
@@ -82,5 +83,6 @@
             }
 
         }
+
     }
 </script>

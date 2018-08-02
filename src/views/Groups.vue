@@ -10,6 +10,7 @@
     import {mapState} from 'vuex';
 
     export default {
+
         components: {
             ManageGroups
         },
@@ -17,5 +18,6 @@
         computed: {
             ...mapState(['userId'])
         }
+
     }
 </script>

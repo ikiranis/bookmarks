@@ -9,11 +9,10 @@
     import api from '@/api';
 
     export default {
-        data: function () {
-            return {
-                group: {}
-            }
-        },
+
+        data: () => ({
+            group: {}
+        }),
 
         props: {
             id: String
@@ -26,5 +25,6 @@
                 })
                 .catch(error => console.log(error.response));
         }
+
     }
 </script>

@@ -16,11 +16,10 @@
     import {mapState} from 'vuex';
 
     export default {
-        data: function () {
-            return {
-                groups: ''
-            }
-        },
+
+        data: () => ({
+            groups: ''
+        }),
 
         computed: {
             ...mapState(['userId'])
@@ -33,5 +32,6 @@
                 })
                 .catch(error => console.log(error.response));
         }
+
     }
 </script>

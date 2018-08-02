@@ -16,11 +16,10 @@
     import {mapState} from 'vuex';
 
     export default {
-        data: function () {
-            return {
-                bookmarksItems: ''
-            }
-        },
+
+        data: () => ({
+            bookmarksItems: ''
+        }),
 
         computed: {
             ...mapState(['userId'])

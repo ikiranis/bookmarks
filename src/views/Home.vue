@@ -24,10 +24,13 @@
     import DisplayBookmarks from "@/components/DisplayBookmarks";
 
     export default {
+
         name: 'home',
+
         computed: {
             ...mapState(['displayRegister', 'username'])
         },
+
         beforeCreate: function () {
             api.getUsersCount()
                 .then(response => {
@@ -37,6 +40,7 @@
                 })
                 .catch(error => console.log(error.response));
         },
+
         methods: {
             ...mapMutations(['setDisplayRegister']),
 
@@ -47,10 +51,12 @@
                 this.setDisplayRegister(false);
             }
         },
+
         components: {
             DisplayBookmarks,
             Login,
             Register
         }
+
     }
 </script>
