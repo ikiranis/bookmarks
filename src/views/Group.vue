@@ -1,6 +1,6 @@
 <template>
     <div class="group">
-        <ManageGroup :id="id"/>
+        <ManageGroup :id="$route.params.id"/>
     </div>
 </template>
 
@@ -8,10 +8,6 @@
     import ManageGroup from '@/components/ManageGroup.vue';
 
     export default {
-
-        data: () => ({
-            id: this.$route.params.id // Get id from route params
-        }),
 
         components: {
             ManageGroup
