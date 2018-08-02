@@ -28,3 +28,4 @@ new Vue({
 
 // TODO forms validation
 // TODO check if api works and display errors when api fails
+// TODO paging at bookmarks list
