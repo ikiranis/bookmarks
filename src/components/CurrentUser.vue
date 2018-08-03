@@ -35,7 +35,7 @@
                 // Force to empty the username, because it need some time to run getCurrentUser and do it
                 this.$store.state.username = '';
 
-                this.$router.replace({path: '/'}); // Force to load home page
+                this.$router.push({path: '/'}); // Force to load home page
             }
         }
 

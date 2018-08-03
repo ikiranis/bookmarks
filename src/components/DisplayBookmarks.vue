@@ -5,6 +5,7 @@
         <ul v-for="bookmark in bookmarks" :key="bookmark.id" class="list-group">
             <li class="list-group-item">
                 <a :href="bookmark.url">{{ bookmark.description }} - {{ bookmark.url }}</a>
+                <span class="btn btn-sm btn-info mx-1" v-on:click="editBookmark(bookmark.id)">Edit</span>
                 <span class="btn btn-sm btn-danger mx-1" v-on:click="removeBookmark(bookmark.id)">Remove</span>
             </li>
         </ul>
@@ -58,6 +59,10 @@
                         this.response.message = error.response.data.message;
                         this.response.status = false;
                     });
+            },
+
+            editBookmark(bookmarkId) {
+
             }
 
         }
