@@ -38,6 +38,18 @@ let api = {
     },
 
     /**
+     * Get a single bookmark with bookmarkId
+     *
+     * @param bookmarkId
+     * @returns {Promise<void>}
+     */
+    async getBookmark(bookmarkId) {
+        let {data} = await axios.get(ROOT_API + '/bookmark/' + bookmarkId);
+
+        return data;
+    },
+
+    /**
      *
      * @param args
      * @returns {Promise<void>}

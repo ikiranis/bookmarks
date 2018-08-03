@@ -10,18 +10,25 @@
             </li>
         </ul>
 
+        <edit-bookmark :bookmarkId="bookmarkId" v-if="editBookmarkOn"/>
+
     </div>
 </template>
 
 <script>
     import api from '@/api';
+    import EditBookmark from './EditBookmark';
     import utility from '@/library/utilities';
     import {mapState} from 'vuex';
 
     export default {
 
+        components: {EditBookmark},
+
         data: () => ({
-            bookmarks: []
+            bookmarks: [],
+            editBookmarkOn: false,
+            bookmarkId: ''
         }),
 
         computed: {
@@ -62,7 +69,8 @@
             },
 
             editBookmark(bookmarkId) {
-
+                this.bookmarkId = bookmarkId;
+                this.editBookmarkOn = true;
             }
 
         }
