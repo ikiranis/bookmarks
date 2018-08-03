@@ -1,5 +1,5 @@
 <template>
-    <div class="editBookmark container">
+    <div class="editBookmark container bg-light my-3">
 
         <div class="form-group">
             <label for="description">Description</label>
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <span class="btn btn-sm btn-success my-3" v-on:click="saveBookmark()">Insert bookmark</span>
+        <span class="btn btn-sm btn-success my-3" v-on:click="saveBookmark()">Update bookmark</span>
 
         <display-error v-if="response.message" :response="response"/>
     </div>
@@ -77,6 +77,12 @@
             this.getGroups();
         },
 
+        watch: {
+            bookmarkId: function (changedValue) {
+                this.getBookmark(changedValue);
+            }
+        },
+
         methods: {
 
             /**
@@ -101,7 +107,7 @@
             getGroups() {
                 api.getGroups(this.userId)
                     .then(response => {
-                        if(response.length !== 0) {
+                        if (response.length !== 0) {
                             this.groups = response;
                         }
                     })

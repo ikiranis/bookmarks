@@ -10,7 +10,7 @@
             </li>
         </ul>
 
-        <edit-bookmark :bookmarkId="bookmarkId" v-if="editBookmarkOn"/>
+        <edit-bookmark :bookmarkId="bookmarkId" v-if="isEditBookmarkOn"/>
 
     </div>
 </template>
@@ -27,7 +27,7 @@
 
         data: () => ({
             bookmarks: [],
-            editBookmarkOn: false,
+            isEditBookmarkOn: false,
             bookmarkId: ''
         }),
 
@@ -70,7 +70,7 @@
 
             editBookmark(bookmarkId) {
                 this.bookmarkId = bookmarkId;
-                this.editBookmarkOn = true;
+                this.isEditBookmarkOn = true;
             }
 
         }
