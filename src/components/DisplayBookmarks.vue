@@ -10,7 +10,7 @@
             </li>
         </ul>
 
-        <edit-bookmark :bookmarkId="bookmarkId" v-if="isEditBookmarkOn"/>
+        <edit-bookmark :bookmarkId="bookmarkId" v-if="isEditBookmarkOn" />
 
     </div>
 </template>
@@ -19,7 +19,7 @@
     import api from '@/api';
     import EditBookmark from './EditBookmark';
     import utility from '@/library/utilities';
-    import {mapState} from 'vuex';
+    import {mapState,mapMutations} from 'vuex';
 
     export default {
 
@@ -27,12 +27,11 @@
 
         data: () => ({
             bookmarks: [],
-            isEditBookmarkOn: false,
             bookmarkId: ''
         }),
 
         computed: {
-            ...mapState(['userId'])
+            ...mapState(['userId', 'isEditBookmarkOn'])
         },
 
         created: function () {
@@ -40,6 +39,8 @@
         },
 
         methods: {
+
+            ...mapMutations(['setIsEditBookmarkOn']),
 
             /**
              * Get the list of bookmarks for user with userId
@@ -70,7 +71,7 @@
 
             editBookmark(bookmarkId) {
                 this.bookmarkId = bookmarkId;
-                this.isEditBookmarkOn = true;
+                this.setIsEditBookmarkOn(true);
             }
 
         }

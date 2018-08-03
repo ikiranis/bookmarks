@@ -61,6 +61,17 @@ let api = {
     },
 
     /**
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async updateBookmark(args) {
+        let {data} = await axios.patch(ROOT_API + '/bookmark', args);
+
+        return data;
+    },
+
+    /**
      * Remove bookmark woth bookmarkId
      *
      * @param bookmarkId

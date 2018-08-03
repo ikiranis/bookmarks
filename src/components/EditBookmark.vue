@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <span class="btn btn-sm btn-success my-3" v-on:click="saveBookmark()">Update bookmark</span>
+        <span class="btn btn-sm btn-success my-3" v-on:click="updateBookmark()">Update bookmark</span>
 
         <display-error v-if="response.message" :response="response"/>
     </div>
@@ -44,7 +44,7 @@
 <script>
 
     import api from '@/api';
-    import {mapState} from 'vuex';
+    import {mapState,mapMutations} from 'vuex';
     import DisplayError from "./DisplayError";
 
     export default {
@@ -56,11 +56,10 @@
                 message: '',
                 status: ''
             },
-            id: '',
             description: '',
             url: '',
             groups: [],
-            selectedGroupId: 0,
+            selectedGroupId: '',
             groupName: ''
         }),
 
@@ -69,7 +68,7 @@
         },
 
         computed: {
-            ...mapState(['userId'])
+            ...mapState(['userId', 'isEditBookmarkOn'])
         },
 
         created: function () {
@@ -78,12 +77,14 @@
         },
 
         watch: {
-            bookmarkId: function (changedValue) {
+            bookmarkId: function(changedValue) {
                 this.getBookmark(changedValue);
             }
         },
 
         methods: {
+
+            ...mapMutations(['setIsEditBookmarkOn']),
 
             /**
              * Get the bookmark with bookmarkId
@@ -94,6 +95,7 @@
                         this.id = response.id;
                         this.description = response.description;
                         this.url = response.url;
+                        this.selectedGroupId = response.group_id;
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
@@ -140,18 +142,21 @@
             /**
              * Store the new bookmark under the bookmarks of user with userId and in group with selectedGroupId
              */
-            saveBookmark() {
+            updateBookmark() {
                 let args = {
+                    id: this.bookmarkId,
                     url: this.url,
                     description: this.description,
                     user_id: this.userId,
                     group_id: this.selectedGroupId
                 };
 
-                api.saveBookmark(args)
+                api.updateBookmark(args)
                     .then(response => {
                         this.response.message = response.id;
                         this.response.status = true;
+
+                        this.setIsEditBookmarkOn(false);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
