@@ -135,6 +135,16 @@ let api = {
     },
 
     /**
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async updateGroup(args) {
+        let {data} = await axios.patch(ROOT_API + '/group', args);
+
+        return data;
+    },
+
+    /**
      * Get all the users for group with id
      *
      * @param id

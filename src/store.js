@@ -10,7 +10,8 @@ export default new Vuex.Store({
         username: '',
         userId: 0,
         displayRegister: false,
-        isEditBookmarkOn: false
+        isEditBookmarkOn: false,
+        isEditGroupOn: false
     },
     mutations: {
 
@@ -52,6 +53,16 @@ export default new Vuex.Store({
          */
         setIsEditBookmarkOn (state, value) {
             state.isEditBookmarkOn = value;
+        },
+
+        /**
+         * isEditGroupOn setter
+         *
+         * @param state
+         * @param value
+         */
+        setIsEditGroupOn (state, value) {
+            state.isEditGroupOn = value;
         }
 
     },

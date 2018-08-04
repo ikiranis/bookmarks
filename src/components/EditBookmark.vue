@@ -92,7 +92,6 @@
             getBookmark(bookmarkId) {
                 api.getBookmark(bookmarkId)
                     .then(response => {
-                        this.id = response.id;
                         this.description = response.description;
                         this.url = response.url;
                         this.selectedGroupId = response.group_id;
@@ -117,26 +116,6 @@
                         this.response.message = error.response.data.message;
                         this.response.status = false;
                     });
-            },
-
-            /**
-             * Store the new group under the groups of the user with userId
-             */
-            saveGroup() {
-                let args = {
-                    user_id: this.userId,
-                    name: this.groupName
-                };
-
-                api.saveGroup(args)
-                    .then(response => {
-                        this.groups.push(response);
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
-                    });
-
             },
 
             /**
