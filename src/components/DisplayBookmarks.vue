@@ -12,9 +12,15 @@
 
         <nav aria-label="Bookmarks navigation" class="mt-3 row">
             <ul class="pagination ml-auto mr-auto">
-                <li class="page-item"><span class="page-link" v-on:click="getAllBookmarks(pagination.links.prev)">Previous</span></li>
-                <li class="page-item disabled"><span class="page-link">Page {{ pagination.meta.current_page }} of {{ pagination.meta.last_page }}</span></li>
-                <li class="page-item"><span class="page-link" v-on:click="getAllBookmarks(pagination.links.next)">Next</span></li>
+                <li class="page-item" :class="pagination.links.prev ? '' : 'disabled'">
+                    <span class="page-link" v-on:click="getBookmarks(pagination.links.prev)">Previous</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Page {{ pagination.meta.current_page }} of {{ pagination.meta.last_page }}</span>
+                </li>
+                <li class="page-item" :class="pagination.links.next ? '' : 'disabled' ">
+                    <span class="page-link" v-on:click="getBookmarks(pagination.links.next)">Next</span>
+                </li>
             </ul>
         </nav>
 
@@ -48,7 +54,7 @@
         },
 
         created: function () {
-            this.getAllBookmarks(null);
+            this.getBookmarks(null);
         },
 
         methods: {
@@ -58,8 +64,8 @@
             /**
              * Get the list of bookmarks for user with userId
              */
-            getAllBookmarks(page) {
-                api.getAllBookmarks(this.userId, page)
+            getBookmarks(page) {
+                api.getBookmarks(this.userId, page)
                     .then(response => {
                         this.bookmarks = response.data;
                         this.pagination.meta = response.meta;

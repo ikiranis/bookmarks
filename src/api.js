@@ -32,7 +32,7 @@ let api = {
      * @param userId
      * @returns {Promise<void>}
      */
-    async getAllBookmarks(userId, page) {
+    async getBookmarks(userId, page) {
         if(page !== null) {
             page = '?' + page.split('?')[1];
         }
