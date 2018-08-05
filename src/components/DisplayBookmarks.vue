@@ -10,6 +10,14 @@
             </li>
         </ul>
 
+        <nav aria-label="Bookmarks navigation">
+            <ul class="pagination">
+                <li class="page-item"><span class="page-link" v-on:click="getAllBookmarks(pagination.links.prev)">Previous</span></li>
+                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
+                <li class="page-item"><span class="page-link" v-on:click="getAllBookmarks(pagination.links.next)">Next</span></li>
+            </ul>
+        </nav>
+
         <edit-bookmark :bookmarkId="bookmarkId" v-if="isEditBookmarkOn" />
 
     </div>
@@ -27,6 +35,7 @@
 
         data: () => ({
             bookmarks: [],
+            pagination: {},
             bookmarkId: ''
         }),
 
@@ -35,7 +44,7 @@
         },
 
         created: function () {
-            this.getAllBookmarks();
+            this.getAllBookmarks(null);
         },
 
         methods: {
@@ -45,10 +54,13 @@
             /**
              * Get the list of bookmarks for user with userId
              */
-            getAllBookmarks() {
-                api.getAllBookmarks(this.userId)
+            getAllBookmarks(page) {
+                api.getAllBookmarks(this.userId, page)
                     .then(response => {
-                        this.bookmarks = response;
+                        console.log(response.data)
+                        this.bookmarks = response.data;
+                        this.pagination.meta = response.meta;
+                        this.pagination.links = response.links;
                     })
                     .catch(error => console.log(error.response));
             },

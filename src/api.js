@@ -27,12 +27,17 @@ let api = {
     },
 
     /**
+     * Get all bookmarks for user with userId
      *
      * @param userId
      * @returns {Promise<void>}
      */
-    async getAllBookmarks(userId) {
-        let {data} = await axios.get(ROOT_API + '/bookmarks/' + userId);
+    async getAllBookmarks(userId, page) {
+        if(page !== null) {
+            page = '?' + page.split('?')[1];
+        }
+
+        let {data} = await axios.get(ROOT_API + '/bookmarks/' + userId + page);
 
         return data;
     },
