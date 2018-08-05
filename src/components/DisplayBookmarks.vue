@@ -10,10 +10,10 @@
             </li>
         </ul>
 
-        <nav aria-label="Bookmarks navigation">
-            <ul class="pagination">
+        <nav aria-label="Bookmarks navigation" class="mt-3 row">
+            <ul class="pagination ml-auto mr-auto">
                 <li class="page-item"><span class="page-link" v-on:click="getAllBookmarks(pagination.links.prev)">Previous</span></li>
-                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
+                <li class="page-item disabled"><span class="page-link">Page {{ pagination.meta.current_page }} of {{ pagination.meta.last_page }}</span></li>
                 <li class="page-item"><span class="page-link" v-on:click="getAllBookmarks(pagination.links.next)">Next</span></li>
             </ul>
         </nav>
@@ -35,7 +35,11 @@
 
         data: () => ({
             bookmarks: [],
-            pagination: {},
+            pagination: {
+                data: {},
+                meta: {},
+                links: {}
+            },
             bookmarkId: ''
         }),
 
@@ -57,7 +61,6 @@
             getAllBookmarks(page) {
                 api.getAllBookmarks(this.userId, page)
                     .then(response => {
-                        console.log(response.data)
                         this.bookmarks = response.data;
                         this.pagination.meta = response.meta;
                         this.pagination.links = response.links;
