@@ -2,7 +2,7 @@
     <div class="displayBookmarks container">
         <h3 class="text-center">Bookmarks</h3>
 
-        <div id="bookmarkCards" class="row">
+        <div class="row">
 
             <div class="col-lg-4 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
                 <div class="card">

@@ -1,14 +1,24 @@
 <template>
     <div class="manageGroups container">
-        <h3>List of Groups</h3>
+        <h3 class="text-center">List of Groups</h3>
 
-        <ul v-for="group in groups" :key="group.id" class="list-group">
-            <li class="list-group-item">
-                <router-link :to="{ name: 'group', params: { id: group.id } }">{{ group.name }}</router-link>
-                <span class="btn btn-sm btn-info mx-1" v-on:click="editGroup(group.id)">Edit</span>
-                <span class="btn btn-sm btn-danger mx-1" v-on:click="removeGroup(group.id)">Remove</span>
-            </li>
-        </ul>
+        <div class="row">
+
+            <div class="col-lg-4 col-12 mt-3" v-for="group in groups" :key="group.id">
+                <div class="card">
+                    <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+                    <div class="card-body">
+                        <router-link :to="{ name: 'group', params: { id: group.id } }">{{ group.name }}</router-link>
+                    </div>
+
+                    <div class="card-footer text-center">
+                        <span class="btn btn-sm btn-info mx-1" v-on:click="editGroup(group.id)">Edit</span>
+                        <span class="btn btn-sm btn-danger mx-1" v-on:click="removeGroup(group.id)">Remove</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
         <edit-group :groupId="groupId" v-if="isEditGroupOn" />
 

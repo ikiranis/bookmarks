@@ -1,17 +1,23 @@
 <template>
     <div class="manageGroup container">
-        <h3>Users in group: {{ group.name }}</h3>
+        <h3 class="text-center">Users in group: {{ group.name }}</h3>
 
-        <div class="users container my-3">
+        <div class="users container mt-3">
             <ul v-for="user in users" :key="user.id" class="list-group">
                 <li class="list-group-item">
-                    {{ user.name }} ({{ user.email }})
-                    <span class="btn btn-sm btn-danger mx-1" v-on:click="removeUserFromGroup(user.id)">Remove user</span>
+                    <div class="row">
+                        <div class="col-lg-8 col-12">
+                            {{ user.name }} ({{ user.email }})
+                        </div>
+                        <div class="col-lg-4 col-12 text-right">
+                            <span class="btn btn-sm btn-danger mx-1" v-on:click="removeUserFromGroup(user.id)">Remove user</span>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
 
-        <div class="input-group">
+        <div class="input-group mt-3">
             <div class="input-group-prepend">
                 <label for="email" class="input-group-text">Insert user in group</label>
             </div>

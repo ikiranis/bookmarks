@@ -1,5 +1,5 @@
 <template>
-    <div class="insertBookmark container">
+    <div class="container">
 
         <div class="form-group">
             <label for="description">Description</label>
