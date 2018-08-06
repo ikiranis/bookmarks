@@ -34,7 +34,9 @@
             </div>
         </div>
 
-        <span class="btn btn-sm btn-success my-3" v-on:click="saveBookmark()">Insert bookmark</span>
+        <div class="row">
+            <span class="btn btn-success mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
+        </div>
 
         <display-error v-if="response.message" :response="response"/>
     </div>
@@ -79,7 +81,7 @@
             getGroups() {
                 api.getGroups(this.userId)
                     .then(response => {
-                        if(response.length !== 0) {
+                        if (response.length !== 0) {
                             this.groups = response;
                         }
                     })
