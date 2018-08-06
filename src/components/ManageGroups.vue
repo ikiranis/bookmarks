@@ -45,6 +45,7 @@
         },
 
         created: function () {
+            this.setIsEditGroupOn(false);
             this.getGroups();
         },
 

@@ -3,14 +3,16 @@
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" v-model="description"></textarea>
+            <textarea class="form-control" id="description" rows="3" v-model="formData.description"></textarea>
+            <form-error v-if="response.errors.description" :error="response.errors.description[0]" />
         </div>
 
         <div class="input-group">
             <div class="input-group-prepend">
                 <label for="url" class="input-group-text">url</label>
             </div>
-            <input type="text" max="800" class="form-control form-control-sm" id="url" name="url" v-model="url">
+            <input type="text" max="800" class="form-control form-control-sm" id="url" name="url" v-model="formData.url">
+            <form-error v-if="response.errors.url" :error="response.errors.url[0]" />
         </div>
 
         <div class="row my-3">
@@ -18,8 +20,8 @@
                 <div class="input-group-prepend">
                     <label for="group_id" class="input-group-text">Choose group</label>
                 </div>
-                <select class="form-control " id="group_id" name="group_id" v-model="selectedGroupId">
-                    <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
+                <select class="form-control " id="group_id" name="group_id" v-model="formData.selectedGroupId">
+                    <option v-for="group in formData.groups" :key="group.id" :value="group.id">{{ group.name }}</option>
                 </select>
             </div>
 
@@ -28,7 +30,7 @@
                     <label for="group_name" class="input-group-text">Group name</label>
                 </div>
                 <input type="text" max="50" class="form-control"
-                       id="group_name" name="group_name" v-model="groupName">
+                       id="group_name" name="group_name" v-model="formData.groupName">
 
                 <span class="btn btn-info mx-1" v-on:click="saveGroup()">Insert new group</span>
             </div>
@@ -48,21 +50,25 @@
     import api from '@/api';
     import {mapState} from 'vuex';
     import DisplayError from "./DisplayError";
+    import FormError from "./FormError";
 
     export default {
 
-        components: {DisplayError},
+        components: {DisplayError, FormError},
 
         data: () => ({
             response: {
                 message: '',
-                status: ''
+                status: '',
+                errors: []
             },
-            description: '',
-            url: '',
-            groups: [],
-            selectedGroupId: 0,
-            groupName: ''
+            formData: {
+                description: '',
+                url: '',
+                groups: [],
+                selectedGroupId: 0,
+                groupName: ''
+            }
         }),
 
         computed: {
@@ -97,12 +103,12 @@
             saveGroup() {
                 let args = {
                     user_id: this.userId,
-                    name: this.groupName
+                    name: this.formData.groupName
                 };
 
                 api.saveGroup(args)
                     .then(response => {
-                        this.groups.push(response);
+                        this.formData.groups.push(response);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
@@ -116,20 +122,22 @@
              */
             saveBookmark() {
                 let args = {
-                    url: this.url,
-                    description: this.description,
+                    url: this.formData.url,
+                    description: this.formData.description,
                     user_id: this.userId,
-                    group_id: this.selectedGroupId
+                    group_id: this.formData.selectedGroupId
                 };
 
                 api.saveBookmark(args)
                     .then(response => {
-                        this.response.message = response.id;
+                        this.response.message = 'Boomark saved, with Id: ' + response.id;
                         this.response.status = true;
+                        this.formData = {};
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        this.response.errors = error.response.data.errors;
                     });
             }
 
