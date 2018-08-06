@@ -1,5 +1,5 @@
 <template>
-    <div class="errorElement">
+    <div class="text-center">
         <div class="alert my-3"
              :class="response.status ? 'alert-success' : 'alert-danger'"
              role="alert">

@@ -27,7 +27,7 @@
             <span class="btn btn-info mx-1" v-on:click="insertUserInGroup()">Insert user</span>
         </div>
 
-        <display-error v-if="response.message" :response="response"/>
+        <display-error v-if="response.message" :response="response" />
 
     </div>
 </template>

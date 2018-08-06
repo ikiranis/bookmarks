@@ -1,17 +1,17 @@
 <template>
     <div class="editGroup container bg-light my-3">
 
-        <div class="input-group col-lg-6 col-12">
+        <div class="input-group">
             <div class="input-group-prepend">
                 <label for="group_name" class="input-group-text">Group name</label>
             </div>
             <input type="text" max="50" class="form-control"
                    id="group_name" name="group_name" v-model="groupName">
 
-            <span class="btn btn-success" v-on:click="updateGroup()">Update group</span>
+            <span class="btn btn-success ml-1" v-on:click="updateGroup()">Update group</span>
         </div>
 
-        <display-error v-if="response.message" :response="response"/>
+        <display-error v-if="response.message" :response="response" />
 
     </div>
 

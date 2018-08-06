@@ -71,6 +71,15 @@
             this.getBookmarks(null);
         },
 
+        watch: {
+            // Refresh Bookmarks if isEditBookmarkOn changed
+            isEditBookmarkOn: function (changedValue) {
+                if (!changedValue) {
+                    this.getBookmarks(this.pagination.meta.path + '?page=' + this.pagination.meta.current_page);
+                }
+            }
+        },
+
         methods: {
 
             ...mapMutations(['setIsEditBookmarkOn']),

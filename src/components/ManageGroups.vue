@@ -48,6 +48,13 @@
             this.getGroups();
         },
 
+        watch: {
+            // Refresh groups if isEditGroupOn changed
+            isEditGroupOn: function () {
+                this.getGroups();
+            }
+        },
+
         methods: {
 
             ...mapMutations(['setIsEditGroupOn']),
