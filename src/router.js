@@ -13,22 +13,45 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
+            meta: {
+                title: 'Home Page - Bookmarks',
+                metaTags: [
+                    {
+                        name: 'description',
+                        content: 'The home page of our example app.'
+                    },
+                    {
+                        property: 'og:description',
+                        content: 'The home page of our example app.'
+                    }
+                ]
+            }
         },
         {
             path: '/bookmark',
             name: 'bookmark',
-            component: Bookmark
+            component: Bookmark,
+            meta: {
+                title: 'Insert Bookmark - Bookmarks'
+            }
         },
         {
             path: '/groups',
             name: 'groups',
-            component: Groups
+            component: Groups,
+            meta: {
+                title: 'Manage Groups - Bookmarks'
+            }
         },
         {
             path: '/group/:id',
             name: 'group',
-            component: Group
+            component: Group,
+            meta: {
+                title: 'Manage Group - Bookmarks'
+            }
         }
     ]
 })
+
