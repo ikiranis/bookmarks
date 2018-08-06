@@ -1,14 +1,28 @@
 <template>
     <div class="displayBookmarks container">
-        <h3>List of bookmarks</h3>
+        <h3 class="text-center">Bookmarks</h3>
 
-        <ul v-for="bookmark in bookmarks" :key="bookmark.id" class="list-group">
-            <li class="list-group-item">
-                <a :href="bookmark.url">{{ bookmark.description }} - {{ bookmark.url }}</a>
-                <span class="btn btn-sm btn-info mx-1" v-on:click="editBookmark(bookmark.id)">Edit</span>
-                <span class="btn btn-sm btn-danger mx-1" v-on:click="removeBookmark(bookmark.id)">Remove</span>
-            </li>
-        </ul>
+        <div id="bookmarkCards" class="row">
+
+            <div class="col-lg-4 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
+                <div class="card">
+                    <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+                    <div class="card-body">
+                        <p class="card-text">{{ bookmark.description }}</p>
+
+                        <a :href="bookmark.url">{{ bookmark.url }}</a>
+                    </div>
+
+                    <div class="card-footer text-center">
+                        <span class="btn btn-sm btn-info mx-1" v-on:click="editBookmark(bookmark.id)">Edit</span>
+                        <span class="btn btn-sm btn-danger mx-1"
+                              v-on:click="removeBookmark(bookmark.id)">Remove</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
 
         <nav aria-label="Bookmarks navigation" class="row mt-3">
             <ul class="pagination ml-auto mr-auto">
@@ -24,7 +38,7 @@
             </ul>
         </nav>
 
-        <edit-bookmark :bookmarkId="bookmarkId" v-if="isEditBookmarkOn" />
+        <edit-bookmark :bookmarkId="bookmarkId" v-if="isEditBookmarkOn"/>
 
     </div>
 </template>
@@ -33,7 +47,7 @@
     import api from '@/api';
     import EditBookmark from './EditBookmark';
     import utility from '@/library/utilities';
-    import {mapState,mapMutations} from 'vuex';
+    import {mapState, mapMutations} from 'vuex';
 
     export default {
 
