@@ -1,7 +1,7 @@
 <template>
-        <div class="alert alert-danger mt-2 w-100 small">
-            {{ error }}
-        </div>
+    <div class="alert alert-danger mt-2 w-100 small">
+        {{ error }}
+    </div>
 </template>
 
 <script>
