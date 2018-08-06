@@ -68,6 +68,7 @@
         },
 
         created: function () {
+            this.setIsEditBookmarkOn(false);
             this.getBookmarks(null);
         },
 

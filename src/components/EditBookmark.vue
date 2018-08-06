@@ -34,7 +34,9 @@
             </div>
         </div>
 
-        <span class="btn btn-sm btn-success my-3" v-on:click="updateBookmark()">Update bookmark</span>
+        <div class="row">
+            <span class="btn btn-success my-3 ml-auto mr-auto" v-on:click="updateBookmark()">Update bookmark</span>
+        </div>
 
         <display-error v-if="response.message" :response="response"/>
     </div>
@@ -44,7 +46,7 @@
 <script>
 
     import api from '@/api';
-    import {mapState,mapMutations} from 'vuex';
+    import {mapState, mapMutations} from 'vuex';
     import DisplayError from "./DisplayError";
 
     export default {
@@ -77,7 +79,7 @@
         },
 
         watch: {
-            bookmarkId: function(changedValue) {
+            bookmarkId: function (changedValue) {
                 this.getBookmark(changedValue);
             }
         },
