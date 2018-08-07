@@ -4,7 +4,7 @@
 
         <div class="row">
 
-            <div class="col-lg-4 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
+            <div class="col-lg-6 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
                 <div class="card">
                     <img class="card-img-top" :src="bookmark.image" alt="Card image cap">
 

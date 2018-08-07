@@ -140,6 +140,19 @@
             },
 
             /**
+             * Clear form fields
+             */
+            clearForm() {
+                this.formData.title = '';
+                this.formData.description = '';
+                this.formData.url = '';
+                this.formData.groups = [];
+                this.formData.selectedGroupId = 0;
+                this.formData.groupName = '';
+                this.formData.image = '';
+            },
+
+            /**
              * Store the new bookmark under the bookmarks of user with userId and in group with selectedGroupId
              */
             saveBookmark() {
@@ -156,7 +169,7 @@
                     .then(response => {
                         this.response.message = 'Boomark saved, with Id: ' + response.id;
                         this.response.status = true;
-                        this.formData = {}; // clear form
+                        this.clearForm(); // clear form
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
