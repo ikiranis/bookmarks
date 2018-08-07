@@ -24,7 +24,7 @@
         </div>
 
 
-        <nav aria-label="Bookmarks navigation" class="row mt-3">
+        <nav v-if="pagination.links" aria-label="Bookmarks navigation" class="row mt-3">
             <ul class="pagination ml-auto mr-auto">
                 <li class="page-item" :class="pagination.links.prev ? '' : 'disabled'">
                     <span class="page-link" v-on:click="getBookmarks(pagination.links.prev)">Previous</span>
