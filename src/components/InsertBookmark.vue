@@ -12,6 +12,7 @@
                 <label for="url" class="input-group-text">url</label>
             </div>
             <input type="text" max="800" class="form-control form-control-sm" id="url" name="url" v-model="formData.url">
+            <span class="btn btn-info mx-1" v-on:click="getMetadata()">Get Metadata</span>
             <form-error v-if="response.errors.url" :error="response.errors.url[0]" />
         </div>
 
@@ -132,12 +133,45 @@
                     .then(response => {
                         this.response.message = 'Boomark saved, with Id: ' + response.id;
                         this.response.status = true;
-                        this.formData = {};
+                        this.formData = {}; // clear form
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
-                        this.response.errors = error.response.data.errors;
+                        if(error.response.data.errors) {
+                            this.response.errors = error.response.data.errors;
+                        }
+                    });
+            },
+
+            /**
+             * Get description text, from any of description tags is possible
+             */
+            getDescriptionText(tags) {
+                if(tags.metaTags.description) {
+                    return tags.metaTags.description;
+                }
+
+                if(tags.metaProperties['og:description']) {
+                    return tags.metaProperties['og:description'];
+                }
+
+                if(tags.metaTags['twitter:description']) {
+                    return tags.metaTags['twitter:description'];
+                }
+            },
+
+            /**
+             * Parse the metadata for this.formData.url
+             */
+            getMetadata() {
+                api.getMetadata(this.formData.url)
+                    .then(response => {
+                            this.formData.description = this.getDescriptionText(response.tags);
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
                     });
             }
 

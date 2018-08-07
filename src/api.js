@@ -33,7 +33,7 @@ let api = {
      * @returns {Promise<void>}
      */
     async getBookmarks(userId, page) {
-        if(page !== null) {
+        if (page !== null) {
             page = '?' + page.split('?')[1];
         }
 
@@ -84,6 +84,19 @@ let api = {
      */
     async removeBookmark(bookmarkId) {
         return await axios.delete(ROOT_API + '/bookmark/' + bookmarkId);
+    },
+
+    /**
+     * Parse the metadata for url
+     *
+     * @param url
+     * @returns {Promise<void>}
+     */
+    async getMetadata(url) {
+        let {data} = await axios.get(ROOT_API + '/metadata/' + url);
+
+        return data;
+
     },
 
     /**
