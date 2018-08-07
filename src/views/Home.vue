@@ -3,13 +3,17 @@
 
         <div v-if="username === ''">
             <Login v-if="!displayRegister"/>
-            <span class="btn btn-info my-3" v-if="!displayRegister"
-                  @click="displayRegisterComponent">Register User</span>
+            <div class="row">
+                <span class="btn btn-info my-3 ml-auto mr-auto" v-if="!displayRegister"
+                      @click="displayRegisterComponent">Register User</span>
+            </div>
         </div>
         <display-bookmarks v-else/>
 
         <Register v-if="displayRegister"/>
-        <span class="btn btn-info my-3" v-if="displayRegister" @click="displayLoginComponent">Login User</span>
+        <div class="row">
+            <span class="btn btn-info my-3 ml-auto mr-auto" v-if="displayRegister" @click="displayLoginComponent">Login User</span>
+        </div>
 
     </div>
 </template>
