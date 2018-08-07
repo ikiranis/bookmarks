@@ -1,49 +1,58 @@
 <template>
     <div class="container">
 
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label for="title" class="input-group-text">Title</label>
-            </div>
-            <input type="text" max="500" class="form-control form-control-sm" id="title" name="title"
-                   v-model="formData.title">
-            <form-error v-if="response.errors.title" :error="response.errors.title[0]"/>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" v-model="formData.description"></textarea>
-            <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
-        </div>
-
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label for="url" class="input-group-text">url</label>
-            </div>
-            <input type="text" max="800" class="form-control form-control-sm" id="url" name="url"
-                   v-model="formData.url">
-            <span class="btn btn-info mx-1" v-on:click="getMetadata()">Get Metadata</span>
-            <form-error v-if="response.errors.url" :error="response.errors.url[0]"/>
-        </div>
-
-        <div class="row my-3">
-            <div class="input-group col-lg-6 col-12">
-                <div class="input-group-prepend">
-                    <label for="group_id" class="input-group-text">Choose group</label>
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label for="title" class="input-group-text">Title</label>
+                    </div>
+                    <input type="text" max="500" class="form-control form-control-sm" id="title" name="title"
+                           v-model="formData.title">
+                    <form-error v-if="response.errors.title" :error="response.errors.title[0]"/>
                 </div>
-                <select class="form-control " id="group_id" name="group_id" v-model="formData.selectedGroupId">
-                    <option v-for="group in formData.groups" :key="group.id" :value="group.id">{{ group.name }}</option>
-                </select>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3" v-model="formData.description"></textarea>
+                    <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label for="url" class="input-group-text">url</label>
+                    </div>
+                    <input type="text" max="800" class="form-control form-control-sm" id="url" name="url"
+                           v-model="formData.url">
+                    <span class="btn btn-info mx-1" v-on:click="getMetadata()">Get Metadata</span>
+                    <form-error v-if="response.errors.url" :error="response.errors.url[0]"/>
+                </div>
+
+                <div class="row my-3">
+                    <div class="input-group col-lg-6 col-12">
+                        <div class="input-group-prepend">
+                            <label for="group_id" class="input-group-text">Choose group</label>
+                        </div>
+                        <select class="form-control " id="group_id" name="group_id" v-model="formData.selectedGroupId">
+                            <option v-for="group in formData.groups" :key="group.id" :value="group.id">{{ group.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="input-group col-lg-6 col-12">
+                        <div class="input-group-prepend">
+                            <label for="group_name" class="input-group-text">Group name</label>
+                        </div>
+                        <input type="text" max="50" class="form-control"
+                               id="group_name" name="group_name" v-model="formData.groupName">
+
+                        <span class="btn btn-info mx-1" v-on:click="saveGroup()">Insert new group</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="input-group col-lg-6 col-12">
-                <div class="input-group-prepend">
-                    <label for="group_name" class="input-group-text">Group name</label>
-                </div>
-                <input type="text" max="50" class="form-control"
-                       id="group_name" name="group_name" v-model="formData.groupName">
-
-                <span class="btn btn-info mx-1" v-on:click="saveGroup()">Insert new group</span>
+            <div class="col-lg-4 col-12">
+                <img :src="formData.image" width="100%">
             </div>
         </div>
 
@@ -136,9 +145,11 @@
             saveBookmark() {
                 let args = {
                     url: this.formData.url,
+                    title: this.formData.title,
                     description: this.formData.description,
                     user_id: this.userId,
-                    group_id: this.formData.selectedGroupId
+                    group_id: this.formData.selectedGroupId,
+                    image: this.formData.image
                 };
 
                 api.saveBookmark(args)
@@ -191,6 +202,19 @@
             },
 
             /**
+             * Get image url, from any of image tags is possible
+             */
+            getImageUrl(tags) {
+                if (tags.metaProperties['og:image']) {
+                    return tags.metaProperties['og:image'];
+                }
+
+                if (tags.metaTags['twitter:image:src']) {
+                    return tags.metaTags['twitter:image:src'];
+                }
+            },
+
+            /**
              * Parse the metadata for this.formData.url
              */
             getMetadata() {
@@ -198,6 +222,7 @@
                     .then(response => {
                         this.formData.description = this.getDescriptionText(response.tags);
                         this.formData.title = this.getTitleText(response.tags);
+                        this.formData.image = this.getImageUrl(response.tags);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;

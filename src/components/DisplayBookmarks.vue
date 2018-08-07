@@ -6,7 +6,12 @@
 
             <div class="col-lg-4 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
                 <div class="card">
-                    <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+                    <img class="card-img-top" :src="bookmark.image" alt="Card image cap">
+
+                    <div class="card-header">
+                        {{ bookmark.title }}
+                    </div>
+
                     <div class="card-body">
                         <p class="card-text">{{ bookmark.description }}</p>
 
