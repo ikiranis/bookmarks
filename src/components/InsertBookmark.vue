@@ -1,19 +1,29 @@
 <template>
     <div class="container">
 
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label for="title" class="input-group-text">Title</label>
+            </div>
+            <input type="text" max="500" class="form-control form-control-sm" id="title" name="title"
+                   v-model="formData.title">
+            <form-error v-if="response.errors.title" :error="response.errors.title[0]"/>
+        </div>
+
         <div class="form-group">
             <label for="description">Description</label>
             <textarea class="form-control" id="description" rows="3" v-model="formData.description"></textarea>
-            <form-error v-if="response.errors.description" :error="response.errors.description[0]" />
+            <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
         </div>
 
         <div class="input-group">
             <div class="input-group-prepend">
                 <label for="url" class="input-group-text">url</label>
             </div>
-            <input type="text" max="800" class="form-control form-control-sm" id="url" name="url" v-model="formData.url">
+            <input type="text" max="800" class="form-control form-control-sm" id="url" name="url"
+                   v-model="formData.url">
             <span class="btn btn-info mx-1" v-on:click="getMetadata()">Get Metadata</span>
-            <form-error v-if="response.errors.url" :error="response.errors.url[0]" />
+            <form-error v-if="response.errors.url" :error="response.errors.url[0]"/>
         </div>
 
         <div class="row my-3">
@@ -41,7 +51,7 @@
             <span class="btn btn-success mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
         </div>
 
-        <display-error v-if="response.message" :response="response" />
+        <display-error v-if="response.message" :response="response"/>
     </div>
 
 </template>
@@ -64,11 +74,13 @@
                 errors: []
             },
             formData: {
+                title: '',
                 description: '',
                 url: '',
                 groups: [],
                 selectedGroupId: 0,
-                groupName: ''
+                groupName: '',
+                image: ''
             }
         }),
 
@@ -138,7 +150,7 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
-                        if(error.response.data.errors) {
+                        if (error.response.data.errors) {
                             this.response.errors = error.response.data.errors;
                         }
                     });
@@ -148,16 +160,33 @@
              * Get description text, from any of description tags is possible
              */
             getDescriptionText(tags) {
-                if(tags.metaTags.description) {
+                if (tags.metaTags.description) {
                     return tags.metaTags.description;
                 }
 
-                if(tags.metaProperties['og:description']) {
+                if (tags.metaProperties['og:description']) {
                     return tags.metaProperties['og:description'];
                 }
 
-                if(tags.metaTags['twitter:description']) {
+                if (tags.metaTags['twitter:description']) {
                     return tags.metaTags['twitter:description'];
+                }
+            },
+
+            /**
+             * Get title text, from any of title tags is possible
+             */
+            getTitleText(tags) {
+                if (tags.metaTags.title) {
+                    return tags.metaTags.description;
+                }
+
+                if (tags.metaProperties['og:title']) {
+                    return tags.metaProperties['og:title'];
+                }
+
+                if (tags.metaTags['twitter:title']) {
+                    return tags.metaTags['twitter:title'];
                 }
             },
 
@@ -167,7 +196,8 @@
             getMetadata() {
                 api.getMetadata(this.formData.url)
                     .then(response => {
-                            this.formData.description = this.getDescriptionText(response.tags);
+                        this.formData.description = this.getDescriptionText(response.tags);
+                        this.formData.title = this.getTitleText(response.tags);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
