@@ -63,7 +63,7 @@
             pagination: {
                 data: {},
                 meta: {},
-                links: {}
+                links: null
             },
             bookmarkId: ''
         }),
