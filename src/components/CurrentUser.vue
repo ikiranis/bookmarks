@@ -8,7 +8,7 @@
 
 <script>
     import user from '@/library/user';
-    import { mapState, mapActions } from 'vuex';
+    import { mapState, mapActions, mapMutations } from 'vuex';
 
     export default {
 
@@ -22,6 +22,7 @@
 
         methods: {
             ...mapActions(['getCurrentUser']),
+            ...mapMutations(['setUsername']),
 
             /**
              * Do the logout
@@ -33,7 +34,7 @@
 
                 // Hack Alert!!!
                 // Force to empty the username, because it need some time to run getCurrentUser and do it
-                this.$store.state.username = '';
+                this.setUsername(null);
 
                 this.$router.push({path: '/'}); // Force to load home page
             }

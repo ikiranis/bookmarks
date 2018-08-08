@@ -1,7 +1,7 @@
 <template>
-    <div class="home">
+    <div class="home container">
 
-        <div v-if="username === ''">
+        <div v-if="!username">
             <Login v-if="!displayRegister"/>
             <div class="row">
                 <span class="btn btn-info my-3 ml-auto mr-auto" v-if="!displayRegister"

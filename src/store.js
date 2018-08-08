@@ -7,7 +7,7 @@ import api from '@/api';
 
 export default new Vuex.Store({
     state: {
-        username: '',
+        username: null,
         userId: 0,
         displayRegister: false,
         isEditBookmarkOn: false,
@@ -82,7 +82,7 @@ export default new Vuex.Store({
                 })
                 .catch(error => {
                     if (error.response.statusText === 'Unauthorized') {
-                        context.commit('setUsername', '');
+                        context.commit('setUsername', null);
                         context.commit('setUserId', 0);
                     }
                 });
