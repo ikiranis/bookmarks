@@ -61,8 +61,7 @@
         data: () => ({
             bookmarks: [],
             pagination: {
-                data: {},
-                meta: {},
+                meta: null,
                 links: null
             },
             bookmarkId: ''
