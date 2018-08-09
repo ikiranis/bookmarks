@@ -17,7 +17,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 // wysiwyg editor
 // @source https://github.com/chmln/vue-wysiwyg
 import wysiwyg from "vue-wysiwyg";
-Vue.use(wysiwyg, {}); // config is optional
+Vue.use(wysiwyg, {
+    forcePlainTextOnPaste: true
+}); // config is optional
 import "vue-wysiwyg/dist/vueWysiwyg.css"; // stylesheet
 
 // User Authentication

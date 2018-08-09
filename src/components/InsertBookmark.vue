@@ -13,9 +13,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <!--<textarea class="form-control" id="description" rows="3" v-model="formData.description"></textarea>-->
-                    <wysiwyg class="form-control" id="description" rows="3" v-model="formData.description" />
+                    <wysiwyg class="form-control mt-3" v-model="formData.description"></wysiwyg>
                     <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
                 </div>
 
