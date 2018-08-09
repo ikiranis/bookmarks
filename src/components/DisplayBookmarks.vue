@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="card-body">
-                        <p class="card-text">{{ bookmark.description }}</p>
+                        <p class="card-text" v-html="bookmark.description"></p>
 
                         <a :href="bookmark.url">{{ bookmark.url }}</a>
                     </div>

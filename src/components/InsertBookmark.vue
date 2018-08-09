@@ -14,7 +14,8 @@
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3" v-model="formData.description"></textarea>
+                    <!--<textarea class="form-control" id="description" rows="3" v-model="formData.description"></textarea>-->
+                    <wysiwyg class="form-control" id="description" rows="3" v-model="formData.description" />
                     <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
                 </div>
 
@@ -168,6 +169,7 @@
                         this.response.message = 'Boomark saved, with Id: ' + response.id;
                         this.response.status = true;
                         this.clearForm(); // clear form
+                        this.formData.url = '';
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;

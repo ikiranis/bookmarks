@@ -14,6 +14,12 @@ Vue.use(BootstrapVue);
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+// wysiwyg editor
+// @source https://github.com/chmln/vue-wysiwyg
+import wysiwyg from "vue-wysiwyg";
+Vue.use(wysiwyg, {}); // config is optional
+import "vue-wysiwyg/dist/vueWysiwyg.css"; // stylesheet
+
 // User Authentication
 import user from '@/library/user'
 user.setUserTokenHeader();
