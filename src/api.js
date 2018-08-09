@@ -30,6 +30,7 @@ let api = {
      * Get all bookmarks for user with userId
      *
      * @param userId
+     * @param page
      * @returns {Promise<void>}
      */
     async getBookmarks(userId, page) {
