@@ -9,7 +9,7 @@
                     <img class="card-img-top" :src="bookmark.image" alt="Card image cap">
 
                     <div class="card-header">
-                        {{ bookmark.title }}
+                        <strong>{{ bookmark.title }}</strong>
                     </div>
 
                     <div class="card-body">

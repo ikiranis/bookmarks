@@ -47,6 +47,8 @@
 
                         <span class="btn btn-info mx-1" v-on:click="saveGroup()">Insert new group</span>
                     </div>
+
+                    <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
                 </div>
             </div>
 
@@ -136,6 +138,9 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        if (error.response.data.errors) {
+                            this.response.errors = error.response.data.errors;
+                        }
                     });
 
             },
