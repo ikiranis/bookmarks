@@ -2,7 +2,7 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-8 col-12">
+            <div class="col-lg-9 col-12">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <label for="title" class="input-group-text">Title</label>
@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-12">
+            <div class="col-lg-3 col-12">
                 <img :src="formData.image" width="100%">
             </div>
         </div>
@@ -72,6 +72,8 @@
     import DisplayError from "./DisplayError";
     import FormError from "./FormError";
 
+    const defaultImage = 'http://via.placeholder.com/350x350';
+
     export default {
 
         components: {DisplayError, FormError},
@@ -89,7 +91,7 @@
                 groups: [],
                 selectedGroupId: 0,
                 groupName: '',
-                image: ''
+                image: defaultImage
             }
         }),
 
@@ -110,7 +112,7 @@
                 api.getGroups(this.userId)
                     .then(response => {
                         if (response.length !== 0) {
-                            this.groups = response;
+                            this.formData.groups = response;
                         }
                     })
                     .catch(error => {
@@ -145,11 +147,7 @@
             clearForm() {
                 this.formData.title = '';
                 this.formData.description = '';
-                this.formData.url = '';
-                this.formData.groups = [];
-                this.formData.selectedGroupId = 0;
-                this.formData.groupName = '';
-                this.formData.image = '';
+                this.formData.image = defaultImage;
             },
 
             /**
@@ -201,8 +199,8 @@
              * Get title text, from any of title tags is possible
              */
             getTitleText(tags) {
-                if (tags.metaTags.title) {
-                    return tags.metaTags.description;
+                if (tags.title) {
+                    return tags.title;
                 }
 
                 if (tags.metaProperties['og:title']) {
@@ -225,6 +223,8 @@
                 if (tags.metaTags['twitter:image:src']) {
                     return tags.metaTags['twitter:image:src'];
                 }
+
+                return defaultImage;
             },
 
             /**
@@ -233,6 +233,8 @@
             getMetadata() {
                 api.getMetadata(this.formData.url)
                     .then(response => {
+                        this.clearForm(); // clear form
+                        console.log(response.tags)
                         this.formData.description = this.getDescriptionText(response.tags);
                         this.formData.title = this.getTitleText(response.tags);
                         this.formData.image = this.getImageUrl(response.tags);
