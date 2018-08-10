@@ -9,7 +9,7 @@
                     <img class="card-img-top" :src="bookmark.image" alt="Card image cap">
 
                     <div class="card-header">
-                        <strong>{{ bookmark.title }}</strong>
+                        <router-link :to="{ name: 'bookmark', params: { id: bookmark.id } }" :key="$route.fullPath"><strong>{{ bookmark.title }}</strong></router-link>
                     </div>
 
                     <div class="card-body">

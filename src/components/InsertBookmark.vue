@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="form-group">
-                    <wysiwyg class="form-control mt-3" v-model="formData.description"></wysiwyg>
+                    <wysiwyg class="form-control mt-3" placeholder="Description" v-model="formData.description"></wysiwyg>
                     <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
                 </div>
 

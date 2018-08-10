@@ -5,7 +5,7 @@
             <router-link to="/">Home</router-link> |
 
             <span v-if="userId !== 0">
-                <router-link to="/bookmark">Insert Bookmark </router-link> |
+                <router-link to="/insertBookmark">Insert Bookmark </router-link> |
                 <router-link to="/groups">Manage groups </router-link> |
             </span>
 

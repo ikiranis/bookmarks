@@ -1,9 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Bookmark from './views/Bookmark.vue'
-import Groups from './views/Groups.vue'
-import Group from './views/Group.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
+import InsertBookmark from './views/InsertBookmark.vue';
+import Groups from './views/Groups.vue';
+import Group from './views/Group.vue';
+import User from './views/User.vue';
+import Bookmark from './views/Bookmark.vue';
 
 Vue.use(Router);
 
@@ -29,11 +31,19 @@ export default new Router({
             }
         },
         {
-            path: '/bookmark',
+            path: '/insertBookmark',
+            name: 'insertBookmark',
+            component: InsertBookmark,
+            meta: {
+                title: 'Insert Bookmark - Bookmarks'
+            }
+        },
+        {
+            path: '/bookmark/:id',
             name: 'bookmark',
             component: Bookmark,
             meta: {
-                title: 'Insert Bookmark - Bookmarks'
+                title: 'Bookmark - Bookmarks'
             }
         },
         {
@@ -50,6 +60,14 @@ export default new Router({
             component: Group,
             meta: {
                 title: 'Manage Group - Bookmarks'
+            }
+        },
+        {
+            path: '/user/:id',
+            name: 'user',
+            component: User,
+            meta: {
+                title: 'Manage User - Bookmarks'
             }
         }
     ]
