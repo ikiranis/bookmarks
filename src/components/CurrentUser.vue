@@ -1,6 +1,6 @@
 <template>
     <span class="currentUser">
-        <span>{{ username ? username : 'Not Logged In' }}</span>
+        <router-link to="/user"><span>{{ username ? username : 'Not Logged In' }}</span></router-link>
         <span id="logout" @click="logout()" v-if="username !== ''"> (Logout)</span>
     </span>
 

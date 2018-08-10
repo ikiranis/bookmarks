@@ -63,7 +63,7 @@ export default new Router({
             }
         },
         {
-            path: '/user/:id',
+            path: '/user',
             name: 'user',
             component: User,
             meta: {
