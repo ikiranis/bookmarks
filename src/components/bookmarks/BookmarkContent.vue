@@ -4,9 +4,9 @@
             <img v-if="bookmark.image" class="card-img-top" :src="bookmark.image" alt="Bookmark image">
 
             <div class="card-header">
-                <router-link v-if="bookmarksList" :to="{ name: 'bookmark', params: { id: bookmark.id } }" :key="$route.fullPath"><strong>{{
-                    bookmark.title }}</strong></router-link>
-                <strong v-else>{{ bookmark.title }}</strong>
+                <router-link :to="bookmarksList ? { name: 'bookmark', params: { id: bookmark.id } } : ''" :key="$route.fullPath">
+                    <strong>{{ bookmark.title }}</strong>
+                </router-link>
             </div>
 
             <div class="card-body">
