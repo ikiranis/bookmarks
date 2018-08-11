@@ -135,6 +135,7 @@
                     .then(response => {
                         this.formData.groups.push(response);
                         this.formData.groupName = '';
+                        this.formData.selectedGroupId = response.id;
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
