@@ -25,21 +25,19 @@
             </ul>
         </nav>
 
-        <edit-bookmark :bookmarkId="bookmarkId" v-if="isEditBookmarkOn"/>
+
 
     </div>
 </template>
 
 <script>
     import api from '@/api';
-    import EditBookmark from './EditBookmark';
-    import utility from '@/library/utilities';
     import BookmarkContent from "./BookmarkContent";
-    import {mapState, mapMutations} from 'vuex';
+    import {mapState} from 'vuex';
 
     export default {
 
-        components: {EditBookmark, BookmarkContent},
+        components: {BookmarkContent},
 
         data: () => ({
             bookmarks: [],
@@ -47,30 +45,17 @@
                 meta: null,
                 links: null
             },
-            bookmarkId: ''
         }),
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn'])
+            ...mapState(['userId'])
         },
 
         created: function () {
-            this.setIsEditBookmarkOn(false);
             this.getBookmarks(null);
         },
 
-        watch: {
-            // Refresh Bookmarks if isEditBookmarkOn changed
-            isEditBookmarkOn: function (changedValue) {
-                if (!changedValue) {
-                    this.getBookmarks(this.pagination.meta.path + '?page=' + this.pagination.meta.current_page);
-                }
-            }
-        },
-
         methods: {
-
-            ...mapMutations(['setIsEditBookmarkOn']),
 
             /**
              * Get the list of bookmarks for user with userId
@@ -83,27 +68,6 @@
                         this.pagination.links = response.links;
                     })
                     .catch(error => console.log(error.response));
-            },
-
-            /**
-             * Remove bookmark with bookmarkId
-             *
-             * @param bookmarkId
-             */
-            removeBookmark(bookmarkId) {
-                api.removeBookmark(bookmarkId)
-                    .then(response => {
-                        this.bookmarks = utility.removeObjFromArray(this.bookmarks, 'id', response.data.id);
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
-                    });
-            },
-
-            editBookmark(bookmarkId) {
-                this.bookmarkId = bookmarkId;
-                this.setIsEditBookmarkOn(true);
             }
 
         }
