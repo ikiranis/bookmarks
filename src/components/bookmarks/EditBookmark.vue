@@ -1,7 +1,7 @@
 <template>
     <div class="editBookmark container bg-light my-3">
 
-        <BookmarkForm :res="response" :oldFD="formData" @update="getFormData" />
+        <BookmarkForm :response="response" :oldFormData="formData" @update="getFormData" />
 
         <div class="row">
             <span class="btn btn-success my-3 ml-auto mr-auto" v-on:click="updateBookmark()">Update bookmark</span>
@@ -35,15 +35,11 @@
         }),
 
         props: {
-            parentBookmark: Object
+            bookmark: Object
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn']),
-
-            bookmark: function () {
-                return this.parentBookmark;
-            }
+            ...mapState(['userId', 'isEditBookmarkOn'])
         },
 
         created: function () {

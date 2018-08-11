@@ -1,7 +1,7 @@
 <template>
     <div class="container bg-light my-3">
 
-        <BookmarkContent :parentBookmark="bookmark" />
+        <BookmarkContent :bookmark="bookmark" />
 
     </div>
 
@@ -20,7 +20,6 @@
 
         created: function () {
             this.getBookmark(this.$route.params.id);
-            // this.getGroups();
         },
 
         methods: {
@@ -35,22 +34,6 @@
                     })
                     .catch(error => {
                         console.log(error.response.data.message);
-                    });
-            },
-
-            /**
-             * Get the list of groups for the user with userId
-             */
-            getGroups() {
-                api.getGroups(this.userId)
-                    .then(response => {
-                        if (response.length !== 0) {
-                            this.groups = response;
-                        }
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
                     });
             }
 

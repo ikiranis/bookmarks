@@ -30,8 +30,8 @@
                     <div class="input-group-prepend">
                         <label for="group_id" class="input-group-text">Choose group</label>
                     </div>
-                    <select class="form-control " id="group_id" name="group_id" v-model="formData.group_id" @input="submitFormData">
-                        <option v-for="group in formData.groups" :key="group.id" :value="group.id">{{ group.name }}
+                    <select class="form-control " id="group_id" name="group_id" v-model="formData.group_id">
+                        <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}
                         </option>
                     </select>
                 </div>
@@ -69,8 +69,8 @@
         components: {FormError},
 
         props: {
-            res: Object,
-            oldFD: Object
+            response: Object,
+            oldFormData: Object
         },
 
         data: () => ({
@@ -78,30 +78,27 @@
                 title: '',
                 description: '',
                 url: '',
-                groups: [],
                 group_id: '',
                 groupName: '',
                 image: defaultImage
-            }
+            },
+            groups: []
         }),
 
         computed: {
-            ...mapState(['userId']),
+            ...mapState(['userId'])
+        },
 
-            response: function() {
-                return this.res;
-            },
-
-            oldFormData: function () {
-                return this.oldFD;
-            }
+        watch: {
+           userId: function() {
+               this.getGroups();
+           }
         },
 
         created: function () {
-            this.getGroups();
-            if(this.oldFormData !== null) {
+            if(this.oldFormData) {
                 this.formData = this.oldFormData;
-
+                this.getGroups();
             }
         },
 
@@ -111,7 +108,7 @@
              * Send formData back to parent component
              */
             submitFormData() {
-                this.$emit('update', this.formData)
+                this.$emit('update', this.formData);
             },
 
             /**
@@ -121,7 +118,7 @@
                 api.getGroups(this.userId)
                     .then(response => {
                         if (response.length !== 0) {
-                            this.formData.groups = response;
+                            this.groups = response;
                         }
                     })
                     .catch(error => {

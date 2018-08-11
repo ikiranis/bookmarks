@@ -5,7 +5,7 @@
         <div class="row">
 
             <div class="col-lg-6 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
-                <BookmarkContent :parentBookmark="bookmark" />
+                <BookmarkContent :bookmark="bookmark" />
             </div>
 
         </div>

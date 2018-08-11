@@ -1,7 +1,7 @@
 <template>
     <div class="container">
 
-        <BookmarkForm :res="response" :oldFD="{}" @update="getFormData" />
+        <BookmarkForm :response="response" :oldFormData="null" @update="getFormData" />
 
         <div class="row">
             <span class="btn btn-success mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
@@ -71,7 +71,7 @@
 
                 api.saveBookmark(args)
                     .then(response => {
-                        this.response.message = 'Boomark saved, with Id: ' + response.id;
+                        this.response.message = 'Bookmark saved, with Id: ' + response.id;
                         this.response.status = true;
                         this.clearForm(); // clear form
                         this.formData.url = '';

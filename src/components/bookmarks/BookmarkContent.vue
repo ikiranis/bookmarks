@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <edit-bookmark :parentBookmark="bookmark" v-if="isEditBookmarkOn"/>
+        <edit-bookmark :bookmark="bookmark" v-if="isEditBookmarkOn"/>
     </div>
 
 </template>
@@ -37,22 +37,11 @@
         components: {EditBookmark},
 
         props: {
-            parentBookmark: Object
+            bookmark: Object
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn']),
-
-            bookmark: function () {
-                return this.parentBookmark
-            }
-        },
-
-        watch: {
-            // Refresh Bookmarks if isEditBookmarkOn changed
-            isEditBookmarkOn: function () {
-                this.getBookmark()
-            }
+            ...mapState(['userId', 'isEditBookmarkOn'])
         },
 
         created: function () {
@@ -62,17 +51,6 @@
         methods: {
 
             ...mapMutations(['setIsEditBookmarkOn']),
-
-            /**
-             *
-             */
-            getBookmark() {
-                api.getBookmark(this.bookmark.id)
-                    .then(response => {
-                        this.bookmark = response;
-                    })
-                    .catch(error => console.log(error.response));
-            },
 
             /**
              * Remove bookmark with this.bookmark.id
