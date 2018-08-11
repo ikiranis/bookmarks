@@ -6,7 +6,7 @@
 
 <script>
     // @ is an alias to /src
-    import InsertBookmark from '@/components/InsertBookmark.vue';
+    import InsertBookmark from '@/components/bookmarks/InsertBookmark.vue';
     import {mapState} from 'vuex';
 
     export default {

@@ -42,7 +42,7 @@
 <script>
     import api from '@/api';
     import user from "@/library/user";
-    import DisplayError from "./DisplayError";
+    import DisplayError from "../basic/DisplayError";
 
     export default {
 

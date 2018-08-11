@@ -35,7 +35,7 @@
 <script>
     import api from '@/api';
     import utility from '@/library/utilities';
-    import DisplayError from "./DisplayError";
+    import DisplayError from "../basic/DisplayError";
 
     export default {
 

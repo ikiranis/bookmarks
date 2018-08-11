@@ -70,8 +70,8 @@
 
     import api from '@/api';
     import {mapState} from 'vuex';
-    import DisplayError from "./DisplayError";
-    import FormError from "./FormError";
+    import DisplayError from "../basic/DisplayError";
+    import FormError from "../basic/FormError";
 
     const defaultImage = 'http://via.placeholder.com/350x350';
 

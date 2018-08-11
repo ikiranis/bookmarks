@@ -6,7 +6,7 @@
 
 <script>
     // @ is an alias to /src
-    import ManageGroups from '@/components/ManageGroups.vue';
+    import ManageGroups from '@/components/groups/ManageGroups.vue';
     import {mapState} from 'vuex';
 
     export default {

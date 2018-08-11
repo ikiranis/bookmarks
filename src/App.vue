@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import CurrentUser from "./components/CurrentUser";
+    import CurrentUser from "@/components/users/CurrentUser";
     import {mapState} from 'vuex';
 
     export default {

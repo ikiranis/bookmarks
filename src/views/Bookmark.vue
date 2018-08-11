@@ -10,7 +10,7 @@
 <script>
 
     import api from '@/api';
-    import BookmarkContent from "../components/BookmarkContent";
+    import BookmarkContent from "@/components/bookmarks/BookmarkContent";
 
     export default {
         components: {BookmarkContent},

@@ -22,10 +22,10 @@
     // @ is an alias to /src
     import api from '@/api';
 
-    import Login from '@/components/Login.vue'
-    import Register from '@/components/Register.vue'
+    import Login from '@/components/users/Login.vue'
+    import Register from '@/components/users/Register.vue'
     import {mapState, mapMutations} from 'vuex';
-    import DisplayBookmarks from "@/components/DisplayBookmarks";
+    import DisplayBookmarks from "@/components/bookmarks/DisplayBookmarks";
 
     export default {
 

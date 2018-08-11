@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import ManageGroup from '@/components/ManageGroup.vue';
+    import ManageGroup from '@/components/groups/ManageGroup.vue';
 
     export default {
 

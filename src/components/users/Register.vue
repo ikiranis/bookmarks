@@ -57,7 +57,7 @@
 <script>
     import api from '@/api';
     import {mapMutations} from 'vuex';
-    import DisplayError from "./DisplayError";
+    import DisplayError from "../basic/DisplayError";
 
     export default {
 
