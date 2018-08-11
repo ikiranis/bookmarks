@@ -134,6 +134,7 @@
                 api.saveGroup(args)
                     .then(response => {
                         this.formData.groups.push(response);
+                        this.formData.groupName = '';
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
@@ -164,7 +165,7 @@
                     description: this.formData.description,
                     user_id: this.userId,
                     group_id: this.formData.selectedGroupId,
-                    image: this.formData.image
+                    image: (this.formData.image === defaultImage) ? '' : this.formData.image
                 };
 
                 api.saveBookmark(args)

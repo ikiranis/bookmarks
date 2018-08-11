@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <img class="card-img-top" :src="bookmark.image" alt="Card image cap">
+        <img v-if="bookmark.image" class="card-img-top" :src="bookmark.image" alt="Bookmark image">
 
         <div class="card-header">
             <router-link :to="{ name: 'bookmark', params: { id: bookmark.id } }" :key="$route.fullPath"><strong>{{
