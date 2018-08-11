@@ -1,7 +1,7 @@
 <template>
     <div class="container bg-light my-3">
 
-        <BookmarkContent :bookmark="bookmark" />
+        <BookmarkContent :bookmark="bookmark" :bookmarksList="false" />
 
     </div>
 

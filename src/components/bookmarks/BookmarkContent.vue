@@ -4,8 +4,9 @@
             <img v-if="bookmark.image" class="card-img-top" :src="bookmark.image" alt="Bookmark image">
 
             <div class="card-header">
-                <router-link :to="{ name: 'bookmark', params: { id: bookmark.id } }" :key="$route.fullPath"><strong>{{
+                <router-link v-if="bookmarksList" :to="{ name: 'bookmark', params: { id: bookmark.id } }" :key="$route.fullPath"><strong>{{
                     bookmark.title }}</strong></router-link>
+                <strong v-else>{{ bookmark.title }}</strong>
             </div>
 
             <div class="card-body">
@@ -37,7 +38,8 @@
         components: {EditBookmark},
 
         props: {
-            bookmark: Object
+            bookmark: Object,
+            bookmarksList: Boolean
         },
 
         computed: {
