@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <edit-bookmark :bookmarkId="bookmark.id" v-if="isEditBookmarkOn"/>
+        <edit-bookmark :parentBookmark="bookmark" v-if="isEditBookmarkOn"/>
     </div>
 
 </template>
@@ -30,7 +30,6 @@
 
     import api from '@/api';
     import EditBookmark from './EditBookmark';
-    import utility from '@/library/utilities';
     import {mapState, mapMutations} from 'vuex';
 
     export default {
@@ -38,11 +37,15 @@
         components: {EditBookmark},
 
         props: {
-            bookmark: Object
+            parentBookmark: Object
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn'])
+            ...mapState(['userId', 'isEditBookmarkOn']),
+
+            bookmark: function () {
+                return this.parentBookmark
+            }
         },
 
         watch: {
@@ -77,7 +80,6 @@
             removeBookmark() {
                 api.removeBookmark(this.bookmark.id)
                     .then(response => {
-                        // this.bookmarks = utility.removeObjFromArray(this.bookmarks, 'id', response.data.id);
                         this.$router.push({path: '/'}); // Force to load home page
                     })
                     .catch(error => {

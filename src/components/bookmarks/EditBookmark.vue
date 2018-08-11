@@ -1,38 +1,7 @@
 <template>
     <div class="editBookmark container bg-light my-3">
 
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" v-model="description"></textarea>
-        </div>
-
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label for="url" class="input-group-text">url</label>
-            </div>
-            <input type="text" max="800" class="form-control form-control-sm" id="url" name="url" v-model="url">
-        </div>
-
-        <div class="row my-3">
-            <div class="input-group col-lg-6 col-12">
-                <div class="input-group-prepend">
-                    <label for="group_id" class="input-group-text">Choose group</label>
-                </div>
-                <select class="form-control " id="group_id" name="group_id" v-model="selectedGroupId">
-                    <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
-                </select>
-            </div>
-
-            <div class="input-group col-lg-6 col-12">
-                <div class="input-group-prepend">
-                    <label for="group_name" class="input-group-text">Group name</label>
-                </div>
-                <input type="text" max="50" class="form-control"
-                       id="group_name" name="group_name" v-model="groupName">
-
-                <span class="btn btn-info mx-1" v-on:click="saveGroup()">Insert new group</span>
-            </div>
-        </div>
+        <BookmarkForm :res="response" :oldFD="formData" @update="getFormData" />
 
         <div class="row">
             <span class="btn btn-success my-3 ml-auto mr-auto" v-on:click="updateBookmark()">Update bookmark</span>
@@ -48,40 +17,37 @@
     import api from '@/api';
     import {mapState, mapMutations} from 'vuex';
     import DisplayError from "../basic/DisplayError";
+    import BookmarkForm from "./BookmarkForm";
+
+    const defaultImage = 'http://via.placeholder.com/350x350';
 
     export default {
 
-        components: {DisplayError},
+        components: {DisplayError, BookmarkForm},
 
         data: () => ({
             response: {
                 message: '',
-                status: ''
+                status: '',
+                errors: []
             },
-            description: '',
-            url: '',
-            groups: [],
-            selectedGroupId: '',
-            groupName: ''
+            formData: {}
         }),
 
         props: {
-            bookmarkId: String
+            parentBookmark: Object
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn'])
+            ...mapState(['userId', 'isEditBookmarkOn']),
+
+            bookmark: function () {
+                return this.parentBookmark;
+            }
         },
 
         created: function () {
-            this.getBookmark(this.bookmarkId);
-            this.getGroups();
-        },
-
-        watch: {
-            bookmarkId: function (changedValue) {
-                this.getBookmark(changedValue);
-            }
+            this.formData = this.bookmark;
         },
 
         methods: {
@@ -89,35 +55,10 @@
             ...mapMutations(['setIsEditBookmarkOn']),
 
             /**
-             * Get the bookmark with bookmarkId
+             * Get the formData from child component
              */
-            getBookmark(bookmarkId) {
-                api.getBookmark(bookmarkId)
-                    .then(response => {
-                        this.description = response.description;
-                        this.url = response.url;
-                        this.selectedGroupId = response.group_id;
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
-                    });
-            },
-
-            /**
-             * Get the list of groups for the user with userId
-             */
-            getGroups() {
-                api.getGroups(this.userId)
-                    .then(response => {
-                        if (response.length !== 0) {
-                            this.groups = response;
-                        }
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
-                    });
+            getFormData (formData) {
+                this.formData = formData
             },
 
             /**
@@ -125,11 +66,13 @@
              */
             updateBookmark() {
                 let args = {
-                    id: this.bookmarkId,
-                    url: this.url,
-                    description: this.description,
+                    id: this.formData.id,
+                    url: this.formData.url,
+                    title: this.formData.title,
+                    description: this.formData.description,
                     user_id: this.userId,
-                    group_id: this.selectedGroupId
+                    group_id: this.formData.group_id,
+                    image: (this.formData.image === defaultImage) ? '' : this.formData.image
                 };
 
                 api.updateBookmark(args)
