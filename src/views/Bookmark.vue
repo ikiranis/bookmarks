@@ -1,25 +1,7 @@
 <template>
     <div class="container bg-light my-3">
 
-        <div class="card">
-            <img class="card-img-top" :src="bookmark.image" alt="Card image cap">
-
-            <div class="card-header">
-                <strong>{{ bookmark.title }}</strong>
-            </div>
-
-            <div class="card-body">
-                <p class="card-text" v-html="bookmark.description"></p>
-
-                <a :href="bookmark.url">{{ bookmark.url }}</a>
-            </div>
-
-            <div class="card-footer text-center">
-                <span class="btn btn-sm btn-info mx-1" v-on:click="editBookmark(bookmark.id)">Edit</span>
-                <span class="btn btn-sm btn-danger mx-1"
-                      v-on:click="removeBookmark(bookmark.id)">Remove</span>
-            </div>
-        </div>
+        <BookmarkContent :bookmark="bookmark" />
 
     </div>
 
@@ -28,9 +10,10 @@
 <script>
 
     import api from '@/api';
+    import BookmarkContent from "../components/BookmarkContent";
 
     export default {
-
+        components: {BookmarkContent},
         data: () => ({
             bookmark: {}
         }),
