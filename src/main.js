@@ -18,7 +18,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 // @source https://github.com/chmln/vue-wysiwyg
 import wysiwyg from "vue-wysiwyg";
 Vue.use(wysiwyg, {
-    forcePlainTextOnPaste: true
+    forcePlainTextOnPaste: true,
+    maxHeight: "500px"
 }); // config is optional
 import "vue-wysiwyg/dist/vueWysiwyg.css"; // stylesheet
 

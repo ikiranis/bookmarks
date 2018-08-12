@@ -18,6 +18,7 @@
     import {mapState, mapMutations} from 'vuex';
     import DisplayError from "../basic/DisplayError";
     import BookmarkForm from "./BookmarkForm";
+    import Utilities from "@/library/utilities";
 
     const defaultImage = 'http://via.placeholder.com/350x350';
 
@@ -65,7 +66,7 @@
                     id: this.formData.id,
                     url: this.formData.url,
                     title: this.formData.title,
-                    description: this.formData.description,
+                    description: Utilities.checkIfHTMLTextIsEmpty(this.formData.description) ? '' : this.formData.description,
                     user_id: this.userId,
                     group_id: this.formData.group_id,
                     image: (this.formData.image === defaultImage) ? '' : this.formData.image
@@ -81,6 +82,9 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        if (error.response.data.errors) {
+                            this.response.errors = error.response.data.errors;
+                        }
                     });
             }
 
