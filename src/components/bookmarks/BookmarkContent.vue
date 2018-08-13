@@ -16,7 +16,7 @@
                 <a :href="bookmark.url">{{ bookmark.url }}</a>
             </div>
 
-            <div class="card-footer text-center">
+            <div class="card-footer text-center" v-if="!bookmarksList">
                 <span class="btn btn-sm btn-info mx-1" v-on:click="editBookmark()">Edit</span>
                 <span class="btn btn-sm btn-danger mx-1"
                       v-on:click="removeBookmark()">Remove</span>
