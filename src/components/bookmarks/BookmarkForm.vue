@@ -11,7 +11,8 @@
             </div>
 
             <div class="form-group">
-                <wysiwyg class="form-control mt-3" placeholder="Description" v-model="formData.description" @input="submitData"></wysiwyg>
+                <wysiwyg class="form-control mt-3" placeholder="Description" v-model="formData.description"
+                         @input="submitData"></wysiwyg>
                 <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
             </div>
 
@@ -95,13 +96,13 @@
         },
 
         watch: {
-           userId: function() {
-               this.getGroups();
-           }
+            userId: function () {
+                this.getGroups();
+            }
         },
 
         created: function () {
-            if(this.oldFormData !== null) {
+            if (this.oldFormData !== null) {
                 this.formData = this.oldFormData;
                 this.getGroups();
             } else {
@@ -122,17 +123,20 @@
              * Get the list of groups for the user with userId
              */
             getGroups() {
-                api.getGroups(this.userId)
-                    .then(response => {
-                        if (response.length !== 0) {
-                            this.groups = response;
-                        }
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
-                        this.submitData();
-                    });
+                if(this.userId !== 0) {
+                    api.getGroups(this.userId)
+                        .then(response => {
+                            if (response.length !== 0) {
+                                this.groups = response;
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error.response.data.message)
+                            this.response.message = error.response.data.message;
+                            this.response.status = false;
+                            this.submitData();
+                        });
+                }
             },
 
             /**
