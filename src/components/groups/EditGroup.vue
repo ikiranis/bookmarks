@@ -9,6 +9,8 @@
                    id="group_name" name="group_name" v-model="groupName">
 
             <span class="btn btn-success ml-1" v-on:click="updateGroup()">Update group</span>
+
+            <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
         </div>
 
         <display-error v-if="response.message" :response="response" />
@@ -22,15 +24,17 @@
     import api from '@/api';
     import {mapState, mapMutations} from 'vuex';
     import DisplayError from "../basic/DisplayError";
+    import FormError from "../basic/FormError";
 
     export default {
 
-        components: {DisplayError},
+        components: {DisplayError, FormError},
 
         data: () => ({
             response: {
                 message: '',
-                status: ''
+                status: '',
+                errors: []
             },
             groupName: '',
         }),
@@ -90,6 +94,9 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        if (error.response.data.errors) {
+                            this.response.errors = error.response.data.errors;
+                        }
                     });
             }
 
