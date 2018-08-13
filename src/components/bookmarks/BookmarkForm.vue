@@ -143,7 +143,6 @@
              * Store the new group under the groups of the user with userId
              */
             saveGroup() {
-                // TODO don't insert group that already exist for this user
                 let args = {
                     user_id: this.userId,
                     name: this.formData.groupName

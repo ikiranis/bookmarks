@@ -21,10 +21,12 @@
             <div class="input-group-prepend">
                 <label for="email" class="input-group-text">Insert user in group</label>
             </div>
-            <input type="text" max="800" class="form-control form-control-sm"
+            <input type="email" class="form-control form-control-sm"
                    id="email" name="email" placeholder="email" v-model="email">
 
             <span class="btn btn-info mx-1" v-on:click="insertUserInGroup()">Insert user</span>
+
+            <form-error v-if="response.errors.email" :error="response.errors.email[0]" />
         </div>
 
         <display-error v-if="response.message" :response="response" />
@@ -36,15 +38,17 @@
     import api from '@/api';
     import utility from '@/library/utilities';
     import DisplayError from "../basic/DisplayError";
+    import FormError from "../basic/FormError"
 
     export default {
 
-        components: {DisplayError},
+        components: {DisplayError, FormError},
 
         data: () => ({
             response: {
                 message: '',
-                status: ''
+                status: '',
+                errors: []
             },
             group: {},
             users: [],
@@ -100,6 +104,9 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        if (error.response.data.errors) {
+                            this.response.errors = error.response.data.errors;
+                        }
                     });
             },
 
