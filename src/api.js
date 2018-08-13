@@ -7,6 +7,17 @@ const ROOT_API = API_HOST + process.env.VUE_APP_API_SUFFIX;
 let api = {
 
     /**
+     * Test if api works
+     *
+     * @returns {Promise<void>}
+     */
+    async getApiWorks() {
+        let {data} = await axios.get(ROOT_API + '/apiWorks');
+
+        return data;
+    },
+
+    /**
      *
      * @returns {Promise<void>}
      */
