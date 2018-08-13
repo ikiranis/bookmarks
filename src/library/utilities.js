@@ -1,4 +1,4 @@
-let utility = {
+let utilities = {
 
     /**
      * Remove object from myArray with key value
@@ -35,4 +35,4 @@ let utility = {
 
 };
 
-export default utility;
+export default utilities;

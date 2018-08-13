@@ -1,7 +1,7 @@
 <template>
     <div class="container">
 
-        <BookmarkForm :response="response" :oldFormData="null" @update="getFormData" />
+        <BookmarkForm :response="response" :oldFormData="{}" @update="getData" />
 
         <div class="row">
             <span class="btn btn-success mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
@@ -41,19 +41,11 @@
         methods: {
 
             /**
-             * Get the formData from child component
+             * Get the data from child component
              */
-            getFormData (formData) {
-                this.formData = formData
-            },
-
-            /**
-             * Clear form fields
-             */
-            clearForm() {
-                this.formData.title = '';
-                this.formData.description = '';
-                this.formData.image = defaultImage;
+            getData (data) {
+                this.formData = data.formData;
+                this.response = data.response;
             },
 
             /**

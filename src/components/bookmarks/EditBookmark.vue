@@ -1,7 +1,7 @@
 <template>
     <div class="editBookmark container bg-light my-3">
 
-        <BookmarkForm :response="response" :oldFormData="formData" @update="getFormData" />
+        <BookmarkForm :response="response" :oldFormData="formData" @update="getData" />
 
         <div class="row">
             <span class="btn btn-success my-3 ml-auto mr-auto" v-on:click="updateBookmark()">Update bookmark</span>
@@ -52,10 +52,11 @@
             ...mapMutations(['setIsEditBookmarkOn']),
 
             /**
-             * Get the formData from child component
+             * Get the data from child component
              */
-            getFormData (formData) {
-                this.formData = formData
+            getData (data) {
+                this.formData = data.formData;
+                this.response = data.response;
             },
 
             /**

@@ -6,12 +6,12 @@
                     <label for="title" class="input-group-text">Title</label>
                 </div>
                 <input type="text" max="500" class="form-control form-control-sm" id="title" name="title"
-                       v-model="formData.title" @input="submitFormData">
+                       v-model="formData.title" @input="submitData">
                 <form-error v-if="response.errors.title" :error="response.errors.title[0]"/>
             </div>
 
             <div class="form-group">
-                <wysiwyg class="form-control mt-3" placeholder="Description" v-model="formData.description" @input="submitFormData"></wysiwyg>
+                <wysiwyg class="form-control mt-3" placeholder="Description" v-model="formData.description" @input="submitData"></wysiwyg>
                 <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
             </div>
 
@@ -20,7 +20,7 @@
                     <label for="url" class="input-group-text">url</label>
                 </div>
                 <input type="text" max="800" class="form-control form-control-sm" id="url" name="url"
-                       v-model="formData.url" @input="submitFormData">
+                       v-model="formData.url" @input="submitData">
                 <span class="btn btn-info mx-1" v-on:click="getMetadata()">Get Metadata</span>
                 <form-error v-if="response.errors.url" :error="response.errors.url[0]"/>
             </div>
@@ -41,7 +41,7 @@
                         <label for="group_name" class="input-group-text">Group name</label>
                     </div>
                     <input type="text" max="50" class="form-control"
-                           id="group_name" name="group_name" v-model="formData.groupName" @input="submitFormData">
+                           id="group_name" name="group_name" v-model="formData.groupName" @input="submitData">
 
                     <span class="btn btn-info mx-1" v-on:click="saveGroup()">Insert new group</span>
                 </div>
@@ -86,7 +86,14 @@
         }),
 
         computed: {
-            ...mapState(['userId'])
+            ...mapState(['userId']),
+
+            myData: function () {
+                return {
+                    formData: this.formData,
+                    response: this.response
+                }
+            }
         },
 
         watch: {
@@ -105,10 +112,10 @@
         methods: {
 
             /**
-             * Send formData back to parent component
+             * Send data back to parent component
              */
-            submitFormData() {
-                this.$emit('update', this.formData);
+            submitData() {
+                this.$emit('update', this.myData);
             },
 
             /**
@@ -124,6 +131,7 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        this.submitData();
                     });
             },
 
@@ -138,9 +146,9 @@
 
                 api.saveGroup(args)
                     .then(response => {
-                        this.formData.groups.push(response);
+                        this.groups.push(response);
                         this.formData.groupName = '';
-                        this.formData.selectedGroupId = response.id;
+                        this.formData.group_id = response.id;
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
@@ -148,8 +156,18 @@
                         if (error.response.data.errors) {
                             this.response.errors = error.response.data.errors;
                         }
+                        this.submitData();
                     });
 
+            },
+
+            /**
+             * Clear form fields
+             */
+            clearForm() {
+                this.formData.title = '';
+                this.formData.description = '';
+                this.formData.image = defaultImage;
             },
 
             /**
@@ -216,6 +234,7 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        this.submitData();
                     });
             }
 
