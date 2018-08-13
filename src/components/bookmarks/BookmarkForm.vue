@@ -161,6 +161,9 @@
                         if (error.response.data.errors) {
                             this.response.errors = error.response.data.errors;
                         }
+                        if(error.response.status === 450) {
+                            this.formData.group_id = error.response.data.groupId
+                        }
                         this.submitData();
                     });
 
