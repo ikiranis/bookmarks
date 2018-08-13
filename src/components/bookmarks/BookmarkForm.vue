@@ -51,7 +51,7 @@
         </div>
 
         <div class="col-lg-3 col-12">
-            <img :src="formData.image" width="100%">
+            <img :src="formData.image === '' ? 'http://via.placeholder.com/350x350' : formData.image" width="100%">
         </div>
     </div>
 </template>
@@ -61,8 +61,6 @@
     import api from '@/api';
     import FormError from "../basic/FormError";
     import {mapState} from 'vuex';
-
-    const defaultImage = 'http://via.placeholder.com/350x350';
 
     export default {
 
@@ -80,7 +78,7 @@
                 url: '',
                 group_id: '',
                 groupName: '',
-                image: defaultImage
+                image: ''
             },
             groups: []
         }),
@@ -103,8 +101,10 @@
         },
 
         created: function () {
-            if(this.oldFormData) {
+            if(this.oldFormData !== null) {
                 this.formData = this.oldFormData;
+                this.getGroups();
+            } else {
                 this.getGroups();
             }
         },
@@ -168,7 +168,7 @@
             clearForm() {
                 this.formData.title = '';
                 this.formData.description = '';
-                this.formData.image = defaultImage;
+                this.formData.image = '';
             },
 
             /**
@@ -217,7 +217,7 @@
                     return tags.metaTags['twitter:image:src'];
                 }
 
-                return defaultImage;
+                return '';
             },
 
             /**

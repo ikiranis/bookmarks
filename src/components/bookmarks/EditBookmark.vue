@@ -7,7 +7,7 @@
             <span class="btn btn-success my-3 ml-auto mr-auto" v-on:click="updateBookmark()">Update bookmark</span>
         </div>
 
-        <display-error v-if="response.message" :response="response"/>
+        <display-error v-if="response.message" :response="response" />
     </div>
 
 </template>
@@ -19,8 +19,6 @@
     import DisplayError from "../basic/DisplayError";
     import BookmarkForm from "./BookmarkForm";
     import Utilities from "@/library/utilities";
-
-    const defaultImage = 'http://via.placeholder.com/350x350';
 
     export default {
 
@@ -70,14 +68,13 @@
                     description: Utilities.checkIfHTMLTextIsEmpty(this.formData.description) ? '' : this.formData.description,
                     user_id: this.userId,
                     group_id: this.formData.group_id,
-                    image: (this.formData.image === defaultImage) ? '' : this.formData.image
+                    image: this.formData.image
                 };
 
                 api.updateBookmark(args)
                     .then(response => {
                         this.response.message = response.id;
                         this.response.status = true;
-
                         this.setIsEditBookmarkOn(false);
                     })
                     .catch(error => {

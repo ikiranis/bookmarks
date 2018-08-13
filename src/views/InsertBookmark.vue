@@ -1,7 +1,7 @@
 <template>
     <div class="container">
 
-        <BookmarkForm :response="response" :oldFormData="{}" @update="getData" />
+        <BookmarkForm :response="response" :oldFormData="null" @update="getData" />
 
         <div class="row">
             <span class="btn btn-success mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
@@ -18,8 +18,6 @@
     import {mapState} from 'vuex';
     import DisplayError from "@/components/basic/DisplayError";
     import BookmarkForm from "@/components/bookmarks/BookmarkForm";
-
-    const defaultImage = 'http://via.placeholder.com/350x350';
 
     export default {
 
@@ -58,14 +56,14 @@
                     description: this.formData.description,
                     user_id: this.userId,
                     group_id: this.formData.group_id,
-                    image: (this.formData.image === defaultImage) ? '' : this.formData.image
+                    image: this.formData.image
                 };
 
                 api.saveBookmark(args)
                     .then(response => {
                         this.response.message = 'Bookmark saved, with Id: ' + response.id;
                         this.response.status = true;
-                        this.clearForm(); // clear form
+                        this.clearForm();
                         this.formData.url = '';
                     })
                     .catch(error => {
