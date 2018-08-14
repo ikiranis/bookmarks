@@ -51,8 +51,6 @@ let api = {
             page='';
         }
 
-        console.log(page)
-
         let {data} = await axios.get(ROOT_API + '/bookmarks' + page, {params: args} );
 
         return data;

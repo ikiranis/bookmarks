@@ -58,17 +58,21 @@
 
         methods: {
 
+            // TODO doesn't refresh on group choise
+
             /**
              * Get the list of bookmarks for user with userId
              */
             getBookmarks(page) {
+                console.log(this.groupId)
                 let args = {
                     user_id: this.userId,
-                    // groupId: this.groupId
+                    group_id: this.groupId
                 };
 
                 api.getBookmarks(args, page)
                     .then(response => {
+                        console.log(response)
                         this.bookmarks = response.data;
                         this.pagination.meta = response.meta;
                         this.pagination.links = response.links;
