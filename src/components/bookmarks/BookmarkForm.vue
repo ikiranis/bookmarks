@@ -16,6 +16,24 @@
                 <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
             </div>
 
+            <div class="input-group mb-3 no-gutters">
+                <label class="sr-only" for="tag">Tag</label>
+                <div class="input-group-prepend col-2">
+                    <span class="input-group-text w-100">Tag</span>
+                </div>
+                <input type="text" max="255" v-model="formData.tag" class="form-control col-8 px-2"
+                       id="tag" name="tag">
+
+                <span class="btn btn-success col-2" v-on:click="insertTag">Προσθήκη</span>
+
+                <!--<input type="hidden" v-for="tag in formData.tags" name="tags[]" :value="tag.id">-->
+
+            </div>
+
+            <div class="my-2 row">
+                <span class="my-1 mx-2 px-2 bg-primary text-light" :key="tag.id" v-for="tag in formData.tags">{{ tag.name }}</span>
+            </div>
+
             <div class="input-group">
                 <div class="input-group-prepend">
                     <label for="url" class="input-group-text">url</label>
@@ -79,7 +97,9 @@
                 url: '',
                 group_id: '',
                 groupName: '',
-                image: ''
+                image: '',
+                tags: [],
+                tag: ''
             },
             groups: []
         }),
@@ -123,7 +143,7 @@
              * Get the list of groups for the user with userId
              */
             getGroups() {
-                if(this.userId !== 0) {
+                if (this.userId !== 0) {
                     api.getGroups(this.userId)
                         .then(response => {
                             if (response.length !== 0) {
@@ -131,7 +151,6 @@
                             }
                         })
                         .catch(error => {
-                            console.log(error.response.data.message)
                             this.response.message = error.response.data.message;
                             this.response.status = false;
                             this.submitData();
@@ -160,7 +179,7 @@
                         if (error.response.data.errors) {
                             this.response.errors = error.response.data.errors;
                         }
-                        if(error.response.status === 450) {
+                        if (error.response.status === 450) {
                             this.formData.group_id = error.response.data.groupId
                         }
                         this.submitData();
@@ -243,6 +262,28 @@
                         this.response.status = false;
                         this.submitData();
                     });
+            },
+
+            /**
+             * Insert new tag
+             */
+            insertTag() {
+                let args = {
+                    name: this.formData.tag
+                };
+
+                api.insertTag(args)
+                    .then(response => {
+                        this.formData.tags.push({id: response.id, name: response.name});
+                        this.formData.tag = '';
+                        this.submitData();
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                        this.submitData();
+                    });
+
             }
 
         }

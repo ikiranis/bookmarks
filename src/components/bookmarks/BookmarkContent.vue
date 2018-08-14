@@ -11,18 +11,19 @@
                     </router-link>
                     <strong v-else>{{ bookmark.title }}</strong>
                 </div>
-                <div class="text-right">
-                    <span>{{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY HH:mm') }}</span>
+                <div class="text-right" v-if="bookmark.created_at">
+                    <small>{{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY HH:mm') }}</small>
                 </div>
             </div>
 
             <div class="card-body">
+                <div v-for="tag in bookmark.tags" :key="tag.id">{{ tag.name }}, </div>
                 <p class="card-text" v-html="bookmark.description"></p>
 
                 <a :href="bookmark.url">{{ bookmark.url }}</a>
             </div>
 
-            <div class="text-right px-3">
+            <div class="text-right px-3" v-if="bookmark.group_name">
                 <router-link :to="{ name: 'groupSearch', params: { id: bookmark.group_id } }" :key="$route.fullPath">
                     {{ bookmark.group_name }}
                 </router-link>

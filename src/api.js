@@ -101,6 +101,17 @@ let api = {
     },
 
     /**
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async insertTag(args) {
+        let {data} = await axios.post(ROOT_API + '/tag', args);
+
+        return data;
+    },
+
+    /**
      * Parse the metadata for url
      *
      * @param url

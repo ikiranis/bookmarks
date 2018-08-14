@@ -67,11 +67,14 @@
                     description: this.formData.description,
                     user_id: this.userId,
                     group_id: this.formData.group_id,
-                    image: this.formData.image
+                    image: this.formData.image,
+                    tags: this.formData.tags.map(value => value.id)
                 };
 
+                console.log(args.tags);
                 api.saveBookmark(args)
                     .then(response => {
+                        console.log(response)
                         this.response.message = 'Bookmark saved, with Id: ' + response.id;
                         this.response.status = true;
                         this.clearForm();
