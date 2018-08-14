@@ -8,7 +8,7 @@
                       @click="displayRegisterComponent">Register User</span>
             </div>
         </div>
-        <display-bookmarks :groupId="this.$route.params.groupId" v-else/>
+        <display-bookmarks :groupId="groupId" v-else/>
 
         <Register v-if="displayRegister"/>
         <div class="row">
@@ -32,7 +32,11 @@
         name: 'home',
 
         computed: {
-            ...mapState(['displayRegister', 'username'])
+            ...mapState(['displayRegister', 'username']),
+
+            groupId: function() {
+                return this.$route.params.groupId;
+            }
         },
 
         beforeCreate: function () {
