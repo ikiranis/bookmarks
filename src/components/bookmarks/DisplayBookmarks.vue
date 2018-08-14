@@ -10,7 +10,6 @@
 
         </div>
 
-
         <nav v-if="pagination.links" aria-label="Bookmarks navigation" class="row mt-3">
             <ul class="pagination ml-auto mr-auto">
                 <li class="page-item" :class="pagination.links.prev ? '' : 'disabled'">
@@ -24,8 +23,6 @@
                 </li>
             </ul>
         </nav>
-
-
 
     </div>
 </template>
@@ -47,6 +44,10 @@
             },
         }),
 
+        props: {
+            groupId: String
+        },
+
         computed: {
             ...mapState(['userId'])
         },
@@ -61,7 +62,12 @@
              * Get the list of bookmarks for user with userId
              */
             getBookmarks(page) {
-                api.getBookmarks(this.userId, page)
+                let args = {
+                    user_id: this.userId,
+                    // groupId: this.groupId
+                };
+
+                api.getBookmarks(args, page)
                     .then(response => {
                         this.bookmarks = response.data;
                         this.pagination.meta = response.meta;

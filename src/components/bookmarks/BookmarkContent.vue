@@ -16,6 +16,13 @@
                 <a :href="bookmark.url">{{ bookmark.url }}</a>
             </div>
 
+            <div class="text-right px-3">
+                <router-link :to="{ name: 'groupHome', params: { groupId: bookmark.group_id } }" :key="$route.fullPath">
+                    {{ bookmark.group_name }}
+                </router-link>
+            </div>
+
+
             <div class="card-footer text-center" v-if="!bookmarksList">
                 <span class="btn btn-sm btn-info mx-1" v-on:click="editBookmark()">Edit</span>
                 <span class="btn btn-sm btn-danger mx-1"
@@ -60,7 +67,7 @@
              */
             removeBookmark() {
                 api.removeBookmark(this.bookmark.id)
-                    .then(response => {
+                    .then(() => {
                         this.$router.push({path: '/'}); // Force to load home page
                     })
                     .catch(error => {

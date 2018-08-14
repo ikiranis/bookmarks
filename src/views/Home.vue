@@ -8,7 +8,7 @@
                       @click="displayRegisterComponent">Register User</span>
             </div>
         </div>
-        <display-bookmarks v-else/>
+        <display-bookmarks :groupId="this.$route.params.groupId" v-else/>
 
         <Register v-if="displayRegister"/>
         <div class="row">

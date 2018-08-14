@@ -44,12 +44,16 @@ let api = {
      * @param page
      * @returns {Promise<void>}
      */
-    async getBookmarks(userId, page) {
+    async getBookmarks(args, page) {
         if (page !== null) {
             page = '?' + page.split('?')[1];
+        } else {
+            page='';
         }
 
-        let {data} = await axios.get(ROOT_API + '/bookmarks/' + userId + page);
+        console.log(page)
+
+        let {data} = await axios.get(ROOT_API + '/bookmarks' + page, {params: args} );
 
         return data;
     },

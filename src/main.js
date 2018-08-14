@@ -38,7 +38,3 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app');
-
-
-
-// TODO check if api works and display errors when api fails
