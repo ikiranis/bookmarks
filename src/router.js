@@ -35,7 +35,7 @@ export default new Router({
             name: 'groupSearch',
             component: Home,
             meta: {
-                title: 'Bookmark - Bookmarks'
+                title: 'Group - Bookmarks'
             }
         },
         {
