@@ -2,12 +2,13 @@
     <div class="displayBookmarks container">
 
         <div class="row">
-            <div class="input-group col-lg-3 col-12 ml-auto mr-auto">
+            <div class="input-group col-lg-6 col-12 ml-auto mr-auto">
                 <label for="search" class="sr-only">Search</label>
                 <input type="text" max="100" class="form-control" id="search" name="search"
                        v-model="search">
 
-                <span class="btn btn-info mx-1" v-on:click="searchText()">Search</span>
+                <span class="btn btn-success mx-1" v-on:click="searchText()">Search</span>
+                <span class="btn btn-danger mx-1" v-on:click="clearSearch()">Clear Search</span>
             </div>
         </div>
 
@@ -92,6 +93,11 @@
             },
 
             searchText() {
+                this.getBookmarks(null);
+            },
+
+            clearSearch() {
+                this.search = '';
                 this.getBookmarks(null);
             }
 

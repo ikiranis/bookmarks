@@ -39,14 +39,6 @@ export default new Router({
             }
         },
         {
-            path: '/search/:text',
-            name: 'search',
-            component: Home,
-            meta: {
-                title: 'Bookmark - Bookmarks'
-            }
-        },
-        {
             path: '/insertBookmark',
             name: 'insertBookmark',
             component: InsertBookmark,
