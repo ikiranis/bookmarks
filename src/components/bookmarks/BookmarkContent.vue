@@ -22,12 +22,16 @@
                 <a :href="bookmark.url">{{ bookmark.url }}</a>
 
                 <div class="row mt-2">
-                    <span class="mx-2 px-2 bg-primary text-light" :key="tag.id" v-for="tag in bookmark.tags">{{ tag.name }}</span>
+                        <router-link class="mx-2 px-2 bg-primary text-light"
+                                     :key="tag.id" v-for="tag in bookmark.tags"
+                                     :to="{ name: 'tagSearch', params: { id: tag.id } }">
+                            {{ tag.name }}
+                        </router-link>
                 </div>
             </div>
 
             <div class="text-right px-3" v-if="bookmark.group_name">
-                <router-link :to="{ name: 'groupSearch', params: { id: bookmark.group_id } }" :key="$route.fullPath">
+                <router-link :to="{ name: 'groupSearch', params: { id: bookmark.group_id } }" :key="bookmark.group_id">
                     {{ bookmark.group_name }}
                 </router-link>
             </div>

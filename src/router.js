@@ -39,6 +39,14 @@ export default new Router({
             }
         },
         {
+            path: '/tag/:id',
+            name: 'tagSearch',
+            component: Home,
+            meta: {
+                title: 'Tag - Bookmarks'
+            }
+        },
+        {
             path: '/insertBookmark',
             name: 'insertBookmark',
             component: InsertBookmark,

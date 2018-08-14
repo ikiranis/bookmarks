@@ -54,11 +54,12 @@
         }),
 
         props: {
-            groupId: String
+            searchId: String,
+            routeName: String
         },
 
         watch: {
-            groupId() {
+            searchId() {
                 this.getBookmarks(null);
             }
         },
@@ -79,8 +80,9 @@
             getBookmarks(page) {
                 let args = {
                     user_id: this.userId,
-                    group_id: this.groupId,
-                    search: this.search
+                    group_id: this.routeName === 'groupSearch' ? this.searchId : '',
+                    search: this.search,
+                    tag_id: this.routeName === 'tagSearch' ? this.searchId : ''
                 };
 
                 api.getBookmarks(args, page)

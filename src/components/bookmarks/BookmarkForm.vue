@@ -16,15 +16,14 @@
                 <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
             </div>
 
-            <div class="input-group mb-3 no-gutters">
-                <label class="sr-only" for="tag">Tag</label>
-                <div class="input-group-prepend col-2">
-                    <span class="input-group-text w-100">Tag</span>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label for="tag" class="input-group-text">Tag</label>
                 </div>
-                <input type="text" max="255" v-model="formData.tag" class="form-control col-8 px-2"
+                <input type="text" max="255" v-model="formData.tag" class="form-control form-control-sm"
                        id="tag" name="tag">
 
-                <span class="btn btn-success col-2" v-on:click="insertTag">Προσθήκη</span>
+                <span class="btn btn-success mx-1" v-on:click="insertTag">Προσθήκη</span>
 
             </div>
 
