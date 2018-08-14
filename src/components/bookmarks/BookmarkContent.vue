@@ -12,7 +12,7 @@
                     <strong v-else>{{ bookmark.title }}</strong>
                 </div>
                 <div class="text-right">
-                    <span>{{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY hh:mm') }}</span>
+                    <span>{{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY HH:mm') }}</span>
                 </div>
             </div>
 

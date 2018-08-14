@@ -51,8 +51,8 @@
                         this.apiWorks = true;
                     })
                     .catch(error => {
-                        console.log(error.response.data.message);
                         this.apiWorks = false;
+                        console.log(error);
                     });
             }
 
