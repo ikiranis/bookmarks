@@ -31,8 +31,16 @@ export default new Router({
             }
         },
         {
-            path: '/home/:groupId',
-            name: 'groupHome',
+            path: '/group/:id',
+            name: 'groupSearch',
+            component: Home,
+            meta: {
+                title: 'Bookmark - Bookmarks'
+            }
+        },
+        {
+            path: '/search/:text',
+            name: 'search',
             component: Home,
             meta: {
                 title: 'Bookmark - Bookmarks'

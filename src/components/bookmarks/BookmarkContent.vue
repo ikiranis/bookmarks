@@ -17,7 +17,7 @@
             </div>
 
             <div class="text-right px-3">
-                <router-link :to="{ name: 'groupHome', params: { groupId: bookmark.group_id } }" :key="$route.fullPath">
+                <router-link :to="{ name: 'groupSearch', params: { id: bookmark.group_id } }" :key="$route.fullPath">
                     {{ bookmark.group_name }}
                 </router-link>
             </div>

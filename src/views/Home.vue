@@ -35,7 +35,7 @@
             ...mapState(['displayRegister', 'username']),
 
             groupId: function() {
-                return this.$route.params.groupId;
+                return this.$route.params.id;
             }
         },
 
