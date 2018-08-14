@@ -17,10 +17,13 @@
             </div>
 
             <div class="card-body">
-                <div v-for="tag in bookmark.tags" :key="tag.id">{{ tag.name }}, </div>
                 <p class="card-text" v-html="bookmark.description"></p>
 
                 <a :href="bookmark.url">{{ bookmark.url }}</a>
+
+                <div class="row mt-2">
+                    <span class="mx-2 px-2 bg-primary text-light" :key="tag.id" v-for="tag in bookmark.tags">{{ tag.name }}</span>
+                </div>
             </div>
 
             <div class="text-right px-3" v-if="bookmark.group_name">

@@ -68,7 +68,8 @@
                     description: Utilities.checkIfHTMLTextIsEmpty(this.formData.description) ? '' : this.formData.description,
                     user_id: this.userId,
                     group_id: this.formData.group_id,
-                    image: this.formData.image
+                    image: this.formData.image,
+                    tags: this.formData.tags.map(value => value.id)
                 };
 
                 api.updateBookmark(args)

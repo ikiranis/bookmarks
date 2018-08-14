@@ -26,8 +26,6 @@
 
                 <span class="btn btn-success col-2" v-on:click="insertTag">Προσθήκη</span>
 
-                <!--<input type="hidden" v-for="tag in formData.tags" name="tags[]" :value="tag.id">-->
-
             </div>
 
             <div class="my-2 row">
