@@ -67,7 +67,7 @@
         </div>
 
         <div class="col-lg-3 col-12">
-            <img :src="formData.image === '' ? 'http://via.placeholder.com/350x350' : formData.image" width="100%">
+            <img :src="formData.image === '' ? 'https://via.placeholder.com/350x350' : formData.image" width="100%">
         </div>
     </div>
 </template>
