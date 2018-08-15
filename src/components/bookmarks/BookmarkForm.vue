@@ -31,7 +31,7 @@
                     <label for="tag" class="input-group-text">Tag</label>
                 </div>
                 <input type="text" max="255" v-model="formData.tag" class="form-control form-control-sm"
-                       id="tag" name="tag">
+                       id="tag" name="tag" placeholder="Split tags with ','">
 
                 <span class="btn btn-secondary mx-1" v-on:click="insertTag">Insert tag</span>
 
@@ -272,21 +272,25 @@
              * Insert new tag
              */
             insertTag() {
-                let args = {
-                    name: this.formData.tag
-                };
+                let tags = this.formData.tag.split(',');
 
-                api.insertTag(args)
-                    .then(response => {
-                        this.formData.tags.push({id: response.id, name: response.name});
-                        this.formData.tag = '';
-                        this.submitData();
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
-                        this.submitData();
-                    });
+                for (let tag in tags) {
+                    let args = {
+                        name: tags[tag]
+                    };
+
+                    api.insertTag(args)
+                        .then(response => {
+                            this.formData.tags.push({id: response.id, name: response.name});
+                            this.formData.tag = '';
+                            this.submitData();
+                        })
+                        .catch(error => {
+                            this.response.message = error.response.data.message;
+                            this.response.status = false;
+                            this.submitData();
+                        });
+                }
 
             }
 
@@ -294,3 +298,10 @@
     }
 
 </script>
+
+<style scoped>
+    .form-control::placeholder {
+        color: grey;
+        opacity: 0.5;
+    }
+</style>
