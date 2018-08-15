@@ -31,7 +31,7 @@
                     <label for="tag" class="input-group-text">Tag</label>
                 </div>
                 <input type="text" max="255" v-model="formData.tag" class="form-control form-control-sm"
-                       id="tag" name="tag" placeholder="Split tags with ','">
+                       id="tag" name="tag" placeholder="Split tags with comma (,)">
 
                 <span class="btn btn-secondary mx-1" v-on:click="insertTag">Insert tag</span>
 
