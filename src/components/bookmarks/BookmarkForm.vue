@@ -253,7 +253,6 @@
                 api.getMetadata(args)
                     .then(response => {
                         this.clearForm(); // clear form
-                        // console.log(response.tags)
                         this.formData.description = this.getDescriptionText(response.tags);
                         this.formData.title = this.getTitleText(response.tags);
                         this.formData.image = this.getImageUrl(response.tags);
