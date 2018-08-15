@@ -13,3 +13,7 @@ _(install npm first... Duh! https://nodejs.org/en/)_
 **Run the application development environment**
 
 `npm run serve`
+
+**Run the application production environment**
+
+`npm run build`

@@ -54,8 +54,8 @@
                 status: ''
             },
             credentials: {
-                username: 'rocean74@gmail.com',
-                password: '123456'
+                username: '',
+                password: ''
             }
         }),
 
