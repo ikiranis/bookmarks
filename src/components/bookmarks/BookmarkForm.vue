@@ -246,7 +246,11 @@
              * Parse the metadata for this.formData.url
              */
             getMetadata() {
-                api.getMetadata(this.formData.url)
+                let args = {
+                    url: this.formData.url
+                };
+
+                api.getMetadata(args)
                     .then(response => {
                         this.clearForm(); // clear form
                         // console.log(response.tags)

@@ -114,11 +114,11 @@ let api = {
     /**
      * Parse the metadata for url
      *
-     * @param url
      * @returns {Promise<void>}
+     * @param args
      */
-    async getMetadata(url) {
-        let {data} = await axios.get(ROOT_API + '/metadata/' + url);
+    async getMetadata(args) {
+        let {data} = await axios.get(ROOT_API + '/metadata', {params: args} );
 
         return data;
 
