@@ -11,6 +11,7 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" v-model="userInfo.name" required
                                            autofocus>
+                                    <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -18,6 +19,7 @@
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" v-model="userInfo.email"
                                            required>
+                                    <form-error v-if="response.errors.email" :error="response.errors.email[0]"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -25,6 +27,7 @@
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control"
                                            v-model="userInfo.password" required>
+                                    <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -58,15 +61,17 @@
     import api from '@/api';
     import {mapMutations} from 'vuex';
     import DisplayError from "../basic/DisplayError";
+    import FormError from "../basic/FormError";
 
     export default {
 
-        components: {DisplayError},
+        components: {DisplayError, FormError},
 
         data: () => ({
             response: {
                 message: '',
-                status: ''
+                status: '',
+                errors: []
             },
             userInfo: {
                 name: '',
@@ -92,9 +97,11 @@
                             this.setDisplayRegister(false);
                         })
                         .catch(error => {
-                            console.log(error);
                             this.response.message = error.response.data.message;
                             this.response.status = false;
+                            if (error.response.data.errors) {
+                                this.response.errors = error.response.data.errors;
+                            }
                         });
                 } else {
                     this.response.message = 'Passwords not validated';
