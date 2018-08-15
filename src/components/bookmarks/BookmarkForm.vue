@@ -23,7 +23,7 @@
                 <input type="text" max="255" v-model="formData.tag" class="form-control form-control-sm"
                        id="tag" name="tag">
 
-                <span class="btn btn-success mx-1" v-on:click="insertTag">Προσθήκη</span>
+                <span class="btn btn-success mx-1" v-on:click="insertTag">Insert tag</span>
 
             </div>
 
