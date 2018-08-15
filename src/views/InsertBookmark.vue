@@ -55,6 +55,7 @@
                 this.formData.image = '';
                 this.formData.url = '';
                 this.formData.group_id = '';
+                this.formData.tags = [];
             },
 
             /**
