@@ -16,22 +16,7 @@
                 <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
             </div>
 
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <label for="tag" class="input-group-text">Tag</label>
-                </div>
-                <input type="text" max="255" v-model="formData.tag" class="form-control form-control-sm"
-                       id="tag" name="tag">
-
-                <span class="btn btn-success mx-1" v-on:click="insertTag">Insert tag</span>
-
-            </div>
-
-            <div class="my-2 row">
-                <span class="my-1 mx-2 px-2 bg-primary text-light" :key="tag.id" v-for="tag in formData.tags">{{ tag.name }}</span>
-            </div>
-
-            <div class="input-group">
+            <div class="input-group mt-3">
                 <div class="input-group-prepend">
                     <label for="url" class="input-group-text">url</label>
                 </div>
@@ -41,8 +26,23 @@
                 <form-error v-if="response.errors.url" :error="response.errors.url[0]"/>
             </div>
 
-            <div class="row my-3">
-                <div class="input-group col-lg-6 col-12">
+            <div class="input-group mt-3">
+                <div class="input-group-prepend">
+                    <label for="tag" class="input-group-text">Tag</label>
+                </div>
+                <input type="text" max="255" v-model="formData.tag" class="form-control form-control-sm"
+                       id="tag" name="tag">
+
+                <span class="btn btn-secondary mx-1" v-on:click="insertTag">Insert tag</span>
+
+            </div>
+
+            <div class="my-2 row">
+                <span class="my-1 mx-2 px-2 bg-primary text-light" :key="tag.id" v-for="tag in formData.tags">{{ tag.name }}</span>
+            </div>
+
+            <div class="row mt-3">
+                <div class="input-group col-lg-4 col-12 my-1">
                     <div class="input-group-prepend">
                         <label for="group_id" class="input-group-text">Choose group</label>
                     </div>
@@ -52,14 +52,18 @@
                     </select>
                 </div>
 
-                <div class="input-group col-lg-6 col-12">
+                <div class="input-group col-lg-4 col-12 my-1">
                     <div class="input-group-prepend">
                         <label for="group_name" class="input-group-text">Group name</label>
                     </div>
                     <input type="text" max="50" class="form-control"
                            id="group_name" name="group_name" v-model="formData.groupName" @input="submitData">
 
-                    <span class="btn btn-info mx-1" v-on:click="saveGroup()">Insert new group</span>
+
+                </div>
+
+                <div class="col-lg-4 col-12 my-1">
+                    <span class="btn btn-info mx-1 w-100" v-on:click="saveGroup()">Insert new group</span>
                 </div>
 
                 <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>

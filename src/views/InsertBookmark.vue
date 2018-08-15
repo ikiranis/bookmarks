@@ -1,10 +1,10 @@
 <template>
-    <div class="container">
+    <div class="container mb-3">
 
-        <BookmarkForm :response="response" :oldFormData="formData" @update="getData"/>
+        <BookmarkForm :response="response" :oldFormData="formData" @update="getData" />
 
         <div class="row">
-            <span class="btn btn-success mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
+            <span class="btn btn-success col-lg-6 col-12 mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
         </div>
 
         <display-error v-if="response.message" :response="response"/>
