@@ -23,7 +23,7 @@
         <div class="card-body">
             <p class="card-text" v-html="bookmark.description"></p>
 
-            <a :href="bookmark.url">{{ bookmark.url }}</a>
+            <a :href="bookmark.url" v-if="bookmark.url" target="new">{{ urlParser.hostname }}</a>
 
             <div class="row mt-2">
                 <router-link class="mx-2 px-2 bg-primary text-light"
@@ -58,6 +58,7 @@
     import EditBookmark from './EditBookmark';
     import {mapState, mapMutations} from 'vuex';
     import moment from 'moment';
+    import utility from "@/library/utilities";
 
     export default {
 
@@ -69,7 +70,11 @@
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn'])
+            ...mapState(['userId', 'isEditBookmarkOn']),
+
+            urlParser: function () {
+                return utility.parse_url(this.bookmark.url);
+            }
         },
 
         created: function () {

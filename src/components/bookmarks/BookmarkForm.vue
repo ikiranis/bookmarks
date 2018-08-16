@@ -84,7 +84,7 @@
     import api from '@/api';
     import FormError from "../basic/FormError";
     import {mapState} from 'vuex';
-    import utility from "../../library/utilities";
+    import utility from "@/library/utilities";
 
     export default {
 

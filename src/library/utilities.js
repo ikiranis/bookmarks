@@ -31,6 +31,28 @@ let utilities = {
         }
 
         return true;
+    },
+
+    /**
+     * Parse a url and get parts of it
+     *
+     * @param url
+     * @returns {HTMLElement}
+     *
+     * parser.protocol;  => "http:"
+     * parser.host;      => "example.com:3000"
+     * parser.hostname;  => "example.com"
+     * parser.port;      => "3000"
+     * parser.pathname;  => "/pathname/"
+     * parser.hash;      => "#hash"
+     * parser.search;    => "?search=test"
+     * parser.origin;    => "http://example.com:3000"
+     */
+    parse_url(url) {
+        let parser = document.createElement('a');
+        parser.href = url;
+
+        return parser;
     }
 
 };
