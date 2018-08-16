@@ -38,3 +38,7 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app');
+
+// TODO solve the apache problem with refresh
+// TODO find how to build different bundle version on build, so you must not force reload to refresh new version page
+// TODO fix the login flickering at start
