@@ -38,7 +38,10 @@
             </div>
 
             <div class="my-2 row">
-                <span class="my-1 mx-2 px-2 bg-primary text-light" :key="tag.id" v-for="tag in formData.tags">{{ tag.name }}</span>
+                <span class="my-1 mx-2 px-2 bg-primary text-light"
+                      :key="tag.id" v-for="tag in formData.tags">
+                    {{ tag.name }} <span id="removeTag" @click="removeTag(tag.id)" title="Remove Tag">x</span>
+                </span>
             </div>
 
             <div class="row mt-3">
@@ -81,6 +84,7 @@
     import api from '@/api';
     import FormError from "../basic/FormError";
     import {mapState} from 'vuex';
+    import utility from "../../library/utilities";
 
     export default {
 
@@ -272,26 +276,35 @@
              * Insert new tag
              */
             insertTag() {
-                let tags = this.formData.tag.split(',');
+                if(this.formData.tag !== '') {
+                    let tags = this.formData.tag.split(',');
 
-                for (let tag in tags) {
-                    let args = {
-                        name: tags[tag]
-                    };
+                    for (let tag in tags) {
+                        let args = {
+                            name: tags[tag]
+                        };
 
-                    api.insertTag(args)
-                        .then(response => {
-                            this.formData.tags.push({id: response.id, name: response.name});
-                            this.formData.tag = '';
-                            this.submitData();
-                        })
-                        .catch(error => {
-                            this.response.message = error.response.data.message;
-                            this.response.status = false;
-                            this.submitData();
-                        });
+                        api.insertTag(args)
+                            .then(response => {
+                                this.formData.tags.push({id: response.id, name: response.name});
+                                this.formData.tag = '';
+                                this.submitData();
+                            })
+                            .catch(error => {
+                                this.response.message = error.response.data.message;
+                                this.response.status = false;
+                                this.submitData();
+                            });
+                    }
+                } else {
+                    this.response.message = 'Empty Tags';
+                    this.response.status = false;
                 }
 
+            },
+
+            removeTag(tagId) {
+                this.formData.tags = utility.removeObjFromArray(this.formData.tags, 'id', tagId);
             }
 
         }
@@ -303,5 +316,9 @@
     .form-control::placeholder {
         color: grey;
         opacity: 0.5;
+    }
+
+    #removeTag {
+        cursor: pointer;
     }
 </style>
