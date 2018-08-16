@@ -12,8 +12,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-6 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
+        <div class="card-columns mt-3">
+            <div v-for="bookmark in bookmarks" :key="bookmark.id">
                 <BookmarkContent :bookmark="bookmark" :bookmarksList="true"/>
             </div>
         </div>
@@ -107,3 +107,20 @@
         }
     }
 </script>
+
+<style scoped lang="scss">
+
+    @media (max-width: 991px) {
+        .card-columns {
+            column-count: 1;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .card-columns {
+            column-count: 2;
+        }
+    }
+
+
+</style>
