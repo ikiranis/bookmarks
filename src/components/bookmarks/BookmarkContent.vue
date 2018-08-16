@@ -40,8 +40,7 @@
                 </router-link>
             </div>
 
-
-            <div class="card-footer text-center" v-if="!bookmarksList">
+            <div class="card-footer text-center" v-if="!bookmarksList && bookmark.user_id === userId">
                 <span class="btn btn-sm btn-info mx-1" v-on:click="editBookmark()">Edit</span>
                 <span class="btn btn-sm btn-danger mx-1"
                       v-on:click="removeBookmark()">Remove</span>
