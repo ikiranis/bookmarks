@@ -12,7 +12,10 @@
                     <strong v-else>{{ bookmark.title }}</strong>
                 </div>
                 <div class="text-right" v-if="bookmark.created_at">
-                    <small>{{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY HH:mm') }}</small>
+                    <small>Created at
+                        <span :title="moment(String(bookmark.created_at.date)).format('DD/MM/YYYY HH:mm')">
+                            {{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY') }}
+                        </span> by {{ bookmark.owner }}</small>
                 </div>
             </div>
 

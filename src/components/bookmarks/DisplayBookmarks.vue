@@ -87,6 +87,7 @@
 
                 api.getBookmarks(args, page)
                     .then(response => {
+                        console.log(response)
                         this.bookmarks = response.data;
                         this.pagination.meta = response.meta;
                         this.pagination.links = response.links;
