@@ -11,19 +11,22 @@
                         <router-link :to="{ name: 'group', params: { id: group.id } }">{{ group.name }}</router-link>
                     </div>
 
-                    <div class="card-footer text-center">
-                        <div v-if="group.user_id === userId">
+                    <div class="card-footer">
+                        <div v-if="group.user_id === userId" class="text-center">
                             <span class="btn btn-sm btn-info mx-1" v-on:click="editGroup(group.id)">Edit</span>
                             <span class="btn btn-sm btn-danger mx-1" v-on:click="removeGroup(group.id)">Remove</span>
                         </div>
-                        <div v-else>
-                            Created by {{ group.owner }}
+                        <div class="row" v-else>
+                            <span class="mr-auto px-2">Created by {{ group.owner }}</span>
+                            <span class="btn btn-sm btn-danger mx-1 ml-auto" v-on:click="leaveGroup(group.id)">Leave</span>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
+
+        <display-error v-if="response.message" :response="response" />
 
         <edit-group :groupId="groupId" v-if="isEditGroupOn"/>
 
@@ -35,12 +38,18 @@
     import EditGroup from './EditGroup';
     import utility from '@/library/utilities';
     import {mapState, mapMutations} from 'vuex';
+    import DisplayError from "../basic/DisplayError";
 
     export default {
 
-        components: {EditGroup},
+        components: {DisplayError, EditGroup},
 
         data: () => ({
+            response: {
+                message: '',
+                status: '',
+                errors: []
+            },
             groups: [],
             groupId: ''
         }),
@@ -100,6 +109,26 @@
             editGroup(groupId) {
                 this.groupId = groupId;
                 this.setIsEditGroupOn(true);
+            },
+
+            /**
+             * Remove user with this.userId from group with groupId
+             * @param groupId
+             */
+            leaveGroup(groupId) {
+                let args = {
+                    userId: this.userId,
+                    groupId: groupId
+                };
+
+                api.removeUserFromGroup(args)
+                    .then(() => {
+                        this.groups = utility.removeObjFromArray(this.groups, 'id', groupId);
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    });
             }
 
         }
