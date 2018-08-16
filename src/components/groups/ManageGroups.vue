@@ -12,15 +12,20 @@
                     </div>
 
                     <div class="card-footer text-center">
-                        <span class="btn btn-sm btn-info mx-1" v-on:click="editGroup(group.id)">Edit</span>
-                        <span class="btn btn-sm btn-danger mx-1" v-on:click="removeGroup(group.id)">Remove</span>
+                        <div v-if="group.user_id === userId">
+                            <span class="btn btn-sm btn-info mx-1" v-on:click="editGroup(group.id)">Edit</span>
+                            <span class="btn btn-sm btn-danger mx-1" v-on:click="removeGroup(group.id)">Remove</span>
+                        </div>
+                        <div v-else>
+                            Created by {{ group.owner }}
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <edit-group :groupId="groupId" v-if="isEditGroupOn" />
+        <edit-group :groupId="groupId" v-if="isEditGroupOn"/>
 
     </div>
 </template>
@@ -29,7 +34,7 @@
     import api from '@/api';
     import EditGroup from './EditGroup';
     import utility from '@/library/utilities';
-    import {mapState,mapMutations} from 'vuex';
+    import {mapState, mapMutations} from 'vuex';
 
     export default {
 
