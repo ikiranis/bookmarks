@@ -42,3 +42,4 @@ new Vue({
 // TODO solve the apache problem with refresh
 // TODO find how to build different bundle version on build, so you must not force reload to refresh new version page
 // TODO fix the login flickering at start
+// TODO user screen. Change password, name. Delete account
