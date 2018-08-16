@@ -1,5 +1,5 @@
 <template>
-    <div class="group">
+    <div>
         <ManageGroup :id="$route.params.id"/>
     </div>
 </template>

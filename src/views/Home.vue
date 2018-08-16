@@ -1,5 +1,5 @@
 <template>
-    <div class="home container">
+    <div class="container-fluid">
 
         <div v-if="!username">
             <Login v-if="!displayRegister"/>

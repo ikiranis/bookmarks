@@ -1,5 +1,5 @@
 <template>
-    <div class="container bg-light my-3">
+    <div class="mx-3">
 
         <BookmarkContent :bookmark="bookmark" :bookmarksList="false" />
 

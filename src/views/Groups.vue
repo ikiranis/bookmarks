@@ -1,5 +1,5 @@
 <template>
-    <div class="groups">
+    <div>
         <ManageGroups v-if="userId !== 0" />
     </div>
 </template>

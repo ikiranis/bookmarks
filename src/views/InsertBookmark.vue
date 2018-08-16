@@ -1,6 +1,5 @@
 <template>
-    <div class="container mb-3">
-
+    <div class="mb-3 mx-3">
         <BookmarkForm :response="response" :oldFormData="formData" @update="getData" />
 
         <div class="row">

@@ -1,5 +1,5 @@
 <template>
-    <div class="container bg-light my-3">
+    <div class="my-3 mx-3">
 
         <div class="card">
             <div class="card-header">

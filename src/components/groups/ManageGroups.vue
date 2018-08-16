@@ -1,5 +1,5 @@
 <template>
-    <div class="manageGroups container">
+    <div class="mx-3">
         <h3 class="text-center">List of Groups</h3>
 
         <div class="row">

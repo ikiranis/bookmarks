@@ -1,5 +1,5 @@
 <template>
-    <div class="editBookmark container bg-light my-3">
+    <div class="my-3">
 
         <BookmarkForm :response="response" :oldFormData="formData" @update="getData" />
 

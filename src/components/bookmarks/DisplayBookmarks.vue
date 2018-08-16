@@ -1,6 +1,5 @@
 <template>
-    <div class="displayBookmarks container">
-
+    <div>
         <div class="row">
             <div class="input-group col-lg-6 col-12 ml-auto mr-auto">
                 <label for="search" class="sr-only">Search</label>
@@ -31,7 +30,6 @@
                 </li>
             </ul>
         </nav>
-
     </div>
 </template>
 
