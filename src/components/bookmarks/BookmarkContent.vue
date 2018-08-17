@@ -1,5 +1,5 @@
 <template>
-	<div class="col-lg-6 col-12 mt-3">
+
 		<div class="card">
 			<img v-if="bookmark.image" class="card-img-top" :src="bookmark.image" alt="Bookmark image">
 
@@ -16,7 +16,7 @@
 						<span :title="moment(String(bookmark.created_at.date)).format('DD/MM/YYYY HH:mm')">
 								{{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY') }}
 							</span>
-						by {{ bookmark.owner }} 5555
+						by {{ bookmark.owner }}
 					</small>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 
 			<edit-bookmark :bookmark="bookmark" v-if="isEditBookmarkOn"/>
 		</div>
-	</div>
+
 </template>
 
 <script>
