@@ -25,7 +25,3 @@
   ExpiresByType image/x-icon "access plus 1 month"
   ExpiresByType text/html "access plus 1 second"
 </IfModule>
-
-<FilesMatch "\.(html|htm|xml|txt|xsl)$">
-  Header set Cache-Control "max-age=1, private, must-revalidate"
-</FilesMatch>
