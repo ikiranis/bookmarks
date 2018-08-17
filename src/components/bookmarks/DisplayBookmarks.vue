@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row mt-3 no-gutters">
             <div v-for="bookmark in bookmarks" :key="bookmark.id">
                 <BookmarkContent :bookmark="bookmark" :bookmarksList="true"/>
             </div>
