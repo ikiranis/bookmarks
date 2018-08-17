@@ -1,8 +1,8 @@
 <template>
-    <div class="card">
+    <div class="card col-lg-6 col-12">
         <img v-if="bookmark.image" class="card-img-top" :src="bookmark.image" alt="Bookmark image">
 
-        <div class="card-header col-lg-6 col-12">
+        <div class="card-header">
             <div>
                 <router-link v-if="bookmarksList" :to="{ name: 'bookmark', params: { id: bookmark.id } }"
                              :key="$route.fullPath">
