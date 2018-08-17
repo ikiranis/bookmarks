@@ -10,5 +10,4 @@
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresDefault "access plus 1 second"
-    Header append Cache-Control "must-revalidate"
 </IfModule>
