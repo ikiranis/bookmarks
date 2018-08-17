@@ -8,5 +8,7 @@
 </IfModule>
 
 <IfModule mod_expires.c>
-		Header set Cache-Control "max-age=1, must-revalidate"
+    ExpiresActive On
+    ExpiresDefault "access plus 1 second"
+		Header set Cache-Control "max-age=1, private, must-revalidate"
 </IfModule>
