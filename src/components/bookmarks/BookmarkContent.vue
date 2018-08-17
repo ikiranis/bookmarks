@@ -16,7 +16,7 @@
 						<span :title="moment(String(bookmark.created_at.date)).format('DD/MM/YYYY HH:mm')">
 								{{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY') }}
 							</span>
-						by {{ bookmark.owner }} 3
+						by {{ bookmark.owner }} 5
 					</small>
 				</div>
 			</div>
