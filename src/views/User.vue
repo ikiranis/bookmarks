@@ -14,8 +14,10 @@
                 </div>
 
                 <div>
-                    <div>Api url for addToMany Plugin</div> 
-                    <code>{{ apiUrl }}</code>
+                    <div>Api url for <a href="https://www.addtoany.com/" target="new">addToAny Plugin</a></div> 
+                    <code>{{ apiUrl + '&url=${link}' }}</code>
+                    <div>Or for <a href="https://play.google.com/store/apps/details?id=net.daverix.urlforward" target="new">Url Forwarder for Android</a></div> 
+                    <code>{{ apiUrl + '&url=@url'}}</code>
                 </div>
 
             </div>
@@ -46,8 +48,7 @@
                 return process.env.VUE_APP_API_HOST 
                     + process.env.VUE_APP_API_SUFFIX 
                     + '/addBookmark?api_key=' 
-                    + this.user.api_key 
-                    + '&url=${link}';
+                    + this.user.api_key;
             }
         },
 
