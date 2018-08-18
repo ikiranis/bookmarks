@@ -8,7 +8,9 @@
 </IfModule>
 
 <IfModule mod_expires.c>
+  <FilesMatch "\.(html)$">
     ExpiresActive On
     ExpiresDefault "access plus 1 second"
-		Header set Cache-Control "max-age=1, private, must-revalidate"
+    Header set Cache-Control "max-age=1, private, must-revalidate"
+  </FilesMatch>
 </IfModule>

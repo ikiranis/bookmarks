@@ -15,9 +15,9 @@
 
                 <div>
                     <div>Api url for <a href="https://www.addtoany.com/" target="new">addToAny Plugin</a></div> 
-                    <code>{{ apiUrl + '&url=${link}' }}</code>
+                    <code>{{ apiUrl }}&url=<strong>${link}</strong></code>
                     <div>Or for <a href="https://play.google.com/store/apps/details?id=net.daverix.urlforward" target="new">Url Forwarder for Android</a></div> 
-                    <code>{{ apiUrl + '&url=@url'}}</code>
+                    <code>{{ apiUrl }}&url=<strong>@url</strong></code>
                 </div>
 
             </div>
