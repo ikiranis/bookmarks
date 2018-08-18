@@ -21,4 +21,8 @@
 	ExpiresByType application/javascript "access plus 1 years"
     # Header set Cache-Control "max-age=1, private, must-revalidate"
 
+	<FilesMatch ".(js|css|html|htm|php|xml)$">
+		SetOutputFilter DEFLATE
+	</FilesMatch>
+
 </IfModule>
