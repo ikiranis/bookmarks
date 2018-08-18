@@ -240,6 +240,10 @@ let api = {
         return await axios.post(ROOT_API + '/groupUser', args);
     },
 
+    /**
+     * 
+     * @param {*} args 
+     */
     async removeUserFromGroup(args) {
         return await axios.post(ROOT_API + '/removeGroupUser', args);
     }
