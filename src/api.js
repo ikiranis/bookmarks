@@ -121,7 +121,6 @@ let api = {
         let {data} = await axios.get(ROOT_API + '/metadata', {params: args} );
 
         return data;
-
     },
 
     /**
@@ -132,6 +131,17 @@ let api = {
      */
     async register(args) {
         return await axios.post(ROOT_API + '/register', args);
+    },
+
+    /**
+     * Generate and get new user api_key
+     * 
+     * @param {*} id 
+     */
+    async generateApiKey(id) {
+        let {data} = await axios.patch(ROOT_API + '/userApiKey/' + id);
+
+        return data;
     },
 
     /**
