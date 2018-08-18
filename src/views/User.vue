@@ -12,7 +12,7 @@
                 <div>
                     <span class="btn btn-info mx-1" @click="generateApiKey()">Create Api Key</span>
                 </div>
-                
+
                 <div>
                     <div>Api url for addToMany Plugin</div> 
                     <code>{{ apiUrl }}</code>
@@ -43,7 +43,7 @@
 
         computed: {
             apiUrl: function() {
-                return process.env.VUE_APP_API_HOST + process.env.VUE_APP_API_SUFFIX + '/addBookmark/' + this.user.api_key + '/${link}';
+                return process.env.VUE_APP_API_HOST + process.env.VUE_APP_API_SUFFIX + '/addBookmark?api_key' + this.user.api_key + '&url=${link}';
             }
         },
 
