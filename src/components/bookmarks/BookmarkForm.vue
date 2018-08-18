@@ -202,55 +202,6 @@
             },
 
             /**
-             * Get description text, from any of description tags is possible
-             */
-            getDescriptionText(tags) {
-                if (tags.metaTags.description) {
-                    return tags.metaTags.description;
-                }
-
-                if (tags.metaProperties['og:description']) {
-                    return tags.metaProperties['og:description'];
-                }
-
-                if (tags.metaTags['twitter:description']) {
-                    return tags.metaTags['twitter:description'];
-                }
-            },
-
-            /**
-             * Get title text, from any of title tags is possible
-             */
-            getTitleText(tags) {
-                if (tags.title) {
-                    return tags.title;
-                }
-
-                if (tags.metaProperties['og:title']) {
-                    return tags.metaProperties['og:title'];
-                }
-
-                if (tags.metaTags['twitter:title']) {
-                    return tags.metaTags['twitter:title'];
-                }
-            },
-
-            /**
-             * Get image url, from any of image tags is possible
-             */
-            getImageUrl(tags) {
-                if (tags.metaProperties['og:image']) {
-                    return tags.metaProperties['og:image'];
-                }
-
-                if (tags.metaTags['twitter:image:src']) {
-                    return tags.metaTags['twitter:image:src'];
-                }
-
-                return '';
-            },
-
-            /**
              * Parse the metadata for this.formData.url
              */
             getMetadata() {
@@ -261,9 +212,9 @@
                 api.getMetadata(args)
                     .then(response => {
                         this.clearForm(); // clear form
-                        this.formData.description = this.getDescriptionText(response.tags);
-                        this.formData.title = this.getTitleText(response.tags);
-                        this.formData.image = this.getImageUrl(response.tags);
+                        this.formData.description = response.tags.extractedDescription;
+                        this.formData.title = response.tags.extractedTitle;
+                        this.formData.image = response.tags.extractedImage;
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;

@@ -43,7 +43,11 @@
 
         computed: {
             apiUrl: function() {
-                return process.env.VUE_APP_API_HOST + process.env.VUE_APP_API_SUFFIX + '/addBookmark?api_key=' + this.user.api_key + '&url=${link}';
+                return process.env.VUE_APP_API_HOST 
+                    + process.env.VUE_APP_API_SUFFIX 
+                    + '/addBookmark?api_key=' 
+                    + this.user.api_key 
+                    + '&url=${link}';
             }
         },
 
