@@ -8,15 +8,12 @@
 </IfModule>
 
 <IfModule mod_expires.c>
-  <FilesMatch "\.(html)$">
-    ExpiresActive On
-    ExpiresDefault "access plus 1 second"
-    Header set Cache-Control "max-age=1, private, must-revalidate"
-  </FilesMatch>
 
-  <FilesMatch "\.(js|css)$">
-    ExpiresActive On
-    ExpiresDefault "access plus 1 month"
-	Header set Cache-Control "max-age=7600"
-  </FilesMatch>
+	ExpiresActive On
+ 	ExpiresDefault "access plus 1 year"
+	ExpiresByType text/html "access plus 1 second"
+	# ExpiresByType text/css "access plus 1 years"
+	# ExpiresByType text/javascript "access plus 1 years"
+    Header set Cache-Control "max-age=1, private, must-revalidate"
+
 </IfModule>
