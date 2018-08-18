@@ -10,10 +10,12 @@
                 <p class="card-text" v-html="user.email"></p>
 
                 <div>
-                    <input type="text" id="api_key" name="api_key" :value="user.api_key" width="10" disabled />
                     <span class="btn btn-info mx-1" @click="generateApiKey()">Create Api Key</span>
-
-                    <span>api url: {{ apiUrl }}</span>
+                </div>
+                
+                <div>
+                    <div>Api url for addToMany Plugin</div> 
+                    <code>{{ apiUrl }}</code>
                 </div>
 
             </div>
@@ -41,7 +43,7 @@
 
         computed: {
             apiUrl: function() {
-                return process.env.VUE_APP_API_HOST + process.env.VUE_APP_API_SUFFIX + '/addBookmark/' + this.user.api_key + '/{url}';
+                return process.env.VUE_APP_API_HOST + process.env.VUE_APP_API_SUFFIX + '/addBookmark/' + this.user.api_key + '/${link}';
             }
         },
 
