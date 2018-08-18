@@ -9,6 +9,9 @@
 
 <IfModule mod_expires.c>
 
+	Header unset ETag
+	FileETag None
+
 	ExpiresActive On
  	ExpiresDefault "access plus 1 years"
 	ExpiresByType text/html "access plus 1 second"
@@ -19,10 +22,10 @@
 	ExpiresByType text/javascript "access plus 1 years"
 	ExpiresByType application/x-javascript "access plus 1 years"
 	ExpiresByType application/javascript "access plus 1 years"
-    # Header set Cache-Control "max-age=1, private, must-revalidate"
+    # Header set Cache-Control "max-age=0, private, must-revalidate"
 
-	<FilesMatch ".(js|css|html|htm|php|xml)$">
-		SetOutputFilter DEFLATE
-	</FilesMatch>
+	# <FilesMatch ".(js|css|html|htm|php|xml)$">
+	# 	SetOutputFilter DEFLATE
+	# </FilesMatch>
 
 </IfModule>
