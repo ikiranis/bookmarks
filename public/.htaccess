@@ -13,4 +13,9 @@
     ExpiresDefault "access plus 1 second"
     Header set Cache-Control "max-age=1, private, must-revalidate"
   </FilesMatch>
+
+  <FilesMatch "\.(js|css)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 years"
+  </FilesMatch>
 </IfModule>
