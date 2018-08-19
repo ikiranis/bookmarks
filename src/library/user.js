@@ -17,8 +17,9 @@ let user = {
      * Delete the token data, to logout the user
      */
     logout() {
-        localStorage.accessToken = '';
-        localStorage.tokenType = '';
+        localStorage.accessToken = null;
+        localStorage.tokenType = null;
+        this.setUserTokenHeader();
     },
 
     /**
@@ -27,7 +28,7 @@ let user = {
     setUserTokenHeader() {
         // axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-        if(typeof localStorage.accessToken !== 'undefined') {
+        if(typeof localStorage.accessToken !== undefined) {
             axios.defaults.headers.common['Accept'] = 'application/json';
             axios.defaults.headers.common['Authorization'] = localStorage.tokenType + " " + localStorage.accessToken;
         }

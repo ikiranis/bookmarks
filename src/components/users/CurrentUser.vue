@@ -1,7 +1,9 @@
 <template>
     <span class="currentUser">
-        <router-link to="/user"><span>{{ username ? username : 'Not Logged In' }}</span></router-link>
-        <span id="logout" @click="logout()" v-if="username !== ''"> (Logout)</span>
+        <router-link to="/user" v-if="username"><span>{{ username }}</span></router-link>
+        <span v-else>Not Logged In</span>
+
+        <span id="logout" @click="logout()" v-if="username"> (Logout)</span>
     </span>
 
 </template>
@@ -29,7 +31,6 @@
              */
             logout() {
                 user.logout();
-                user.setUserTokenHeader();
                 this.$store.dispatch('getCurrentUser');
 
                 // Hack Alert!!!

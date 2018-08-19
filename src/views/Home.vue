@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid">
         <div v-if="!username">
-            <Login v-if="!displayRegister  && !userToken"/>
+            <Login v-if="!displayRegister  && userToken !== null"/>
             <div class="row">
-                <span class="btn btn-info my-3 ml-auto mr-auto" v-if="!displayRegister  && !userToken"
+                <span class="btn btn-info my-3 ml-auto mr-auto" v-if="!displayRegister  && userToken !== null"
                       @click="displayRegisterComponent">Register User</span>
             </div>
         </div>

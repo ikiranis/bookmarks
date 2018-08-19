@@ -1,5 +1,5 @@
 <template>
-    <div class="my-3 mx-3">
+    <div class="my-3 mx-3" v-if="userToken">
 
         <div class="card">
             <div class="card-header">
@@ -49,6 +49,10 @@
                     + process.env.VUE_APP_API_SUFFIX 
                     + '/addBookmark?api_key=' 
                     + this.user.api_key;
+            },
+
+            userToken: function () {
+                return localStorage.accessToken ? localStorage.accessToken : null;
             }
         },
 
