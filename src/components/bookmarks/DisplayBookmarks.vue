@@ -1,15 +1,17 @@
 <template>
     <div>
-        <div class="row">
-            <div class="input-group col-lg-6 col-12 ml-auto mr-auto">
-                <label for="search" class="sr-only">Search</label>
-                <input type="text" max="100" class="form-control" id="search" name="search"
-                       v-model="search">
+        <form @submit.prevent="searchText">
+            <div class="row">
+                <div class="input-group col-lg-6 col-12 ml-auto mr-auto">
+                    <label for="search" class="sr-only">Search</label>
+                    <input type="text" max="100" class="form-control" id="search" name="search"
+                           v-model="search">
 
-                <span class="btn btn-success mx-1" v-on:click="searchText()">Search</span>
-                <span class="btn btn-danger mx-1" v-on:click="clearSearch()">Clear Search</span>
+                    <input type="submit" class="btn btn-success mx-1" value="Search">
+                    <button class="btn btn-danger mx-1" @click="clearSearch()">Clear Search</button>
+                </div>
             </div>
-        </div>
+        </form>
 
         <div class="row">
             <div class="col-lg-6 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">

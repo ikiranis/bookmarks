@@ -44,4 +44,3 @@ new Vue({
 // TODO user screen. Change password, name. Delete account
 // TODO remove image from bootstrap or change it
 // TODO change favicon
-// TODO search when pressing enter
