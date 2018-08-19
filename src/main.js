@@ -39,7 +39,9 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-// TODO solve the apache problem with refresh
-// TODO find how to build different bundle version on build, so you must not force reload to refresh new version page
+// TODO edit bookmarks on modal
 // TODO fix the login flickering at start
 // TODO user screen. Change password, name. Delete account
+// TODO remove image from bootstrap or change it
+// TODO change favicon
+// TODO search when pressing enter

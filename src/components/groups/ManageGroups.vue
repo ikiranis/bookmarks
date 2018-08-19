@@ -6,7 +6,6 @@
 
             <div class="col-lg-4 col-12 mt-3" v-for="group in groups" :key="group.id">
                 <div class="card">
-                    <!--<img class="card-img-top" src="..." alt="Card image cap">-->
                     <div class="card-body">
                         <router-link :to="{ name: 'group', params: { id: group.id } }">{{ group.name }}</router-link>
                     </div>

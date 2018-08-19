@@ -1,10 +1,9 @@
 <template>
     <div class="container-fluid">
-
         <div v-if="!username">
-            <Login v-if="!displayRegister"/>
+            <Login v-if="!displayRegister  && !userToken"/>
             <div class="row">
-                <span class="btn btn-info my-3 ml-auto mr-auto" v-if="!displayRegister"
+                <span class="btn btn-info my-3 ml-auto mr-auto" v-if="!displayRegister  && !userToken"
                       @click="displayRegisterComponent">Register User</span>
             </div>
         </div>
@@ -40,6 +39,10 @@
 
             routeName: function () {
                 return this.$route.name;
+            },
+
+            userToken: function () {
+                return localStorage.accessToken ? localStorage.accessToken : null;
             }
 
         },

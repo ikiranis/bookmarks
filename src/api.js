@@ -3,7 +3,6 @@ import axios from 'axios';
 const API_HOST = process.env.VUE_APP_API_HOST;
 const ROOT_API = API_HOST + process.env.VUE_APP_API_SUFFIX;
 
-
 let api = {
 
     /**
