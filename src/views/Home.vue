@@ -1,7 +1,6 @@
 <template>
     <div class="container-fluid">
 
-        {{isUserLoggedIn}}
         <div v-if="!isUserLoggedIn">
             <Login v-if="!displayRegister && !username"/>
             <div class="row">
