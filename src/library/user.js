@@ -17,8 +17,8 @@ let user = {
      * Delete the token data, to logout the user
      */
     logout() {
-        localStorage.accessToken = null;
-        localStorage.tokenType = null;
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("tokenType");
         this.setUserTokenHeader();
     },
 

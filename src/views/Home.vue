@@ -1,15 +1,19 @@
 <template>
     <div class="container-fluid">
-        <div v-if="!username">
-            <Login v-if="!displayRegister  && userToken !== null"/>
+
+        {{isUserLoggedIn}}
+        <div v-if="!isUserLoggedIn">
+            <Login v-if="!displayRegister && !username"/>
             <div class="row">
-                <span class="btn btn-info my-3 ml-auto mr-auto" v-if="!displayRegister  && userToken !== null"
+                <span class="btn btn-info my-3 ml-auto mr-auto" v-if="!displayRegister && !username"
                       @click="displayRegisterComponent">Register User</span>
             </div>
         </div>
-        <display-bookmarks :searchId="searchId" :routeName="routeName" v-else/>
+
+        <display-bookmarks v-if="username" :searchId="searchId" :routeName="routeName"/>
 
         <Register v-if="displayRegister"/>
+
         <div class="row">
             <span class="btn btn-info my-3 ml-auto mr-auto" v-if="displayRegister" @click="displayLoginComponent">Login User</span>
         </div>
@@ -30,21 +34,32 @@
 
         name: 'home',
 
+        data: () => ({
+            isUserLoggedIn: false
+        }),
+
         computed: {
             ...mapState(['displayRegister', 'username']),
 
-            searchId: function() {
+            searchId: function () {
                 return this.$route.params.id;
             },
 
             routeName: function () {
                 return this.$route.name;
-            },
-
-            userToken: function () {
-                return localStorage.accessToken ? localStorage.accessToken : null;
             }
 
+        },
+
+        watch: {
+            username() {
+                // We make sure to take new value of localStorage.accessToken when username is changed
+                this.isUserLoggedIn = !!localStorage.accessToken;
+            }
+        },
+
+        mounted: function() {
+            this.isUserLoggedIn = !!localStorage.accessToken;
         },
 
         beforeCreate: function () {

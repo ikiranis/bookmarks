@@ -37,7 +37,7 @@
                 // Force to empty the username, because it need some time to run getCurrentUser and do it
                 this.setUsername(null);
 
-                this.$router.push({path: '/'}); // Force to load home page
+                this.$router.push({name: 'home'}); // Force to load home page
             }
         }
 
