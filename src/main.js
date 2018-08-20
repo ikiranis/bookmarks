@@ -39,8 +39,6 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-// TODO edit bookmarks on modal
-// TODO fix the login flickering at start
 // TODO user screen. Change password, name. Delete account
 // TODO remove image from bootstrap or change it
 // TODO change favicon
