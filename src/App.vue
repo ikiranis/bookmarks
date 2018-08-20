@@ -3,38 +3,30 @@
 
         <div v-if="apiWorks">
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <b-navbar toggleable="md" type="dark" variant="dark" class="fixed-top">
 
-                <router-link class="navbar-brand" to="/">Bookmarks</router-link>
+                <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <b-navbar-brand><router-link class="navbar-brand" to="/">Bookmarks</router-link></b-navbar-brand>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav my-auto ml-auto">
+                <b-collapse is-nav id="nav_collapse">
 
-                        <li class="nav-item" v-if="userId !== 0">
-                            <router-link to="/insertBookmark" class="nav-link">Insert Bookmark</router-link>
-                        </li>
-                        <li class="nav-item" v-if="userId !== 0">
-                            <router-link to="/groups" class="nav-link">Manage groups</router-link>
-                        </li>
+                    <!-- Right aligned nav items -->
+                    <b-navbar-nav class="ml-auto">
 
-                        <CurrentUser/>
+                        <b-navbar-nav>
+                            <b-nav-item href="#" v-if="userId !== 0"><router-link to="/insertBookmark" class="nav-link">Insert Bookmark</router-link></b-nav-item>
+                            <b-nav-item href="#" v-if="userId !== 0"><router-link to="/groups" class="nav-link">Manage groups</router-link></b-nav-item>
+                            <b-nav-item href="#"><CurrentUser/></b-nav-item>
+                            <b-nav-item href="#"><a class="nav-link" id="logout" @click="logout()" v-if="username">Logout</a></b-nav-item>
+                        </b-navbar-nav>
 
-                        <li class="nav-item">
-                            <a class="nav-link" id="logout" @click="logout()" v-if="username">(Logout)</a>
-                        </li>
+                    </b-navbar-nav>
 
-                    </ul>
-                </div>
+                </b-collapse>
+            </b-navbar>
 
-            </nav>
-
-            <router-view class="mt-5 pt-3"/>
+            <router-view class="mt-5 pt-5"/>
 
         </div>
 
