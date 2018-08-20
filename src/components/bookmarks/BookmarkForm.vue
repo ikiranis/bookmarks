@@ -62,7 +62,6 @@
                     <input type="text" max="50" class="form-control"
                            id="group_name" name="group_name" v-model="formData.groupName" @input="submitData">
 
-
                 </div>
 
                 <div class="col-lg-4 col-12 my-1">
@@ -73,8 +72,9 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-12">
+        <div class="col-lg-3 col-12 text-center">
             <img :src="formData.image === '' ? 'https://via.placeholder.com/350x350' : formData.image" width="100%">
+            <button class="btn btn-sm btn-danger mt-2" @click="removeImage">Remove image</button>
         </div>
     </div>
 </template>
@@ -254,8 +254,17 @@
 
             },
 
+            /**
+             * Remove tag with tagId
+             *
+             * @param tagId
+             */
             removeTag(tagId) {
                 this.formData.tags = utility.removeObjFromArray(this.formData.tags, 'id', tagId);
+            },
+
+            removeImage() {
+                this.formData.image = '';
             }
 
         }

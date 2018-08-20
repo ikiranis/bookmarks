@@ -1,14 +1,9 @@
 <template>
     <div>
 
-        <b-modal ref="editBookmarkModal" size="lg" centered title="Edit Bookmark">
+        <!-- TODO make modal bigger -->
+        <b-modal ref="editBookmarkModal" size="lg" centered hide-footer title="Edit Bookmark">
             <edit-bookmark :bookmark="bookmark" v-if="isEditBookmarkOn"/>
-
-            <div slot="modal-footer" class="w-100 text-center">
-                <button class="btn btn-sm btn-danger" @click="$refs.editBookmarkModal.hide()">
-                    Close
-                </button>
-            </div>
         </b-modal>
 
         <div class="card">
