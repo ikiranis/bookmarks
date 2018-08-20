@@ -48,10 +48,12 @@
             </div>
 
             <div class="card-footer text-center" v-if="!bookmarksList && bookmark.user_id === userId">
-                <span class="btn btn-sm btn-info mx-1" v-on:click="editBookmark()" data-toggle="modal"
-                      data-target="#editBookmarkModal">Edit</span>
-                <span class="btn btn-sm btn-danger mx-1"
-                      v-on:click="removeBookmark()">Remove</span>
+                <button class="btn btn-sm btn-info mx-1" v-on:click="editBookmark()" data-toggle="modal"
+                      data-target="#editBookmarkModal">Edit</button>
+                <button class="btn btn-sm btn-danger mx-1"
+                      v-on:click="removeBookmark()">Remove</button>
+                <button class="btn btn-sm mx-1" :class="bookmarkPublic ? 'btn-success' : 'btn-warning'"
+                      v-on:click="toggleBookmarkPublic()">{{ bookmarkPublic ? 'Make private' : 'Make public'}}</button>
             </div>
 
         </div>
@@ -70,6 +72,12 @@
     export default {
 
         components: {EditBookmark},
+
+        data: function() {
+            return {
+                bookmarkPublic: ''
+            }
+        },
 
         props: {
             bookmark: Object,
@@ -102,6 +110,10 @@
                 if (!value) {
                     this.$refs.editBookmarkModal.hide();
                 }
+            },
+
+            bookmark() {
+                this.bookmarkPublic = this.bookmark.public;
             }
         },
 
@@ -126,11 +138,22 @@
             },
 
             /**
-             *
+             * Display edit bookmark window
              */
             editBookmark() {
                 this.$refs.editBookmarkModal.show();
                 this.setIsEditBookmarkOn(true);
+            },
+
+            toggleBookmarkPublic() {
+                api.toggleBookmarkPublic(this.bookmark.id)
+                    .then((response) => {
+                        this.bookmarkPublic = response.public;
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    });
             }
 
         }

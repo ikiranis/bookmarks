@@ -100,6 +100,18 @@ let api = {
     },
 
     /**
+     * Toggle public of bookmark with bookmarkId
+     *
+     * @param bookmarkId
+     * @returns {Promise<boolean>}
+     */
+    async toggleBookmarkPublic(bookmarkId) {
+        let {data} = await axios.patch(ROOT_API + '/publicBookmark/' + bookmarkId);
+
+        return data;
+    },
+
+    /**
      *
      * @param args
      * @returns {Promise<void>}
