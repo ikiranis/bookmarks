@@ -140,9 +140,9 @@
 
 </script>
 
-<!--<style scoped>-->
-    <!--p >>> pre, p >>> code {-->
-        <!--padding: 1em;-->
-        <!--background-color: antiquewhite;-->
-    <!--}-->
-<!--</style>-->
+<style scoped>
+    p >>> pre, p >>> code {
+        padding: 0.2em 1em 0.2em 1em;
+        background-color: antiquewhite;
+    }
+</style>
