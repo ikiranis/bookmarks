@@ -50,7 +50,7 @@
              */
             clearForm() {
                 this.formData.title = '';
-                this.formData.description = '';
+                this.formData.description = {};
                 this.formData.image = '';
                 this.formData.url = '';
                 this.formData.group_id = '';
@@ -64,7 +64,7 @@
                 let args = {
                     url: this.formData.url,
                     title: this.formData.title,
-                    description: this.formData.description,
+                    description: this.formData.description.markdown,
                     user_id: this.userId,
                     group_id: this.formData.group_id,
                     image: this.formData.image,

@@ -34,6 +34,23 @@ let utilities = {
     },
 
     /**
+     * Check if a text has html elements
+     * True if it is html
+     *
+     * @param text
+     * @returns {boolean}
+     */
+    checkIfTextIsHtml(text) {
+        let markup = text;
+        let parser = new DOMParser();
+        let element = parser.parseFromString(markup, "text/html").body.childNodes;
+
+        console.log(element.length);
+
+        return element.length>1; // true if >1. (have html elements)
+    },
+
+    /**
      * Parse a url and get parts of it
      *
      * @param url

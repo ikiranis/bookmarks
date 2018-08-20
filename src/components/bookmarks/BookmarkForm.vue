@@ -11,8 +11,8 @@
             </div>
 
             <div class="form-group">
-                <wysiwyg class="form-control mt-3" placeholder="Description" v-model="formData.description"
-                         @input="submitData"></wysiwyg>
+                <vue-editor-markdown class="form-control mt-3" placeholder="Description" v-model="formData.description"
+                                     @input="submitData"></vue-editor-markdown>
                 <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
             </div>
 
@@ -85,6 +85,7 @@
     import FormError from "../basic/FormError";
     import {mapState} from 'vuex';
     import utility from "@/library/utilities";
+    import * as marked from 'marked';
 
     export default {
 
@@ -95,19 +96,21 @@
             oldFormData: Object
         },
 
-        data: () => ({
-            formData: {
-                title: '',
-                description: '',
-                url: '',
-                group_id: '',
-                groupName: '',
-                image: '',
-                tags: [],
-                tag: ''
-            },
-            groups: []
-        }),
+        data: function() {
+            return {
+                formData: {
+                    title: '',
+                    description: '',
+                    url: '',
+                    group_id: '',
+                    groupName: '',
+                    image: '',
+                    tags: [],
+                    tag: ''
+                },
+                groups: []
+            }
+        },
 
         computed: {
             ...mapState(['userId']),
@@ -118,6 +121,7 @@
                     response: this.response
                 }
             }
+
         },
 
         watch: {
@@ -133,6 +137,11 @@
             } else {
                 this.getGroups();
             }
+
+            this.formData.description = {
+                markdown: this.formData.description,
+                html: marked(this.formData.description, {sanitize: true})
+            };
         },
 
         methods: {
@@ -197,7 +206,10 @@
              */
             clearForm() {
                 this.formData.title = '';
-                this.formData.description = '';
+                this.formData.description = {
+                    markdown: '',
+                    html: ''
+                };
                 this.formData.image = '';
             },
 
@@ -212,7 +224,10 @@
                 api.getMetadata(args)
                     .then(response => {
                         this.clearForm(); // clear form
-                        this.formData.description = response.tags.extractedDescription;
+                        this.formData.description = {
+                            markdown: response.tags.extractedDescription,
+                            html: response.tags.extractedDescription
+                        };
                         this.formData.title = response.tags.extractedTitle;
                         this.formData.image = response.tags.extractedImage;
                     })
@@ -227,7 +242,7 @@
              * Insert new tag
              */
             insertTag() {
-                if(this.formData.tag !== '') {
+                if (this.formData.tag !== '') {
                     let tags = this.formData.tag.split(',');
 
                     for (let tag in tags) {

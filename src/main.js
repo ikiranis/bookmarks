@@ -16,12 +16,16 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 // wysiwyg editor
 // @source https://github.com/chmln/vue-wysiwyg
-import wysiwyg from "vue-wysiwyg";
-Vue.use(wysiwyg, {
-    forcePlainTextOnPaste: true,
-    maxHeight: "500px"
-}); // config is optional
-import "vue-wysiwyg/dist/vueWysiwyg.css"; // stylesheet
+// import wysiwyg from "vue-wysiwyg";
+// Vue.use(wysiwyg, {
+//     forcePlainTextOnPaste: true,
+//     maxHeight: "500px"
+// }); // config is optional
+// import "vue-wysiwyg/dist/vueWysiwyg.css"; // stylesheet
+
+// markdown editor
+import VueEditorMarkdown from 'vue-editor-markdown';
+Vue.use(VueEditorMarkdown);
 
 // User Authentication
 import user from '@/library/user'
@@ -39,7 +43,6 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-// TODO markdown editor
 // TODO new navigation menu and footer
 // TODO user screen. Change password, name. Delete account
 // TODO change favicon

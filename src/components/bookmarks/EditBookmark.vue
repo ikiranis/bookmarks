@@ -18,7 +18,6 @@
     import {mapState, mapMutations} from 'vuex';
     import DisplayError from "../basic/DisplayError";
     import BookmarkForm from "./BookmarkForm";
-    import Utilities from "@/library/utilities";
 
     export default {
 
@@ -65,7 +64,7 @@
                     id: this.formData.id,
                     url: this.formData.url,
                     title: this.formData.title,
-                    description: Utilities.checkIfHTMLTextIsEmpty(this.formData.description) ? '' : this.formData.description,
+                    description: this.formData.description.markdown,
                     user_id: this.userId,
                     group_id: this.formData.group_id,
                     image: this.formData.image,
@@ -86,6 +85,7 @@
                         }
                     });
             }
+
 
         }
     }

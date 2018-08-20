@@ -7,7 +7,8 @@
         </b-modal>
 
         <div class="card">
-            <img v-if="bookmark.image" class="col-lg-8 col-12 ml-auto mr-auto" :src="bookmark.image" alt="Bookmark image">
+            <img v-if="bookmark.image" class="col-lg-8 col-12 ml-auto mr-auto" :src="bookmark.image"
+                 alt="Bookmark image">
 
             <div class="card-header">
                 <div>
@@ -28,7 +29,7 @@
             </div>
 
             <div class="card-body">
-                <p class="card-text" v-html="bookmark.description"></p>
+                <p class="card-text" v-html="compiledMarkdown"></p>
 
                 <a :href="bookmark.url" v-if="bookmark.url" target="new">{{ urlParser.hostname }}</a>
 
@@ -65,6 +66,7 @@
     import {mapState, mapMutations} from 'vuex';
     import moment from 'moment';
     import utility from "@/library/utilities";
+    import * as marked from 'marked';
 
     export default {
 
@@ -80,7 +82,20 @@
 
             urlParser: function () {
                 return utility.parse_url(this.bookmark.url);
+            },
+
+            compiledMarkdown: function () {
+                if (this.bookmark.description) {
+                    let description = this.bookmark.description.markdown ? this.bookmark.description.markdown : this.bookmark.description;
+
+                    if(utility.checkIfTextIsHtml(description)) {
+                        return description;
+                    } else {
+                        return marked(description, {sanitize: true});
+                    }
+                }
             }
+
         },
 
         created: function () {
@@ -89,7 +104,7 @@
 
         watch: {
             isEditBookmarkOn(value) {
-                if(!value) {
+                if (!value) {
                     this.$refs.editBookmarkModal.hide();
                 }
             }
@@ -98,6 +113,8 @@
         methods: {
 
             ...mapMutations(['setIsEditBookmarkOn']),
+
+            moment,
 
             /**
              * Remove bookmark with this.bookmark.id
@@ -119,9 +136,8 @@
             editBookmark() {
                 this.$refs.editBookmarkModal.show();
                 this.setIsEditBookmarkOn(true);
-            },
+            }
 
-            moment
         }
 
     }
