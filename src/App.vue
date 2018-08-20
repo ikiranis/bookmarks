@@ -3,23 +3,30 @@
 
         <div v-if="apiWorks">
 
-            <b-navbar toggleable="md" type="dark" variant="dark" class="fixed-top">
+            <b-navbar toggleable="md" type="dark" variant="dark" fixed="top">
 
                 <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-                <b-navbar-brand><router-link class="navbar-brand" to="/">Bookmarks</router-link></b-navbar-brand>
+                <b-navbar-brand>
+                    <router-link class="navbar-brand" to="/">Bookmarks</router-link>
+                </b-navbar-brand>
 
                 <b-collapse is-nav id="nav_collapse">
 
                     <!-- Right aligned nav items -->
                     <b-navbar-nav class="ml-auto">
 
-                        <b-navbar-nav>
-                            <b-nav-item href="#" v-if="userId !== 0"><router-link to="/insertBookmark" class="nav-link">Insert Bookmark</router-link></b-nav-item>
-                            <b-nav-item href="#" v-if="userId !== 0"><router-link to="/groups" class="nav-link">Manage groups</router-link></b-nav-item>
-                            <b-nav-item href="#"><CurrentUser/></b-nav-item>
-                            <b-nav-item href="#"><a class="nav-link" id="logout" @click="logout()" v-if="username">Logout</a></b-nav-item>
-                        </b-navbar-nav>
+                        <b-nav-item href="#" v-if="userId !== 0">
+                            <router-link to="/insertBookmark" class="nav-link">Insert Bookmark</router-link>
+                        </b-nav-item>
+                        <b-nav-item href="#" v-if="userId !== 0">
+                            <router-link to="/groups" class="nav-link">Manage groups</router-link>
+                        </b-nav-item>
+                        <b-nav-item href="#">
+                            <CurrentUser/>
+                        </b-nav-item>
+                        <b-nav-item href="#"><a class="nav-link" id="logout" @click="logout()"
+                                                v-if="username">Logout</a></b-nav-item>
 
                     </b-navbar-nav>
 
@@ -104,6 +111,7 @@
     #logout {
         cursor: pointer;
     }
+
 
 </style>
 
