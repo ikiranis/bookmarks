@@ -39,8 +39,11 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
+// TODO markdown editor
+// TODO new navigation menu and footer
 // TODO user screen. Change password, name. Delete account
 // TODO change favicon
 // TODO make bookmark public
+// TODO encrypt a bookmark
 // TODO attachments upload
 // TODO evernote, browser bookmarks import

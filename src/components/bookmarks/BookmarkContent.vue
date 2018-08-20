@@ -127,3 +127,10 @@
     }
 
 </script>
+
+<style scoped>
+    p >>> pre, p >>> code {
+        padding: 1em;
+        background-color: antiquewhite;
+    }
+</style>
