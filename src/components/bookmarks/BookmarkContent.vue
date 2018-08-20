@@ -88,11 +88,7 @@
                 if (this.bookmark.description) {
                     let description = this.bookmark.description.markdown ? this.bookmark.description.markdown : this.bookmark.description;
 
-                    if(utility.checkIfTextIsHtml(description)) {
-                        return description;
-                    } else {
-                        return marked(description, {sanitize: true});
-                    }
+                    return marked(description, {sanitize: true});
                 }
             }
 
