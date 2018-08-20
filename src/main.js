@@ -43,7 +43,6 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-// TODO new navigation menu and footer
 // TODO user screen. Change password, name. Delete account
 // TODO change favicon
 // TODO make bookmark public

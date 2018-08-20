@@ -14,9 +14,9 @@
                 <div>
                     <router-link v-if="bookmarksList" :to="{ name: 'bookmark', params: { id: bookmark.id } }"
                                  :key="$route.fullPath">
-                        <strong>{{ bookmark.title }}</strong>
+                        <h3>{{ bookmark.title }}</h3>
                     </router-link>
-                    <strong v-else>{{ bookmark.title }}</strong>
+                    <h3 v-else>{{ bookmark.title }}</h3>
                 </div>
                 <div class="text-right" v-if="bookmark.created_at">
                     <small>Created at
@@ -33,11 +33,10 @@
 
                 <a :href="bookmark.url" v-if="bookmark.url" target="new">{{ urlParser.hostname }}</a>
 
-                <div class="row mt-2">
-                    <router-link class="mx-2 px-2 bg-primary text-light"
-                                 :key="tag.id" v-for="tag in bookmark.tags"
+                <div class="mt-2 text-center">
+                    <router-link :key="tag.id" v-for="tag in bookmark.tags"
                                  :to="{ name: 'tagSearch', params: { id: tag.id } }">
-                        {{ tag.name }}
+                        <span class="btn btn-sm mx-2 btn-secondary text-light">{{ tag.name }}</span>
                     </router-link>
                 </div>
             </div>
@@ -141,6 +140,28 @@
 </script>
 
 <style scoped>
+
+
+    /* unvisited link */
+    a:link {
+        color: black;
+        text-decoration: underline;
+    }
+
+    /* visited link */
+    a:visited {
+        color: black;
+    }
+
+    /* mouse over link */
+    a:hover {
+        color: black;
+    }
+
+    /* selected link */
+    a:active {
+        color: black;
+    }
 
     p >>> pre {
         background: #f4f4f4;

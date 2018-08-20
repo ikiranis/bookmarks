@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid mt-3">
 
         <div v-if="!isUserLoggedIn">
             <Login v-if="!displayRegister && !username"/>

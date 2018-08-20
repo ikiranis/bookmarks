@@ -38,14 +38,15 @@
 
                 </div>
 
-                <div class="my-2 row">
-                <span class="my-1 mx-2 px-2 bg-primary text-light"
-                      :key="tag.id" v-for="tag in formData.tags">
-                    {{ tag.name }} <span id="removeTag" @click="removeTag(tag.id)" title="Remove Tag">x</span>
-                </span>
+                <div class="mt-2 text-center">
+                    <span class="btn btn-sm mx-2 btn-secondary"
+                          :key="tag.id" v-for="tag in formData.tags">
+                        {{ tag.name }}
+                        <span id="removeTag" @click="removeTag(tag.id)" title="Remove Tag">x</span>
+                    </span>
                 </div>
 
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="input-group col-lg-4 col-12 my-1">
                         <div class="input-group-prepend">
                             <label for="group_id" class="sr-only">Choose group</label>
