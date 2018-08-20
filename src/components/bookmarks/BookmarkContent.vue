@@ -12,7 +12,7 @@
         </b-modal>
 
         <div class="card">
-            <img v-if="bookmark.image" class="card-img-top" :src="bookmark.image" alt="Bookmark image">
+            <img v-if="bookmark.image" class="col-lg-8 col-12 ml-auto mr-auto" :src="bookmark.image" alt="Bookmark image">
 
             <div class="card-header">
                 <div>
