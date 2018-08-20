@@ -1,81 +1,86 @@
 <template>
-    <div class="row">
-        <div class="col-lg-9 col-12">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <label for="title" class="input-group-text">Title</label>
+    <div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label for="title" class="input-group-text">Title</label>
+            </div>
+            <input type="text" max="500" class="form-control form-control-sm" id="title" name="title"
+                   v-model="formData.title" @input="submitData">
+            <form-error v-if="response.errors.title" :error="response.errors.title[0]"/>
+        </div>
+
+        <vue-editor-markdown class="my-2" placeholder="Description" v-model="formData.description"
+                             @input="submitData"/>
+        <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
+
+        <div class="row">
+            <div class="col-lg-9 col-12">
+
+                <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                        <label for="url" class="input-group-text">url</label>
+                    </div>
+                    <input type="text" max="800" class="form-control form-control-sm" id="url" name="url"
+                           v-model="formData.url" @input="submitData">
+                    <span class="btn btn-info mx-1" v-on:click="getMetadata()">Get Metadata</span>
+                    <form-error v-if="response.errors.url" :error="response.errors.url[0]"/>
                 </div>
-                <input type="text" max="500" class="form-control form-control-sm" id="title" name="title"
-                       v-model="formData.title" @input="submitData">
-                <form-error v-if="response.errors.title" :error="response.errors.title[0]"/>
-            </div>
 
-            <div class="form-group">
-                <vue-editor-markdown class="form-control mt-3" placeholder="Description" v-model="formData.description"
-                                     @input="submitData"></vue-editor-markdown>
-                <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
-            </div>
+                <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                        <label for="tag" class="input-group-text">Tag</label>
+                    </div>
+                    <input type="text" max="255" v-model="formData.tag" class="form-control form-control-sm"
+                           id="tag" name="tag" placeholder="Split tags with comma (,)">
 
-            <div class="input-group mt-3">
-                <div class="input-group-prepend">
-                    <label for="url" class="input-group-text">url</label>
+                    <span class="btn btn-secondary mx-1" v-on:click="insertTag">Insert tag</span>
+
                 </div>
-                <input type="text" max="800" class="form-control form-control-sm" id="url" name="url"
-                       v-model="formData.url" @input="submitData">
-                <span class="btn btn-info mx-1" v-on:click="getMetadata()">Get Metadata</span>
-                <form-error v-if="response.errors.url" :error="response.errors.url[0]"/>
-            </div>
 
-            <div class="input-group mt-3">
-                <div class="input-group-prepend">
-                    <label for="tag" class="input-group-text">Tag</label>
-                </div>
-                <input type="text" max="255" v-model="formData.tag" class="form-control form-control-sm"
-                       id="tag" name="tag" placeholder="Split tags with comma (,)">
-
-                <span class="btn btn-secondary mx-1" v-on:click="insertTag">Insert tag</span>
-
-            </div>
-
-            <div class="my-2 row">
+                <div class="my-2 row">
                 <span class="my-1 mx-2 px-2 bg-primary text-light"
                       :key="tag.id" v-for="tag in formData.tags">
                     {{ tag.name }} <span id="removeTag" @click="removeTag(tag.id)" title="Remove Tag">x</span>
                 </span>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="input-group col-lg-4 col-12 my-1">
+                        <div class="input-group-prepend">
+                            <label for="group_id" class="sr-only">Choose group</label>
+                        </div>
+                        <select class="form-control " id="group_id" name="group_id" v-model="formData.group_id">
+                            <option value="null" disabled>Choose group</option>
+                            <option v-for="group in groups" :key="group.id" :value="group.id">
+                                {{ group.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="input-group col-lg-4 col-12 my-1">
+                        <div class="input-group-prepend">
+                            <label for="group_name" class="sr-only">Group name</label>
+                        </div>
+                        <input type="text" max="50" class="form-control" placeholder="Group name"
+                               id="group_name" name="group_name" v-model="formData.groupName" @input="submitData">
+
+                    </div>
+
+                    <div class="col-lg-4 col-12 my-1">
+                        <span class="btn btn-info mx-1 w-100" v-on:click="saveGroup()">Insert new group</span>
+                    </div>
+
+                    <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
+                </div>
             </div>
 
-            <div class="row mt-3">
-                <div class="input-group col-lg-4 col-12 my-1">
-                    <div class="input-group-prepend">
-                        <label for="group_id" class="input-group-text">Choose group</label>
-                    </div>
-                    <select class="form-control " id="group_id" name="group_id" v-model="formData.group_id">
-                        <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="input-group col-lg-4 col-12 my-1">
-                    <div class="input-group-prepend">
-                        <label for="group_name" class="input-group-text">Group name</label>
-                    </div>
-                    <input type="text" max="50" class="form-control"
-                           id="group_name" name="group_name" v-model="formData.groupName" @input="submitData">
-
-                </div>
-
-                <div class="col-lg-4 col-12 my-1">
-                    <span class="btn btn-info mx-1 w-100" v-on:click="saveGroup()">Insert new group</span>
-                </div>
-
-                <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
+            <div class="col-lg-3 col-12 text-center">
+                <img :src="!formData.image ? 'https://via.placeholder.com/350x350' : formData.image" width="100%">
+                <button class="btn btn-sm btn-danger mt-2 col-12" @click="removeImage">Remove image</button>
             </div>
         </div>
 
-        <div class="col-lg-3 col-12 text-center">
-            <img :src="formData.image === '' ? 'https://via.placeholder.com/350x350' : formData.image" width="100%">
-            <button class="btn btn-sm btn-danger mt-2" @click="removeImage">Remove image</button>
-        </div>
     </div>
 </template>
 
@@ -96,7 +101,7 @@
             oldFormData: Object
         },
 
-        data: function() {
+        data: function () {
             return {
                 formData: {
                     title: '',
