@@ -47,3 +47,5 @@ new Vue({
 // TODO encrypt a bookmark
 // TODO attachments upload
 // TODO evernote, browser bookmarks import
+// TODO search on tags
+// TODO list of groups in home screen
