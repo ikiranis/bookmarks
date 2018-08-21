@@ -13,15 +13,15 @@
 	FileETag None
 
 	ExpiresActive On
- 	ExpiresDefault "access plus 1 years"
+ 	ExpiresDefault "access plus 1 month"
 	ExpiresByType text/html "access plus 1 second"
-	ExpiresByType image/gif "access plus 1 years"
-	ExpiresByType image/jpeg "access plus 1 years"
-	ExpiresByType image/png "access plus 1 years"
-	ExpiresByType text/css "access plus 1 years"
-	ExpiresByType text/javascript "access plus 1 years"
-	ExpiresByType application/x-javascript "access plus 1 years"
-	ExpiresByType application/javascript "access plus 1 years"
+	ExpiresByType image/gif "access plus 1 month"
+	ExpiresByType image/jpeg "access plus 1 month"
+	ExpiresByType image/png "access plus 1 month"
+	ExpiresByType text/css "access plus 1 month"
+	ExpiresByType text/javascript "access plus 1 month"
+	ExpiresByType application/x-javascript "access plus 1 month"
+	ExpiresByType application/javascript "access plus 1 month"
     # Header set Cache-Control "max-age=0, private, must-revalidate"
 
 	# <FilesMatch ".(js|css|html|htm|php|xml)$">
