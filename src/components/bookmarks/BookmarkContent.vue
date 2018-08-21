@@ -75,7 +75,7 @@
 
         data: function() {
             return {
-                bookmarkPublic: ''
+                bookmarkPublic: false
             }
         },
 
@@ -103,6 +103,7 @@
 
         created: function () {
             this.setIsEditBookmarkOn(false);
+            this.bookmarkPublic = this.bookmark.public;
         },
 
         watch: {

@@ -1,7 +1,9 @@
 <template>
     <div class="mx-3">
 
-        <BookmarkContent :bookmark="bookmark" :bookmarksList="false" />
+        <BookmarkContent :bookmark="bookmark" :bookmarksList="false" v-if="bookmark.id"/>
+
+        <display-error v-if="response.message" :response="response"/>
 
     </div>
 
@@ -11,10 +13,16 @@
 
     import api from '@/api';
     import BookmarkContent from "@/components/bookmarks/BookmarkContent";
+    import DisplayError from "../components/basic/DisplayError";
 
     export default {
-        components: {BookmarkContent},
+        components: {DisplayError, BookmarkContent},
         data: () => ({
+            response: {
+                message: '',
+                status: '',
+                errors: []
+            },
             bookmark: {}
         }),
 
@@ -33,7 +41,8 @@
                         this.bookmark = response;
                     })
                     .catch(error => {
-                        console.log(error.response.data.message);
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
                     });
             }
 

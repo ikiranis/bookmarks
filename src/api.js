@@ -62,7 +62,11 @@ let api = {
      * @returns {Promise<void>}
      */
     async getBookmark(bookmarkId) {
-        let {data} = await axios.get(ROOT_API + '/bookmark/' + bookmarkId);
+        let args = {
+            id: bookmarkId
+        };
+
+        let {data} = await axios.get(ROOT_API + '/bookmark', {params: args});
 
         return data;
     },
