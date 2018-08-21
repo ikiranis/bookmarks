@@ -44,7 +44,6 @@ new Vue({
 }).$mount('#app');
 
 // TODO user screen. Change password, name. Delete account
-// TODO make bookmark public
 // TODO encrypt a bookmark
 // TODO attachments upload
 // TODO evernote, browser bookmarks import
