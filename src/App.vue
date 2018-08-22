@@ -35,6 +35,19 @@
 
             <router-view class="mt-5 pt-5"/>
 
+            <b-navbar toggleable="md" type="dark" variant="dark">
+
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
+
+                    <b-nav-item href="http://apps4net.eu">
+                        Created by app4net.eu
+                    </b-nav-item>
+
+                </b-navbar-nav>
+
+            </b-navbar>
+
         </div>
 
         <div v-else>
