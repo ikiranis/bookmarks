@@ -45,8 +45,6 @@ let utilities = {
         let parser = new DOMParser();
         let element = parser.parseFromString(markup, "text/html").body.childNodes;
 
-        console.log(element.length);
-
         return element.length>1; // true if >1. (have html elements)
     },
 

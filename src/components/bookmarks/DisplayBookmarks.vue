@@ -1,15 +1,13 @@
 <template>
     <div>
         <form @submit.prevent="searchText">
-            <div class="row">
-                <div class="input-group col-lg-6 col-12 ml-auto mr-auto">
-                    <label for="search" class="sr-only">Search</label>
-                    <input type="text" max="100" class="form-control" id="search" name="search"
-                           v-model="search">
+            <div class="row col-lg-6 col-12 ml-auto mr-auto px-1">
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" max="100" class="form-control form-control-sm col-lg-5 col-12 my-1 mx-1"
+                       id="search" name="search" v-model="search">
 
-                    <input type="submit" class="btn btn-success mx-1" value="Search">
-                    <button class="btn btn-danger mx-1" @click="clearSearch()">Clear Search</button>
-                </div>
+                <input type="submit" class="btn btn-success col-lg-3 col-12 my-1 mx-1" value="Search">
+                <button class="btn btn-danger col-lg-3 col-12 my-1 mx-1" @click="clearSearch()">Clear Search</button>
             </div>
         </form>
 
