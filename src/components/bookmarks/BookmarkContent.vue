@@ -6,7 +6,7 @@
             <edit-bookmark :bookmark="bookmark" v-if="isEditBookmarkOn"/>
         </b-modal>
 
-        <div class="card">
+        <div class="card mx-1">
             <img v-if="bookmark.image" class="col-lg-8 col-12 ml-auto mr-auto" :src="bookmark.image"
                  alt="Bookmark image">
 

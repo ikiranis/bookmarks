@@ -9,14 +9,33 @@
             <button class="btn btn-danger col-md-3 col-12 my-1" @click="clearSearch()">Clear Search</button>
         </form>
 
-        <div class="container">
-
-        </div>
-
         <div class="row">
-            <div class="col-lg-6 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
-                <BookmarkContent :bookmark="bookmark" :bookmarksList="true"/>
+
+            <div class="col-lg-2 col-12">
+                <div class="card my-3">
+                    <div class="card-header">
+                        <h6 class="text-center"><strong>Groups</strong></h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-action p-1 small" v-for="group in groups"
+                                :key="group.id">
+                                <router-link :to="{ name: 'groupSearch', params: { id: group.id } }"
+                                             :key="group.id">
+                                    {{ group.name }}
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+
+            <div class="row col-lg-10 col-12 no-gutters">
+                <div class="col-lg-6 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
+                    <BookmarkContent :bookmark="bookmark" :bookmarksList="true"/>
+                </div>
+            </div>
+
         </div>
 
         <nav v-if="pagination.links" aria-label="Bookmarks navigation" class="row mt-3">
@@ -65,7 +84,7 @@
         },
 
         computed: {
-            ...mapState(['userId'])
+            ...mapState(['userId', 'groups'])
         },
 
         created: function () {
