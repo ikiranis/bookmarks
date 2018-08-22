@@ -86,11 +86,11 @@
 
                 api.updateGroup(args)
                     .then(response => {
+                        this.$store.dispatch('getGroups');
                         this.response.message = response.id;
                         this.response.status = true;
 
                         this.setIsEditGroupOn(false);
-                        this.$store.dispatch('getGroups');
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;

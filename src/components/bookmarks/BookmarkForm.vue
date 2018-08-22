@@ -108,7 +108,7 @@
                     title: '',
                     description: '',
                     url: '',
-                    group_id: '',
+                    group_id: 'null',
                     groupName: '',
                     image: '',
                     tags: [],
