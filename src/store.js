@@ -11,7 +11,8 @@ export default new Vuex.Store({
         userId: 0,
         displayRegister: false,
         isEditBookmarkOn: false,
-        isEditGroupOn: false
+        isEditGroupOn: false,
+        groups: []
     },
     mutations: {
 
@@ -63,6 +64,16 @@ export default new Vuex.Store({
          */
         setIsEditGroupOn (state, value) {
             state.isEditGroupOn = value;
+        },
+
+        /**
+         * groups setter
+         *
+         * @param state
+         * @param value
+         */
+        setGroups (state, value) {
+            state.groups = value;
         }
 
     },
@@ -75,16 +86,34 @@ export default new Vuex.Store({
          * @returns {Promise<T>}
          */
         getCurrentUser(context) {
-            return api.getCurrentUser()
+            api.getCurrentUser()
                 .then(response => {
                     context.commit('setUsername', response.name);
                     context.commit('setUserId', response.id);
+                    context.dispatch('getGroups');
                 })
                 .catch(error => {
                     if (error.response.statusText === 'Unauthorized') {
                         context.commit('setUsername', null);
                         context.commit('setUserId', 0);
                     }
+                });
+        },
+
+        /**
+         * Call api to get list of user's groups
+         *
+         * @param context
+         */
+        getGroups(context) {
+            api.getGroups(context.state.userId)
+                .then(response => {
+                    if (response.length !== 0) {
+                        context.commit('setGroups', response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
                 });
         }
 

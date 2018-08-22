@@ -41,7 +41,7 @@
                 <b-navbar-nav class="ml-auto">
 
                     <b-nav-item href="http://apps4net.eu">
-                        Created by app4net.eu
+                        Created by apps4net.eu
                     </b-nav-item>
 
                 </b-navbar-nav>

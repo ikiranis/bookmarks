@@ -9,6 +9,10 @@
             <button class="btn btn-danger col-md-3 col-12 my-1" @click="clearSearch()">Clear Search</button>
         </form>
 
+        <div class="container">
+
+        </div>
+
         <div class="row">
             <div class="col-lg-6 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
                 <BookmarkContent :bookmark="bookmark" :bookmarksList="true"/>

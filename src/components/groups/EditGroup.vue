@@ -90,6 +90,7 @@
                         this.response.status = true;
 
                         this.setIsEditGroupOn(false);
+                        this.$store.dispatch('getGroups');
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;

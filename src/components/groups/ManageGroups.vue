@@ -49,40 +49,21 @@
                 status: '',
                 errors: []
             },
-            groups: [],
             groupId: ''
         }),
 
         computed: {
-            ...mapState(['userId', 'isEditGroupOn'])
+            ...mapState(['userId', 'isEditGroupOn', 'groups'])
         },
 
         created: function () {
             this.setIsEditGroupOn(false);
-            this.getGroups();
         },
 
-        watch: {
-            // Refresh groups if isEditGroupOn changed
-            isEditGroupOn: function () {
-                this.getGroups();
-            }
-        },
 
         methods: {
 
-            ...mapMutations(['setIsEditGroupOn']),
-
-            /**
-             * Get the list of groups for user with userId
-             */
-            getGroups() {
-                api.getGroups(this.userId)
-                    .then(response => {
-                        this.groups = response;
-                    })
-                    .catch(error => console.log(error.response));
-            },
+            ...mapMutations(['setIsEditGroupOn', 'setGroups']),
 
             /**
              * Remove group with groupId
@@ -92,7 +73,7 @@
             removeGroup(groupId) {
                 api.removeGroup(groupId)
                     .then(response => {
-                        this.groups = utility.removeObjFromArray(this.groups, 'id', response.data.id);
+                        this.setGroups(utility.removeObjFromArray(this.groups, 'id', response.data.id));
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
@@ -122,7 +103,7 @@
 
                 api.removeUserFromGroup(args)
                     .then(() => {
-                        this.groups = utility.removeObjFromArray(this.groups, 'id', groupId);
+                        this.setGroups(utility.removeObjFromArray(this.groups, 'id', groupId));
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;

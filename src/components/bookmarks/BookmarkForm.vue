@@ -113,13 +113,12 @@
                     image: '',
                     tags: [],
                     tag: ''
-                },
-                groups: []
+                }
             }
         },
 
         computed: {
-            ...mapState(['userId']),
+            ...mapState(['userId', 'groups']),
 
             myData: function () {
                 return {
@@ -130,18 +129,9 @@
 
         },
 
-        watch: {
-            userId: function () {
-                this.getGroups();
-            }
-        },
-
         created: function () {
             if (this.oldFormData !== null) {
                 this.formData = this.oldFormData;
-                this.getGroups();
-            } else {
-                this.getGroups();
             }
 
             this.formData.description = {
@@ -157,25 +147,6 @@
              */
             submitData() {
                 this.$emit('update', this.myData);
-            },
-
-            /**
-             * Get the list of groups for the user with userId
-             */
-            getGroups() {
-                if (this.userId !== 0) {
-                    api.getGroups(this.userId)
-                        .then(response => {
-                            if (response.length !== 0) {
-                                this.groups = response;
-                            }
-                        })
-                        .catch(error => {
-                            this.response.message = error.response.data.message;
-                            this.response.status = false;
-                            this.submitData();
-                        });
-                }
             },
 
             /**
