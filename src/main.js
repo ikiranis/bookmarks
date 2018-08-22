@@ -48,5 +48,4 @@ new Vue({
 // TODO attachments upload
 // TODO evernote, browser bookmarks import
 // TODO search on tags
-// TODO list of groups in home screen
 // TODO Forgot my password
