@@ -179,6 +179,18 @@ let api = {
     },
 
     /**
+     * Get all tags for userId
+     *
+     * @param userId
+     * @returns {Promise<void>}
+     */
+    async getTags(userId) {
+        let {data} = await axios.get(ROOT_API + '/tags/' + userId);
+
+        return data;
+    },
+
+    /**
      * Get all groups for userId
      *
      * @param userId

@@ -12,7 +12,8 @@ export default new Vuex.Store({
         displayRegister: false,
         isEditBookmarkOn: false,
         isEditGroupOn: false,
-        groups: []
+        groups: [],
+        tags: []
     },
     mutations: {
 
@@ -42,7 +43,7 @@ export default new Vuex.Store({
          * @param state
          * @param value
          */
-        setDisplayRegister (state, value) {
+        setDisplayRegister(state, value) {
             state.displayRegister = value;
         },
 
@@ -52,7 +53,7 @@ export default new Vuex.Store({
          * @param state
          * @param value
          */
-        setIsEditBookmarkOn (state, value) {
+        setIsEditBookmarkOn(state, value) {
             state.isEditBookmarkOn = value;
         },
 
@@ -62,7 +63,7 @@ export default new Vuex.Store({
          * @param state
          * @param value
          */
-        setIsEditGroupOn (state, value) {
+        setIsEditGroupOn(state, value) {
             state.isEditGroupOn = value;
         },
 
@@ -72,8 +73,18 @@ export default new Vuex.Store({
          * @param state
          * @param value
          */
-        setGroups (state, value) {
+        setGroups(state, value) {
             state.groups = value;
+        },
+
+        /**
+         * tags setter
+         *
+         * @param state
+         * @param value
+         */
+        setTags(state, value) {
+            state.tags = value;
         }
 
     },
@@ -91,6 +102,7 @@ export default new Vuex.Store({
                     context.commit('setUsername', response.name);
                     context.commit('setUserId', response.id);
                     context.dispatch('getGroups');
+                    context.dispatch('getTags');
                 })
                 .catch(error => {
                     if (error.response.statusText === 'Unauthorized') {
@@ -110,6 +122,23 @@ export default new Vuex.Store({
                 .then(response => {
                     if (response.length !== 0) {
                         context.commit('setGroups', response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+        /**
+         * Call api to get list of user's tags
+         *
+         * @param context
+         */
+        getTags(context) {
+            api.getTags(context.state.userId)
+                .then(response => {
+                    if (response.length !== 0) {
+                        context.commit('setTags', response);
                     }
                 })
                 .catch(error => {

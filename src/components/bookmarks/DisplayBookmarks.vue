@@ -12,7 +12,9 @@
         <div class="row">
 
             <div class="col-lg-2 col-12">
-                <GroupsList />
+                <GroupsList :groups="groups" />
+
+                <TagsList :tags="tags" />
             </div>
 
             <div class="row col-lg-10 col-12 no-gutters">
@@ -44,10 +46,11 @@
     import BookmarkContent from "./BookmarkContent";
     import {mapState} from 'vuex';
     import GroupsList from "../groups/GroupsList";
+    import TagsList from "../groups/TagsList";
 
     export default {
 
-        components: {GroupsList, BookmarkContent},
+        components: {TagsList, GroupsList, BookmarkContent},
 
         data: () => ({
             bookmarks: [],
@@ -70,7 +73,7 @@
         },
 
         computed: {
-            ...mapState(['userId', 'groups'])
+            ...mapState(['userId', 'groups', 'tags'])
         },
 
         created: function () {
