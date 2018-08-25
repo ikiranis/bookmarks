@@ -1,17 +1,27 @@
 <template>
     <div class="text-center">
-        <div class="alert my-3"
-             :class="response.status ? 'alert-success' : 'alert-danger'"
-             role="alert">
+        <b-alert class="my-3"
+                 :variant="response.status ? 'success' : 'danger'"
+                 dismissible
+                 :show="showDismissibleAlert"
+                 @dismissed="showDismissibleAlert=false">
             {{ response.message }}
-        </div>
+        </b-alert>
     </div>
 </template>
 
 <script>
     export default {
+
+        data() {
+            return {
+                showDismissibleAlert: true
+            }
+        },
+
         props: {
             response: Object
         }
+
     }
 </script>

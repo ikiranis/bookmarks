@@ -101,8 +101,6 @@ export default new Vuex.Store({
                 .then(response => {
                     context.commit('setUsername', response.name);
                     context.commit('setUserId', response.id);
-                    context.commit('setTags', []);
-                    context.commit('setGroups', []);
                     context.dispatch('getGroups');
                     context.dispatch('getTags');
                 })
@@ -120,6 +118,7 @@ export default new Vuex.Store({
          * @param context
          */
         getGroups(context) {
+            context.commit('setGroups', []);
             api.getGroups(context.state.userId)
                 .then(response => {
                     if (response.length !== 0) {
@@ -139,6 +138,7 @@ export default new Vuex.Store({
          * @param context
          */
         getTags(context) {
+            context.commit('setTags', []);
             api.getTags(context.state.userId)
                 .then(response => {
                     if (response.length !== 0) {

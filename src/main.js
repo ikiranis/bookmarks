@@ -43,10 +43,4 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-// TODO user screen. Change password, name. Delete account
-// TODO encrypt a bookmark
-// TODO attachments upload
-// TODO evernote, browser bookmarks import
-// TODO Forgot my password
-// TODO hide groups/tags
-// TODO refresh groups/tags on inserting new in a post
+
