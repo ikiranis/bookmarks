@@ -5,4 +5,4 @@
 - Attachments upload
 - Evernote, browser bookmarks import
 - Forgot my password
-- Hide groups/tags
+- Don't display empty from bookmarks groups

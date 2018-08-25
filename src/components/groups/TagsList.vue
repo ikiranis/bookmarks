@@ -11,11 +11,13 @@
         <b-collapse is-nav id="tags_collapse">
 
             <b-navbar-nav class="ml-auto">
-                <b-nav-item v-for="tag in tags" :key="tag.id">
-                    <router-link :to="{ name: 'tagSearch', params: { id: tag.id } }"
-                                 :key="tag.id">
-                        {{ tag.name }}
-                    </router-link>
+                <b-nav-item class="row text-center">
+                    <span v-for="tag in tags" :key="tag.id">
+                        <router-link :to="{ name: 'tagSearch', params: { id: tag.id } }"
+                                     :key="tag.id">
+                            <span class="btn btn-sm mx-1 btn-secondary mt-1">{{ tag.name }}</span>
+                        </router-link>
+                    </span>
                 </b-nav-item>
             </b-navbar-nav>
 

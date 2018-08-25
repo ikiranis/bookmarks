@@ -36,7 +36,7 @@
                 <div class="mt-2 text-center">
                     <router-link :key="tag.id" v-for="tag in bookmark.tags"
                                  :to="{ name: 'tagSearch', params: { id: tag.id } }">
-                        <span class="btn btn-sm mx-2 btn-secondary text-light">{{ tag.name }}</span>
+                        <span class="btn btn-sm mx-2 mt-1 btn-secondary text-light">{{ tag.name }}</span>
                     </router-link>
                 </div>
             </div>

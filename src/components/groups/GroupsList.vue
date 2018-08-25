@@ -11,11 +11,13 @@
         <b-collapse is-nav id="groups_collapse">
 
             <b-navbar-nav class="ml-auto">
-                <b-nav-item v-for="group in groups" :key="group.id">
-                    <router-link :to="{ name: 'groupSearch', params: { id: group.id } }"
-                                 :key="group.id">
-                        {{ group.name }}
-                    </router-link>
+                <b-nav-item class="row text-center">
+                    <span v-for="group in groups" :key="group.id">
+                        <router-link :to="{ name: 'groupSearch', params: { id: group.id } }"
+                                     :key="group.id">
+                            <span class="btn btn-sm mx-1 btn-secondary mt-1">{{ group.name }}</span>
+                        </router-link>
+                    </span>
                 </b-nav-item>
             </b-navbar-nav>
 

@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="mt-2 text-center">
-                    <span class="btn btn-sm mx-2 btn-secondary"
+                    <span class="btn btn-sm mx-2 btn-secondary mt-1"
                           :key="tag.id" v-for="tag in formData.tags">
                         {{ tag.name }}
                         <span id="removeTag" @click="removeTag(tag.id)" title="Remove Tag">x</span>
