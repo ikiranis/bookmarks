@@ -48,3 +48,5 @@ new Vue({
 // TODO attachments upload
 // TODO evernote, browser bookmarks import
 // TODO Forgot my password
+// TODO hide groups/tags
+// TODO refresh groups/tags on inserting new in a post
