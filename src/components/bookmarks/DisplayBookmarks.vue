@@ -12,9 +12,9 @@
         <div class="row">
 
             <div class="col-lg-2 col-12">
-                <GroupsList :groups="groups" />
+                <GroupsList :groups="groups" v-if="groups" />
 
-                <TagsList :tags="tags" />
+                <TagsList :tags="tags" v-if="tags" />
             </div>
 
             <div class="row col-lg-10 col-12 no-gutters">
