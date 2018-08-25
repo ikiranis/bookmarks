@@ -122,6 +122,8 @@ export default new Vuex.Store({
                 .then(response => {
                     if (response.length !== 0) {
                         context.commit('setGroups', response);
+                    } else {
+                        context.commit('setGroups', []);
                     }
                 })
                 .catch(error => {
@@ -139,6 +141,8 @@ export default new Vuex.Store({
                 .then(response => {
                     if (response.length !== 0) {
                         context.commit('setTags', response);
+                    } else {
+                        context.commit('setTags', []);
                     }
                 })
                 .catch(error => {
