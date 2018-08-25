@@ -14,7 +14,7 @@
 <script>
 
     import api from '@/api';
-    import {mapState} from 'vuex';
+    import {mapState, mapActions} from 'vuex';
     import DisplayError from "@/components/basic/DisplayError";
     import BookmarkForm from "@/components/bookmarks/BookmarkForm";
 
@@ -36,6 +36,8 @@
         },
 
         methods: {
+
+            ...mapActions(['getGroups', 'getTags']),
 
             /**
              * Get the data from child component
@@ -77,6 +79,8 @@
                         this.response.message = 'Bookmark saved, with Id: ' + response.id;
                         this.response.status = true;
                         this.clearForm();
+                        this.getGroups();
+                        this.getTags();
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;

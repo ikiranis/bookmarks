@@ -15,7 +15,7 @@
 <script>
 
     import api from '@/api';
-    import {mapState, mapMutations} from 'vuex';
+    import {mapState, mapMutations, mapActions} from 'vuex';
     import DisplayError from "../basic/DisplayError";
     import BookmarkForm from "./BookmarkForm";
 
@@ -47,6 +47,7 @@
         methods: {
 
             ...mapMutations(['setIsEditBookmarkOn']),
+            ...mapActions(['getGroups', 'getTags']),
 
             /**
              * Get the data from child component
@@ -76,6 +77,8 @@
                         this.response.message = response.id;
                         this.response.status = true;
                         this.setIsEditBookmarkOn(false);
+                        this.getGroups();
+                        this.getTags();
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
