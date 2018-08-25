@@ -101,6 +101,8 @@ export default new Vuex.Store({
                 .then(response => {
                     context.commit('setUsername', response.name);
                     context.commit('setUserId', response.id);
+                    context.commit('setTags', []);
+                    context.commit('setGroups', []);
                     context.dispatch('getGroups');
                     context.dispatch('getTags');
                 })
