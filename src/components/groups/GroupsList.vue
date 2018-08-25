@@ -2,13 +2,13 @@
 
     <b-navbar type="light" variant="light" class="my-3">
 
-        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+        <b-navbar-toggle target="groups_collapse"></b-navbar-toggle>
 
         <b-navbar-brand>
             Groups
         </b-navbar-brand>
 
-        <b-collapse is-nav id="nav_collapse">
+        <b-collapse is-nav id="groups_collapse">
 
             <b-navbar-nav class="ml-auto">
                 <b-nav-item v-for="group in groups" :key="group.id">
