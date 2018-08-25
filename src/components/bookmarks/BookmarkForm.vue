@@ -75,11 +75,11 @@
                     <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
                 </div>
 
-                <div class="custom-file col-lg-6 col-12 px-1 mt-3">
+<!--                <div class="custom-file col-lg-6 col-12 px-1 mt-3">
                     <label class="custom-file-label" for="files">Choose files</label>
                     <input type="file" class="custom-file-input" name="files" id="files"
                            accept="*" @change="uploadFiles" multiple>
-                </div>
+                </div>-->
             </div>
 
             <div class="col-lg-3 col-12 text-center">
