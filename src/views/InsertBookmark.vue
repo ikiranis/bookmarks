@@ -73,6 +73,9 @@
                     tags: this.formData.tags.map(value => value.id)
                 };
 
+                // TODO if you have this post https://m.sport24.gr/football/omades/Giouventous/to-mystiko-toy-ronalnto-ekane-proponhsh-stis-2-ta-kshmerwmata-meta-apo-taksidia.5292742.html
+                // the image is invalid "//www.sport24.gr/incoming/article4760866.ece/BINARY/original/Default-og-image.png"
+
                 api.saveBookmark(args)
                     .then(response => {
                         // console.log(response)
