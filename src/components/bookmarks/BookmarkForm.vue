@@ -83,8 +83,8 @@
             </div>
 
             <div class="col-lg-3 col-12 text-center">
-                <img :src="!formData.image ? 'https://via.placeholder.com/350x350' : formData.image" width="100%">
-                <form-error v-if="response.errors.image" :error="response.errors.image[0]"/>
+                <img :src="!formData.image ? 'https://via.placeholder.com/350x350' : formData.image" width="100%" :title="formData.image">
+                <form-error v-if="response.errors.image" :error="response.errors.image[0]" />
                 <button class="btn btn-sm btn-danger mt-2 col-12" @click="removeImage">Remove image</button>
             </div>
         </div>

@@ -6,7 +6,7 @@
             <span class="btn btn-success col-lg-6 col-12 mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
         </div>
 
-        <display-error v-if="response.message" :response="response"/>
+        <display-error v-if="response.message" :response="response" />
     </div>
 
 </template>

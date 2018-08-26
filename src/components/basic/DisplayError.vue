@@ -21,6 +21,18 @@
 
         props: {
             response: Object
+        },
+
+        computed: {
+            message: function () {
+                return this.response.message;
+            }
+        },
+
+        watch: {
+            message() {
+                this.showDismissibleAlert = true;
+            }
         }
 
     }
