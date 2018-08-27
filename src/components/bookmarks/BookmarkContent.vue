@@ -31,6 +31,12 @@
             <div class="card-body">
                 <p class="card-text" v-html="compiledMarkdown"></p>
 
+                <ul class="list-items">
+                    <li class="list-item" v-for="file in bookmark.files" :key="file.id">
+                        {{ file.fullPathName }}
+                    </li>
+                </ul>
+
                 <a :href="bookmark.url" v-if="bookmark.url" target="new">{{ urlParser.hostname }}</a>
 
                 <div class="mt-2 text-center">

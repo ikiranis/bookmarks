@@ -14,7 +14,7 @@
 <script>
 
     import api from '@/api';
-    import {mapState, mapActions} from 'vuex';
+    import {mapState, mapActions, mapMutations} from 'vuex';
     import DisplayError from "@/components/basic/DisplayError";
     import BookmarkForm from "@/components/bookmarks/BookmarkForm";
 
@@ -32,11 +32,12 @@
         }),
 
         computed: {
-            ...mapState(['userId'])
+            ...mapState(['userId', 'files'])
         },
 
         methods: {
 
+            ...mapMutations(['setFiles']),
             ...mapActions(['getGroups', 'getTags']),
 
             /**
@@ -70,8 +71,10 @@
                     user_id: this.userId,
                     group_id: this.formData.group_id,
                     image: this.formData.image,
-                    tags: this.formData.tags.map(value => value.id)
+                    tags: this.formData.tags.map(value => value.id), // take only the id's
+                    uploadedFiles: this.files.map(value => value.id)
                 };
+
 
                 // TODO if you have this post https://m.sport24.gr/football/omades/Giouventous/to-mystiko-toy-ronalnto-ekane-proponhsh-stis-2-ta-kshmerwmata-meta-apo-taksidia.5292742.html
                 // the image is invalid "//www.sport24.gr/incoming/article4760866.ece/BINARY/original/Default-og-image.png"
@@ -84,8 +87,10 @@
                         this.clearForm();
                         this.getGroups();
                         this.getTags();
+                        this.setFiles([]);
                     })
                     .catch(error => {
+                        console.log(error.response);
                         this.response.message = error.response.data.message;
                         this.response.status = false;
                         if (error.response.data.errors) {

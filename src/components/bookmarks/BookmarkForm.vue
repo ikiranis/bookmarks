@@ -80,6 +80,12 @@
                     <input type="file" class="custom-file-input" name="files" id="files"
                            accept="*" @change="uploadFiles" multiple>
                 </div>
+
+                <ul class="list-items">
+                    <li class="list-item" v-for="file in files" :key="file.id">
+                        {{ file.name }}
+                    </li>
+                </ul>
             </div>
 
             <div class="col-lg-3 col-12 text-center">
@@ -126,7 +132,7 @@
         },
 
         computed: {
-            ...mapState(['userId', 'groups']),
+            ...mapState(['userId', 'groups', 'files']),
 
             myData: function () {
                 return {

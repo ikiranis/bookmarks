@@ -13,6 +13,7 @@
  */
 
 import api from '../api';
+import store from '../store'
 
 // Uploading Files
 let uploadFiles = {
@@ -24,6 +25,7 @@ let uploadFiles = {
     slice_size: 700 * 1024,                // Το μέγεθος του slice
     filesInputElement: '#files',            // Το input element που παίρνει τα αρχεία
     user_id: '',                             // User Id
+    files: [],
 
     /**
      * Εκκίνηση του uploading
@@ -150,18 +152,21 @@ let uploadFiles = {
             .then(response => {
                 this.finishedUploads++;
 
-                console.log(response)
-
                 if (response.success === true) {
-                    console.log('File uploaded to path ' + response.result + ' with id ' + response.file_id);
+                    console.log('File uploaded to path ' + response.path + ' with id ' + response.file_id);
+                    this.files.push({
+                        id: response.file_id,
+                        name: response.filename
+                    });
+                    store.commit('setFiles', this.files);
                 } else {
-                    console.log('Problem with file ' + response.fileName);
+                    console.log('Problem with file ' + response.filename);
                 }
 
                 this.checkUploadTermination(); // Έλεγχος και τερματισμός της διαδικασίας του uploading
             })
             .catch(error => {
-                console.log(error.response);
+                console.log(error);
             });
     },
 

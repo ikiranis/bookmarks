@@ -13,7 +13,8 @@ export default new Vuex.Store({
         isEditBookmarkOn: false,
         isEditGroupOn: false,
         groups: [],
-        tags: []
+        tags: [],
+        files: []
     },
     mutations: {
 
@@ -85,6 +86,16 @@ export default new Vuex.Store({
          */
         setTags(state, value) {
             state.tags = value;
+        },
+
+        /**
+         * files setter
+         *
+         * @param state
+         * @param value
+         */
+        setFiles(state, value) {
+            state.files = value;
         }
 
     },
@@ -148,7 +159,7 @@ export default new Vuex.Store({
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error.response.data.message);
                 });
         }
 
