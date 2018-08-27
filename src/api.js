@@ -116,6 +116,18 @@ let api = {
     },
 
     /**
+     * Upload a file
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async uploadFile(args) {
+        let {data} = await axios.post(ROOT_API + '/uploadFile', args);
+
+        return data;
+    },
+
+    /**
      *
      * @param args
      * @returns {Promise<void>}

@@ -12,11 +12,7 @@
  *
  */
 
-import axios from 'axios';
-
-const API_HOST = process.env.VUE_APP_API_HOST;
-const ROOT_API = API_HOST + process.env.VUE_APP_API_SUFFIX;
-
+import api from '../api';
 
 // Uploading Files
 let uploadFiles = {
@@ -25,17 +21,18 @@ let uploadFiles = {
     percent_done: [],                       // Το ποσοστό που έχει ανέβει από κάθε αρχείο
     reader: [],                             // To fileReader object για κάθε αρχείο
     theFile: [],                            // Το κάθε αρχείο
-    slice_size: 1000 * 1024,                // Το μέγεθος του slice
+    slice_size: 700 * 1024,                // Το μέγεθος του slice
     filesInputElement: '#files',            // Το input element που παίρνει τα αρχεία
+    user_id: '',                             // User Id
 
     /**
      * Εκκίνηση του uploading
      *
      */
-    startUpload: function () {
+    startUpload: function (user_id) {
         // To imput element που περιέχει τα επιλεγμένα αρχεία
         let files = document.querySelector(this.filesInputElement).files;
-
+        this.user_id = user_id;
 
         // TODO display progress
         // clearResultsContainer();
@@ -98,14 +95,16 @@ let uploadFiles = {
             }
 
             let args = {
+                user_id: this.user_id,
                 file: this.theFile[i].name,
-                file_type: this.theFile[i].type,
                 uploadKind: 'slice',
                 file_data: event.target.result
             };
 
-            axios.post(ROOT_API + '/uploadFile', args)
+            api.uploadFile(args)
                 .then(response => {
+                    console.log(response)
+
                     let size_done = start + this.slice_size;
                     this.percent_done[i] = parseInt(((size_done / this.theFile[i].size) * 100).toFixed(0));
 
@@ -123,9 +122,9 @@ let uploadFiles = {
                     } else {
                         this.insertFileToDatabase(response);
                     }
-                }).bind(this)
+                })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error.response);
                 });
 
         }.bind(this); // Περνάει το this για να μπορεί να το δει μέσα στο callback
@@ -141,26 +140,28 @@ let uploadFiles = {
      */
     insertFileToDatabase: function (data) {
         let args = {
+            user_id: this.user_id,
             fullPathFilename: data.fullPathFilename,
             fileName: data.fileName,
-            file_type: data.fileType,
             uploadKind: 'finalizedFile'
         };
 
-        axios.post(ROOT_API + '/uploadFile', args)
+        api.uploadFile(args)
             .then(response => {
                 this.finishedUploads++;
 
+                console.log(response)
+
                 if (response.success === true) {
-                    console.log('File uploaded to path ' + response.result);
+                    console.log('File uploaded to path ' + response.result + ' with id ' + response.file_id);
                 } else {
                     console.log('Problem with file ' + response.fileName);
                 }
 
                 this.checkUploadTermination(); // Έλεγχος και τερματισμός της διαδικασίας του uploading
-            }).bind(this)
+            })
             .catch(error => {
-                console.log(error);
+                console.log(error.response);
             });
     },
 
