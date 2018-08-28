@@ -285,7 +285,17 @@ let api = {
      */
     async removeUserFromGroup(args) {
         return await axios.post(ROOT_API + '/removeGroupUser', args);
-    }
+    },
+
+    /**
+     * Get file contents
+     *
+     * @param id
+     * @returns {Promise<any>}
+     */
+    async getFile(id) {
+        return await axios.get(ROOT_API + '/serveFile/' + id);
+    },
 
 };
 

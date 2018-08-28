@@ -33,7 +33,7 @@
 
                 <ul class="list-items">
                     <li class="list-item" v-for="file in bookmark.files" :key="file.id">
-                        {{ file.fullPathName }}
+                        <span class="btn btn-sm btn-info" @click="getFile(file.id)">{{ file.filename }}</span>
                     </li>
                 </ul>
 
@@ -152,6 +152,9 @@
                 this.setIsEditBookmarkOn(true);
             },
 
+            /**
+             * Toggle public flag true/false
+             */
             toggleBookmarkPublic() {
                 api.toggleBookmarkPublic(this.bookmark.id)
                     .then((response) => {
@@ -160,6 +163,21 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                    });
+            },
+
+            /**
+             * Get the contents of a file with id
+             *
+             * @param id
+             */
+            getFile(id) {
+                api.getFile(id)
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error.response);
                     });
             }
 
