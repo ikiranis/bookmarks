@@ -31,9 +31,9 @@
             <div class="card-body">
                 <p class="card-text" v-html="compiledMarkdown"></p>
 
-                <ul class="list-items">
-                    <li class="list-item" v-for="file in bookmark.files" :key="file.id">
-                        <span class="btn btn-sm btn-info" @click="getFile(file.id)">{{ file.filename }}</span>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="file in bookmark.files" :key="file.id">
+                        <a :href="rootApi + file.id">{{ file.filename }}</a>
                     </li>
                 </ul>
 
@@ -103,6 +103,10 @@
 
                     return marked(description, {sanitize: true});
                 }
+            },
+
+            rootApi: function () {
+                return api.rootApi() + '/serveFile/';
             }
 
         },
@@ -164,22 +168,8 @@
                         this.response.message = error.response.data.message;
                         this.response.status = false;
                     });
-            },
-
-            /**
-             * Get the contents of a file with id
-             *
-             * @param id
-             */
-            getFile(id) {
-                api.getFile(id)
-                    .then((response) => {
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                    });
             }
+
 
         }
 

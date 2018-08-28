@@ -162,8 +162,8 @@ let api = {
 
     /**
      * Generate and get new user api_key
-     * 
-     * @param {*} id 
+     *
+     * @param {*} id
      */
     async generateApiKey(id) {
         let {data} = await axios.patch(ROOT_API + '/userApiKey/' + id);
@@ -280,22 +280,16 @@ let api = {
     },
 
     /**
-     * 
-     * @param {*} args 
+     *
+     * @param {*} args
      */
     async removeUserFromGroup(args) {
         return await axios.post(ROOT_API + '/removeGroupUser', args);
     },
 
-    /**
-     * Get file contents
-     *
-     * @param id
-     * @returns {Promise<any>}
-     */
-    async getFile(id) {
-        return await axios.get(ROOT_API + '/serveFile/' + id);
-    },
+    rootApi() {
+        return ROOT_API;
+    }
 
 };
 
