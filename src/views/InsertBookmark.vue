@@ -81,7 +81,6 @@
 
                 api.saveBookmark(args)
                     .then(response => {
-                        // console.log(response)
                         this.response.message = 'Bookmark saved, with Id: ' + response.id;
                         this.response.status = true;
                         this.clearForm();
@@ -90,7 +89,6 @@
                         this.setFiles([]);
                     })
                     .catch(error => {
-                        console.log(error.response);
                         this.response.message = error.response.data.message;
                         this.response.status = false;
                         if (error.response.data.errors) {

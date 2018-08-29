@@ -105,8 +105,6 @@ let uploadFiles = {
 
             api.uploadFile(args)
                 .then(response => {
-                    console.log(response)
-
                     let size_done = start + this.slice_size;
                     this.percent_done[i] = parseInt(((size_done / this.theFile[i].size) * 100).toFixed(0));
 
@@ -153,7 +151,7 @@ let uploadFiles = {
                 this.finishedUploads++;
 
                 if (response.success === true) {
-                    console.log('File uploaded to path ' + response.path + ' with id ' + response.file_id);
+                    // console.log('File uploaded to path ' + response.path + ' with id ' + response.file_id);
                     this.files.push({
                         id: response.file_id,
                         name: response.filename
@@ -183,7 +181,7 @@ let uploadFiles = {
         // Προστίθεται το τρέχον ποσοστό, στο συνολικό
         let theTotal = ((percentSummary / totalPercent) * 100).toFixed(0);
 
-        console.log(theTotal);
+        // console.log(theTotal);
     },
 
     /**

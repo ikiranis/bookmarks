@@ -33,7 +33,9 @@
 
                 <ul class="list-group">
                     <li class="list-group-item" v-for="file in bookmark.files" :key="file.id">
-                        <a :href="rootApi + file.id">{{ file.filename }}</a>
+                        <a :href="rootApi + file.id" @click="getFile(file.id)">{{ file.filename }}</a>
+                        <span class="btn btn-sm btn-info" @click="getFile(file.id)">View</span>
+                        <div v-if="image"><img :src="image"></div>
                     </li>
                 </ul>
 
@@ -81,7 +83,8 @@
 
         data: function() {
             return {
-                bookmarkPublic: false
+                bookmarkPublic: false,
+                image: null
             }
         },
 
@@ -168,6 +171,27 @@
                         this.response.message = error.response.data.message;
                         this.response.status = false;
                     });
+            },
+
+            getFile(id) {
+                api.getFile(id)
+                    .then(response => {
+                        console.log(response)
+                        if(response.headers["content-type"] === 'image/jpeg') {
+                            this.image = 'data:image/jpeg;base64,' + response.data;
+                        } else {
+                            console.log('download')
+                            const url = window.URL.createObjectURL(new Blob([response.data]));
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.setAttribute('download', 'download.pdf');
+                            document.body.appendChild(link);
+                            link.click();
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    })
             }
 
 

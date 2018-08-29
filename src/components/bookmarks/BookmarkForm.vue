@@ -81,8 +81,8 @@
                            accept="*" @change="uploadFiles" multiple>
                 </div>
 
-                <ul class="list-items">
-                    <li class="list-item" v-for="file in files" :key="file.id">
+                <ul class="list-group mt-3">
+                    <li class="list-group-item" v-for="file in files" :key="file.id">
                         {{ file.name }}
                     </li>
                 </ul>
