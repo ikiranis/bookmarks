@@ -93,6 +93,7 @@
     import moment from 'moment';
     import utility from "@/library/utilities";
     import * as marked from 'marked';
+    import { base64StringToBlob } from 'blob-util'
 
     export default {
 
@@ -208,7 +209,9 @@
                             };
                             this.$refs.attachmentModal.show();
                         } else {
-                            const url = window.URL.createObjectURL(new Blob([response.data.content]));
+                            const url = window.URL.createObjectURL(new Blob([
+                                base64StringToBlob(response.data.content, response.headers["content-type"])
+                            ]));
                             const link = document.createElement('a');
                             link.href = url;
                             link.setAttribute('download', response.data.filename);
