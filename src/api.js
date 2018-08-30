@@ -294,7 +294,17 @@ let api = {
      * @returns {Promise<void>}
      */
     async getFile(id) {
-        return await axios.get(ROOT_API + '/getFile/' + id);
+        return await axios.get(ROOT_API + '/file/' + id);
+    },
+
+    /**
+     * Delete a file
+     *
+     * @param id
+     * @returns {Promise<void>}
+     */
+    async deleteFile(id) {
+        return await axios.delete(ROOT_API + '/file/' + id);
     },
 
     /**

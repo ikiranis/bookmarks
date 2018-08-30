@@ -37,7 +37,7 @@
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn'])
+            ...mapState(['userId', 'isEditBookmarkOn', 'files'])
         },
 
         created: function () {
@@ -46,7 +46,7 @@
 
         methods: {
 
-            ...mapMutations(['setIsEditBookmarkOn']),
+            ...mapMutations(['setIsEditBookmarkOn', 'setFiles']),
             ...mapActions(['getGroups', 'getTags']),
 
             /**
@@ -69,7 +69,8 @@
                     user_id: this.userId,
                     group_id: this.formData.group_id,
                     image: this.formData.image,
-                    tags: this.formData.tags.map(value => value.id)
+                    tags: this.formData.tags.map(value => value.id),
+                    uploadedFiles: this.files.map(value => value.id)
                 };
 
                 api.updateBookmark(args)
@@ -79,6 +80,7 @@
                         this.setIsEditBookmarkOn(false);
                         this.getGroups();
                         this.getTags();
+                        this.setFiles([]);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;

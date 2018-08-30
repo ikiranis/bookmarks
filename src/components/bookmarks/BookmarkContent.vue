@@ -38,13 +38,17 @@
                 <ul class="list-group">
                     <li class="list-group-item" v-for="file in bookmark.files" :key="file.id">
                         <div class="row">
-                            <span class="col-8">{{ file.filename }}</span>
-                            <span class="col-4 text-right">
+                            <span class="col-7">{{ file.filename }}</span>
+                            <span class="col-5 text-right">
                                 <span v-if="checkFileExtension(file.filename)">
                                     <span class="btn btn-sm btn-info" @click="getFile(file.id)">View</span>
                                 </span>
                                 <span v-else>
                                     <span class="btn btn-sm btn-info" @click="getFile(file.id)">Download</span>
+                                </span>
+
+                                <span class="col-4 text-right">
+                                    <button class="btn btn-sm btn-danger" @click="deleteFile(file.id)">Delete</button>
                                 </span>
                             </span>
                         </div>
@@ -197,7 +201,6 @@
             getFile(id) {
                 api.getFile(id)
                     .then(response => {
-                        console.log(response.headers["content-type"])
                         if (response.headers["content-type"].includes('image')) {
                             this.image = {
                                 src: 'data: ${response.headers["content-type"]};base64,' + response.data.content,
@@ -218,6 +221,16 @@
                     })
             },
 
+            deleteFile(id) {
+                api.deleteFile(id)
+                    .then(response => {
+                        this.bookmark.files = utility.removeObjFromArray(this.bookmark.files, 'id', response.data.id);
+                    })
+                    .catch(error => {
+                        console.log(error.response.data.message);
+                    })
+            },
+
             /**
              * Check if file is image
              *
@@ -226,9 +239,9 @@
              */
             checkFileExtension(file) {
                 let imageExtensions = ['jpeg', 'jpg', 'tif', 'png', 'gif'];
-                let fileExtension  = file.substr(file.lastIndexOf('.') + 1);
+                let fileExtension = file.substr(file.lastIndexOf('.') + 1);
 
-                return imageExtensions.includes(fileExtension);
+                return imageExtensions.includes(fileExtension); // Return true if file is image
             }
 
 
