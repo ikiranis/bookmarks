@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <form @submit.prevent="searchText" class="row col-lg-6 col-12 ml-auto mr-auto">
             <label for="search" class="sr-only">Search</label>
             <input type="text" max="100" class="form-control col-md-5 col-12 my-1"

@@ -1,6 +1,10 @@
 <template>
     <div>
 
+        <b-modal ref="attachmentModal" size="lg" centered hide-footer title="Attachment">
+            <div v-if="image"><img :src="image" width="100%"></div>
+        </b-modal>
+
         <!-- TODO make modal bigger -->
         <b-modal ref="editBookmarkModal" size="lg" centered hide-footer title="Edit Bookmark">
             <edit-bookmark :bookmark="bookmark" v-if="isEditBookmarkOn"/>
@@ -35,7 +39,6 @@
                     <li class="list-group-item" v-for="file in bookmark.files" :key="file.id">
                         <a :href="rootApi + file.id" @click="getFile(file.id)">{{ file.filename }}</a>
                         <span class="btn btn-sm btn-info" @click="getFile(file.id)">View</span>
-                        <div v-if="image"><img :src="image"></div>
                     </li>
                 </ul>
 
@@ -56,8 +59,7 @@
             </div>
 
             <div class="card-footer text-center" v-if="!bookmarksList && bookmark.user_id === userId">
-                <button class="btn btn-sm btn-info mx-1" v-on:click="editBookmark()" data-toggle="modal"
-                      data-target="#editBookmarkModal">Edit</button>
+                <button class="btn btn-sm btn-info mx-1" @click="editBookmark()">Edit</button>
                 <button class="btn btn-sm btn-danger mx-1"
                       v-on:click="removeBookmark()">Remove</button>
                 <button class="btn btn-sm mx-1" :class="bookmarkPublic ? 'btn-success' : 'btn-warning'"
@@ -179,6 +181,7 @@
                         console.log(response)
                         if(response.headers["content-type"] === 'image/jpeg') {
                             this.image = 'data:image/jpeg;base64,' + response.data;
+                            this.$refs.attachmentModal.show();
                         } else {
                             console.log('download')
                             const url = window.URL.createObjectURL(new Blob([response.data]));
