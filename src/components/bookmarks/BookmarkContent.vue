@@ -1,8 +1,8 @@
 <template>
     <div>
 
-        <b-modal ref="attachmentModal" size="lg" centered hide-footer title="Attachment">
-            <div v-if="image"><img :src="image" width="100%"></div>
+        <b-modal ref="attachmentModal" size="lg" centered hide-footer :title="image.filename">
+            <div v-if="image.src"><img :src="image.src" width="100%"></div>
         </b-modal>
 
         <!-- TODO make modal bigger -->
@@ -86,7 +86,10 @@
         data: function() {
             return {
                 bookmarkPublic: false,
-                image: null
+                image: {
+                    src: null,
+                    filename: null
+                }
             }
         },
 
@@ -175,12 +178,18 @@
                     });
             },
 
+            /**
+             *
+             * @param id
+             */
             getFile(id) {
                 api.getFile(id)
                     .then(response => {
-                        console.log(response)
                         if(response.headers["content-type"] === 'image/jpeg') {
-                            this.image = 'data:image/jpeg;base64,' + response.data;
+                            this.image = {
+                                src: 'data:image/jpeg;base64,' + response.data.content,
+                                filename: response.data.filename
+                            };
                             this.$refs.attachmentModal.show();
                         } else {
                             console.log('download')
