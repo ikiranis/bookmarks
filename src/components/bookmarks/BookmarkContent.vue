@@ -40,7 +40,7 @@
                         <div class="row">
                             <span class="col-8">{{ file.filename }}</span>
                             <span class="col-4 text-right">
-                                <span v-if="file.filename.substr(file.filename.lastIndexOf('.') + 1) === 'jpg'">
+                                <span v-if="checkFileExtension(file.filename)">
                                     <span class="btn btn-sm btn-info" @click="getFile(file.id)">View</span>
                                 </span>
                                 <span v-else>
@@ -195,12 +195,10 @@
              * @param id
              */
             getFile(id) {
-                console.log(this.bookmark.files)
                 api.getFile(id)
                     .then(response => {
-                        let fileExtension = response.data.filename.substr(response.data.filename.lastIndexOf('.') + 1);
-
-                        if (fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'png' || fileExtension === 'jpeg') {
+                        console.log(response.headers["content-type"])
+                        if (response.headers["content-type"].includes('image')) {
                             this.image = {
                                 src: 'data: ${response.headers["content-type"]};base64,' + response.data.content,
                                 filename: response.data.filename
@@ -218,6 +216,22 @@
                     .catch(error => {
                         console.log(error.response);
                     })
+            },
+
+            /**
+             * Check if file is image
+             *
+             * @param file
+             * @returns {boolean}
+             */
+            checkFileExtension(file) {
+                let fileExtension  = file.substr(file.lastIndexOf('.') + 1)
+
+                if(fileExtension === 'jpeg' || fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'png' || fileExtension === 'tif') {
+                    return true;
+                }
+
+                return false;
             }
 
 
