@@ -37,7 +37,7 @@
 
                 <ul class="list-group">
                     <li class="list-group-item" v-for="file in bookmark.files" :key="file.id">
-                        <a :href="rootApi + file.id" @click="getFile(file.id)">{{ file.filename }}</a>
+                        {{ file.filename }}
                         <span class="btn btn-sm btn-info" @click="getFile(file.id)">View</span>
                     </li>
                 </ul>

@@ -84,6 +84,7 @@
                 <ul class="list-group mt-3">
                     <li class="list-group-item" v-for="file in files" :key="file.id">
                         {{ file.name }}
+                        <button class="btn btn-sm btn-danger" @click="deleteFile(file.id)">Delete</button>
                     </li>
                 </ul>
             </div>
@@ -102,7 +103,7 @@
 
     import api from '@/api';
     import FormError from "../basic/FormError";
-    import {mapState} from 'vuex';
+    import {mapState,mapMutations} from 'vuex';
     import utility from "@/library/utilities";
     import uploadFiles from "@/library/uploadFiles";
     import * as marked from 'marked';
@@ -155,6 +156,8 @@
         },
 
         methods: {
+
+            ...mapMutations(['setFiles']),
 
             /**
              * Send data back to parent component
@@ -269,12 +272,28 @@
                 this.formData.tags = utility.removeObjFromArray(this.formData.tags, 'id', tagId);
             },
 
+            /**
+             *
+             */
             removeImage() {
                 this.formData.image = '';
             },
 
+            /**
+             *
+             */
             uploadFiles() {
                 uploadFiles.startUpload(this.userId);
+            },
+
+            /**
+             *
+             * @param id
+             */
+            deleteFile(id) {
+                let files = utility.removeObjFromArray(this.files, 'id', id);
+                this.setFiles(files);
+                // TODO remove it from database and storage too
             }
 
         }

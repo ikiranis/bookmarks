@@ -48,6 +48,7 @@ let uploadFiles = {
         this.percent_done = [];
         this.reader = [];
         this.theFile = [];
+        this.files = [];
 
         for (let i = 0; i < this.filesUploadedCount; i++) {
             this.reader.push(new FileReader());
