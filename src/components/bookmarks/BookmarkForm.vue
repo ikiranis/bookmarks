@@ -75,23 +75,33 @@
                     <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
                 </div>
 
-                <div class="custom-file col-lg-6 col-12 px-1 mt-3">
+                <div class="custom-file col-12 px-1 mt-3">
                     <label class="custom-file-label" for="files">Choose files</label>
                     <input type="file" class="custom-file-input" name="files" id="files"
                            accept="*" @change="uploadFiles" multiple>
                 </div>
 
+                <div class="mt-3" v-if="progress > 0">
+                    <b-progress height="2rem" :value="parseInt(progress)" :max="progressMax" show-progress animated
+                                variant="success"></b-progress>
+                </div>
+
                 <ul class="list-group mt-3">
                     <li class="list-group-item" v-for="file in files" :key="file.id">
-                        {{ file.name }}
-                        <button class="btn btn-sm btn-danger" @click="deleteFile(file.id)">Delete</button>
+                        <div class="row">
+                            <span class="col-8">{{ file.name }}</span>
+                            <span class="col-4 text-right">
+                                <button class="btn btn-sm btn-danger" @click="deleteFile(file.id)">Delete</button>
+                            </span>
+                        </div>
                     </li>
                 </ul>
             </div>
 
             <div class="col-lg-3 col-12 text-center">
-                <img :src="!formData.image ? 'https://via.placeholder.com/350x350' : formData.image" width="100%" :title="formData.image">
-                <form-error v-if="response.errors.image" :error="response.errors.image[0]" />
+                <img :src="!formData.image ? 'https://via.placeholder.com/350x350' : formData.image" width="100%"
+                     :title="formData.image">
+                <form-error v-if="response.errors.image" :error="response.errors.image[0]"/>
                 <button class="btn btn-sm btn-danger mt-2 col-12" @click="removeImage">Remove image</button>
             </div>
         </div>
@@ -103,7 +113,7 @@
 
     import api from '@/api';
     import FormError from "../basic/FormError";
-    import {mapState,mapMutations} from 'vuex';
+    import {mapState, mapMutations} from 'vuex';
     import utility from "@/library/utilities";
     import uploadFiles from "@/library/uploadFiles";
     import * as marked from 'marked';
@@ -128,12 +138,13 @@
                     image: '',
                     tags: [],
                     tag: ''
-                }
+                },
+                progressMax: 100
             }
         },
 
         computed: {
-            ...mapState(['userId', 'groups', 'files']),
+            ...mapState(['userId', 'groups', 'files', 'progress']),
 
             myData: function () {
                 return {
@@ -157,7 +168,7 @@
 
         methods: {
 
-            ...mapMutations(['setFiles']),
+            ...mapMutations(['setFiles', 'setProgress']),
 
             /**
              * Send data back to parent component

@@ -37,8 +37,17 @@
 
                 <ul class="list-group">
                     <li class="list-group-item" v-for="file in bookmark.files" :key="file.id">
-                        {{ file.filename }}
-                        <span class="btn btn-sm btn-info" @click="getFile(file.id)">View</span>
+                        <div class="row">
+                            <span class="col-8">{{ file.filename }}</span>
+                            <span class="col-4 text-right">
+                                <span v-if="file.filename.substr(file.filename.lastIndexOf('.') + 1) === 'jpg'">
+                                    <span class="btn btn-sm btn-info" @click="getFile(file.id)">View</span>
+                                </span>
+                                <span v-else>
+                                    <span class="btn btn-sm btn-info" @click="getFile(file.id)">Download</span>
+                                </span>
+                            </span>
+                        </div>
                     </li>
                 </ul>
 
@@ -61,9 +70,11 @@
             <div class="card-footer text-center" v-if="!bookmarksList && bookmark.user_id === userId">
                 <button class="btn btn-sm btn-info mx-1" @click="editBookmark()">Edit</button>
                 <button class="btn btn-sm btn-danger mx-1"
-                      v-on:click="removeBookmark()">Remove</button>
+                        v-on:click="removeBookmark()">Remove
+                </button>
                 <button class="btn btn-sm mx-1" :class="bookmarkPublic ? 'btn-success' : 'btn-warning'"
-                      v-on:click="toggleBookmarkPublic()">{{ bookmarkPublic ? 'Make private' : 'Make public'}}</button>
+                        v-on:click="toggleBookmarkPublic()">{{ bookmarkPublic ? 'Make private' : 'Make public'}}
+                </button>
             </div>
 
         </div>
@@ -83,7 +94,7 @@
 
         components: {EditBookmark},
 
-        data: function() {
+        data: function () {
             return {
                 bookmarkPublic: false,
                 image: {
@@ -179,24 +190,27 @@
             },
 
             /**
+             * Get the file and display images or download other files
              *
              * @param id
              */
             getFile(id) {
+                console.log(this.bookmark.files)
                 api.getFile(id)
                     .then(response => {
-                        if(response.headers["content-type"] === 'image/jpeg') {
+                        let fileExtension = response.data.filename.substr(response.data.filename.lastIndexOf('.') + 1);
+
+                        if (fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'png' || fileExtension === 'jpeg') {
                             this.image = {
-                                src: 'data:image/jpeg;base64,' + response.data.content,
+                                src: 'data: ${response.headers["content-type"]};base64,' + response.data.content,
                                 filename: response.data.filename
                             };
                             this.$refs.attachmentModal.show();
                         } else {
-                            console.log('download')
-                            const url = window.URL.createObjectURL(new Blob([response.data]));
+                            const url = window.URL.createObjectURL(new Blob([response.data.content]));
                             const link = document.createElement('a');
                             link.href = url;
-                            link.setAttribute('download', 'download.pdf');
+                            link.setAttribute('download', response.data.filename);
                             document.body.appendChild(link);
                             link.click();
                         }

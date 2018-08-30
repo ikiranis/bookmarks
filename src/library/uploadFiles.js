@@ -182,7 +182,7 @@ let uploadFiles = {
         // Προστίθεται το τρέχον ποσοστό, στο συνολικό
         let theTotal = ((percentSummary / totalPercent) * 100).toFixed(0);
 
-        // console.log(theTotal);
+        store.commit('setProgress', theTotal);
     },
 
     /**
@@ -190,7 +190,7 @@ let uploadFiles = {
      */
     checkUploadTermination: function () {
         if (this.finishedUploads === this.filesUploadedCount) {
-            console.log(this.filesUploadedCount + ' files uploaded');
+            store.commit('setProgress', 0);
         }
     }
 

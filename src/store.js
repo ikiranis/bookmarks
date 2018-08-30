@@ -14,7 +14,8 @@ export default new Vuex.Store({
         isEditGroupOn: false,
         groups: [],
         tags: [],
-        files: []
+        files: [],
+        progress: 0
     },
     mutations: {
 
@@ -96,7 +97,17 @@ export default new Vuex.Store({
          */
         setFiles(state, value) {
             state.files = value;
-        }
+        },
+
+        /**
+         * progress setter
+         *
+         * @param state
+         * @param value
+         */
+        setProgress(state, value) {
+            state.progress = value;
+        },
 
     },
     actions: {
