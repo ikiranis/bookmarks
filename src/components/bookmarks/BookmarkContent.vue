@@ -225,13 +225,10 @@
              * @returns {boolean}
              */
             checkFileExtension(file) {
-                let fileExtension  = file.substr(file.lastIndexOf('.') + 1)
+                let imageExtensions = ['jpeg', 'jpg', 'tif', 'png', 'gif'];
+                let fileExtension  = file.substr(file.lastIndexOf('.') + 1);
 
-                if(fileExtension === 'jpeg' || fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'png' || fileExtension === 'tif') {
-                    return true;
-                }
-
-                return false;
+                return imageExtensions.includes(fileExtension);
             }
 
 
