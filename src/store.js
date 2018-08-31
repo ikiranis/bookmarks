@@ -15,6 +15,7 @@ export default new Vuex.Store({
         groups: [],
         tags: [],
         files: [],
+        rejectedFiles: [],
         progress: 0
     },
     mutations: {
@@ -97,6 +98,16 @@ export default new Vuex.Store({
          */
         setFiles(state, value) {
             state.files = value;
+        },
+
+        /**
+         * rejectedFiles setter
+         *
+         * @param state
+         * @param value
+         */
+        setRejectedFiles(state, value) {
+            state.rejectedFiles = value;
         },
 
         /**

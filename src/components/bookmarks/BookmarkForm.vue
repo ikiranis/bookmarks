@@ -96,6 +96,13 @@
                         </div>
                     </li>
                 </ul>
+
+                <ul class="list-group mt-3">
+                    <li class="list-group-item bg-danger" v-for="file in rejectedFiles" :key="file.id">
+                         <span>{{ file.name }}</span>
+                    </li>
+                </ul>
+
             </div>
 
             <div class="col-lg-3 col-12 text-center">
@@ -144,7 +151,7 @@
         },
 
         computed: {
-            ...mapState(['userId', 'groups', 'files', 'progress']),
+            ...mapState(['userId', 'groups', 'files', 'progress', 'rejectedFiles']),
 
             myData: function () {
                 return {
@@ -294,7 +301,7 @@
              *
              */
             uploadFiles() {
-                uploadFiles.startUpload(this.userId);
+                uploadFiles.startUpload(this.userId, '#files');
             },
 
             /**

@@ -14,6 +14,7 @@
 
 import api from '../api';
 import store from '../store'
+import utilities from "./utilities";
 
 // Uploading Files
 let uploadFiles = {
@@ -23,18 +24,25 @@ let uploadFiles = {
     reader: [],                             // To fileReader object για κάθε αρχείο
     theFile: [],                            // Το κάθε αρχείο
     slice_size: 700 * 1024,                // Το μέγεθος του slice
-    filesInputElement: '#files',            // Το input element που παίρνει τα αρχεία
+    filesInputElement: '',            // Το input element που παίρνει τα αρχεία
     user_id: '',                             // User Id
     files: [],
 
     /**
      * Εκκίνηση του uploading
      *
+     * @param user_id
+     * @param inputElement
      */
-    startUpload: function (user_id) {
+    startUpload: function (user_id, inputElement) {
+        this.filesInputElement = inputElement;
+        this.user_id = user_id;
+        let rejectedFiles = [];
+
         // To imput element που περιέχει τα επιλεγμένα αρχεία
         let files = document.querySelector(this.filesInputElement).files;
-        this.user_id = user_id;
+
+        let filesArray = Array.from(files);
 
         // TODO display progress
         // clearResultsContainer();
@@ -43,16 +51,24 @@ let uploadFiles = {
         // ProgressAnimation.setProgressPercent(0);
 
         this.finishedUploads = 0;
-        this.filesUploadedCount = files.length;
+        this.filesUploadedCount = filesArray.length;
 
         this.percent_done = [];
         this.reader = [];
         this.theFile = [];
         this.files = [];
 
-        for (let i = 0; i < this.filesUploadedCount; i++) {
+        for (let i = 0; i < filesArray.length; i++) {
+            if(filesArray[i].size > 3000000) {
+                rejectedFiles.push(filesArray[i]);
+                filesArray.splice(i, 1);
+            }
+            store.commit('setRejectedFiles', rejectedFiles);
+        }
+
+        for (let i = 0; i < filesArray.length; i++) {
             this.reader.push(new FileReader());
-            this.theFile.push(files[i]);
+            this.theFile.push(filesArray[i]);
 
             this.uploadSliceOfFile(0, i);
         }

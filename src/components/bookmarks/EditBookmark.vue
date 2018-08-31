@@ -81,6 +81,7 @@
                         this.getGroups();
                         this.getTags();
                         this.setFiles([]);
+                        this.setRejectedFiles([]);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
