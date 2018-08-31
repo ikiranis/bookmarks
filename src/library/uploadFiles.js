@@ -40,9 +40,7 @@ let uploadFiles = {
         let rejectedFiles = [];
 
         // To imput element που περιέχει τα επιλεγμένα αρχεία
-        let files = document.querySelector(this.filesInputElement).files;
-
-        let filesArray = Array.from(files);
+        let filesArray = Array.from(document.querySelector(this.filesInputElement).files);
 
         // TODO display progress
         // clearResultsContainer();
@@ -115,7 +113,7 @@ let uploadFiles = {
 
             let args = {
                 user_id: this.user_id,
-                file: this.theFile[i].name,
+                file: Math.round(+new Date()/1000).toString() + '_' + this.theFile[i].name, // add unix timestamp
                 uploadKind: 'slice',
                 file_data: event.target.result
             };
