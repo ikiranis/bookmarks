@@ -165,7 +165,7 @@ let uploadFiles = {
                 this.checkUploadTermination(); // Έλεγχος και τερματισμός της διαδικασίας του uploading
             })
             .catch(error => {
-                console.log(error);
+                console.log(error.response);
             });
     },
 
