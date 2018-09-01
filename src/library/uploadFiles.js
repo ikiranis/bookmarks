@@ -14,7 +14,6 @@
 
 import api from '../api';
 import store from '../store'
-import utilities from "./utilities";
 
 // Uploading Files
 let uploadFiles = {
@@ -42,12 +41,6 @@ let uploadFiles = {
         // To imput element που περιέχει τα επιλεγμένα αρχεία
         let filesArray = Array.from(document.querySelector(this.filesInputElement).files);
 
-        // TODO display progress
-        // clearResultsContainer();
-        // displayResultsIcon();
-        // ProgressAnimation.init(true);
-        // ProgressAnimation.setProgressPercent(0);
-
         this.finishedUploads = 0;
         this.filesUploadedCount = filesArray.length;
 
@@ -58,10 +51,10 @@ let uploadFiles = {
 
         // Check for sizes and remove files above limit
         for (let i = 0; i < filesArray.length; i++) {
-            console.log(filesArray[i].size + ' ' + filesArray[i].name);
-            if(filesArray[i].size > 300000000) {
+            if(filesArray[i].size > 3000000) {
                 rejectedFiles.push(filesArray[i]);
                 filesArray.splice(i, 1);
+                i--;
             }
             store.commit('setRejectedFiles', rejectedFiles);
         }
@@ -78,33 +71,11 @@ let uploadFiles = {
     },
 
     /**
-     * Display Folder Errors
-     */
-    displayFolderErrors: function () {
-        let errorString = '';
-
-        // TODO dynamic texts
-        // TODO check errors
-        /*
-                if (problematicPaths.coverAlbumsFolder !== 0) {
-                    errorString += 'Problem with Cover Albums Folder. ';
-                }
-                if (problematicPaths.musicDownloadPath !== 0) {
-                    errorString += 'Problem with Music Download Folder. ';
-                }
-                if (problematicPaths.musicVideoDownloadPath !== 0) {
-                    errorString += 'Problem with Music Video Download Folder. ';
-                }
-
-                DisplayMessage('.alert_error', errorString, 'danger');
-        */
-    },
-
-    /**
      * Αρχίζει το ανέβασμα κομματιού του αρχείου
      *
      * @param start {int} Το σημείο που βρίσκεται το slice
      * @param i {int} Counter
+     * @param fileName
      */
     uploadSliceOfFile: function (start, i, fileName) {
         let next_slice = start + this.slice_size + 1;
