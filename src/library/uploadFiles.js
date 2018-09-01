@@ -50,17 +50,18 @@ let uploadFiles = {
         this.files = [];
 
         // Check for sizes and remove files above limit
-        for (let i = 0; i < filesArray.length; i++) {
+        for (let i = 0; i < this.filesUploadedCount; i++) {
             if(filesArray[i].size > 3000000) {
                 rejectedFiles.push(filesArray[i]);
                 filesArray.splice(i, 1);
+                this.filesUploadedCount--;
                 i--;
             }
             store.commit('setRejectedFiles', rejectedFiles);
         }
 
         // Start upload one by one
-        for (let i = 0; i < filesArray.length; i++) {
+        for (let i = 0; i < this.filesUploadedCount; i++) {
             this.reader.push(new FileReader());
             this.theFile.push(filesArray[i]);
 
