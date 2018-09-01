@@ -56,19 +56,23 @@ let uploadFiles = {
         this.theFile = [];
         this.files = [];
 
+        // Check for sizes and remove files above limit
         for (let i = 0; i < filesArray.length; i++) {
-            if(filesArray[i].size > 3000000) {
+            console.log(filesArray[i].size + ' ' + filesArray[i].name);
+            if(filesArray[i].size > 300000000) {
                 rejectedFiles.push(filesArray[i]);
                 filesArray.splice(i, 1);
             }
             store.commit('setRejectedFiles', rejectedFiles);
         }
 
+        // Start upload one by one
         for (let i = 0; i < filesArray.length; i++) {
             this.reader.push(new FileReader());
             this.theFile.push(filesArray[i]);
 
-            this.uploadSliceOfFile(0, i);
+            let fileName = Math.round(+new Date()/1000).toString() + '_' + filesArray[i].name; // add unix timestamp
+            this.uploadSliceOfFile(0, i, fileName);
         }
 
     },
@@ -102,7 +106,7 @@ let uploadFiles = {
      * @param start {int} Το σημείο που βρίσκεται το slice
      * @param i {int} Counter
      */
-    uploadSliceOfFile: function (start, i) {
+    uploadSliceOfFile: function (start, i, fileName) {
         let next_slice = start + this.slice_size + 1;
         let blob = this.theFile[i].slice(start, next_slice);
 
@@ -113,7 +117,7 @@ let uploadFiles = {
 
             let args = {
                 user_id: this.user_id,
-                file: Math.round(+new Date()/1000).toString() + '_' + this.theFile[i].name, // add unix timestamp
+                file: fileName,
                 uploadKind: 'slice',
                 file_data: event.target.result
             };
@@ -133,7 +137,7 @@ let uploadFiles = {
                         this.showFileUploadProgress();
 
                         // More to upload, call function recursively
-                        this.uploadSliceOfFile(next_slice, i);
+                        this.uploadSliceOfFile(next_slice, i, fileName);
                     } else {
                         this.insertFileToDatabase(response);
                     }

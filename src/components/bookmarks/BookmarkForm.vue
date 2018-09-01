@@ -87,9 +87,9 @@
                 </div>
 
                 <ul class="list-group mt-3">
-                    <li class="list-group-item" v-for="file in files" :key="file.id">
+                    <li class="list-group-item bg-success my-1" v-for="file in files" :key="file.id">
                         <div class="row">
-                            <span class="col-8">{{ file.name }}</span>
+                            <span class="col-8 text-white">{{ file.name }}</span>
                             <span class="col-4 text-right">
                                 <button class="btn btn-sm btn-danger" @click="deleteFile(file.id)">Delete</button>
                             </span>
@@ -97,11 +97,14 @@
                     </li>
                 </ul>
 
-                <ul class="list-group mt-3">
-                    <li class="list-group-item bg-danger" v-for="file in rejectedFiles" :key="file.id">
-                         <span>{{ file.name }}</span>
-                    </li>
-                </ul>
+                <div v-if="rejectedFiles.length > 0" class="mt-3">
+                    <div class="alert alert-warning w-100 text-center">Rejected files for size limit</div>
+                    <ul class="list-group mt-2">
+                        <li class="list-group-item bg-danger text-white my-1" v-for="file in rejectedFiles" :key="file.id">
+                            <span>{{ file.name }} ({{ file.size.toLocaleString()}} bytes)</span>
+                        </li>
+                    </ul>
+                </div>
 
             </div>
 
