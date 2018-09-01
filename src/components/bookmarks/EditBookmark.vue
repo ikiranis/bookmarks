@@ -37,7 +37,7 @@
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn', 'files'])
+            ...mapState(['userId', 'isEditBookmarkOn', 'files', 'rejectedFiles'])
         },
 
         created: function () {
@@ -46,7 +46,7 @@
 
         methods: {
 
-            ...mapMutations(['setIsEditBookmarkOn', 'setFiles']),
+            ...mapMutations(['setIsEditBookmarkOn', 'setFiles', 'setRejectedFiles']),
             ...mapActions(['getGroups', 'getTags']),
 
             /**
