@@ -9,3 +9,4 @@
 - Check if saved attachment is ok (md5sum)
 - Error messages on files read/write
 - On update bookmark if you change files, delete old files
+- Icons for buttons
