@@ -220,7 +220,8 @@
                         }
                     })
                     .catch(error => {
-                        console.log(error.response);
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
                     })
             },
 
@@ -230,7 +231,8 @@
                         this.bookmark.files = utility.removeObjFromArray(this.bookmark.files, 'id', response.data.id);
                     })
                     .catch(error => {
-                        console.log(error.response.data.message);
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
                     })
             },
 
