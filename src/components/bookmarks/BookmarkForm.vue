@@ -308,13 +308,20 @@
             },
 
             /**
+             * Delete file from database and storage
              *
              * @param id
              */
             deleteFile(id) {
-                let files = utility.removeObjFromArray(this.files, 'id', id);
-                this.setFiles(files);
-                // TODO remove it from database and storage too
+                api.deleteFile(id)
+                    .then(() => {
+                        let files = utility.removeObjFromArray(this.files, 'id', id);
+                        this.setFiles(files);
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    });
             }
 
         }
