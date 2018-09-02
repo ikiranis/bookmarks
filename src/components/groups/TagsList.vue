@@ -5,7 +5,7 @@
         <b-navbar-toggle target="tags_collapse"></b-navbar-toggle>
 
         <b-navbar-brand>
-            Tags
+            <small>Tags</small>
         </b-navbar-brand>
 
         <b-collapse is-nav id="tags_collapse">

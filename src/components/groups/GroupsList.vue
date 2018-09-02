@@ -5,7 +5,7 @@
         <b-navbar-toggle target="groups_collapse"></b-navbar-toggle>
 
         <b-navbar-brand>
-            Groups
+            <small>Groups</small>
         </b-navbar-brand>
 
         <b-collapse is-nav id="groups_collapse">

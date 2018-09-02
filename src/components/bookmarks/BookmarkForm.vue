@@ -308,7 +308,7 @@
             },
 
             /**
-             * Delete file from database and storage
+             * Delete file with id from database and storage
              *
              * @param id
              */
