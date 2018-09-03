@@ -33,8 +33,6 @@
             </div>
 
             <div class="card-body">
-                <display-error v-if="response.message" :response="response" />
-
                 <p class="card-text" v-html="compiledMarkdown"></p>
 
                 <ul class="list-group">
@@ -65,6 +63,8 @@
                         <span class="btn btn-sm mx-2 mt-1 btn-secondary text-light">{{ tag.name }}</span>
                     </router-link>
                 </div>
+
+                <display-error v-if="response.message" :response="response" />
             </div>
 
             <div class="text-right px-3" v-if="bookmark.group_name">
