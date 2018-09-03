@@ -7,5 +7,4 @@
 - Don't display empty from bookmarks groups
 - Display only the most used tags in home screen
 - Check if saved attachment is ok (md5sum)
-- Display error if search is empty
 - On delete action ask first

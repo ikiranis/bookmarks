@@ -11,6 +11,7 @@
 </template>
 
 <script>
+    // TODO make it dismissible with counter if it has a specific flag
     export default {
 
         data() {
