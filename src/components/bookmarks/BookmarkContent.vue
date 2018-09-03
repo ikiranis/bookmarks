@@ -47,7 +47,7 @@
                                     <download-icon @click.native="getFile(file.id)" class="btn-icon" title="Download file" />
                                 </span>
 
-                                <span class="col-4 text-right">
+                                <span class="col-4 text-right" v-if="!bookmarksList && bookmark.user_id === userId">
                                     <delete-icon @click.native="deleteFile(file.id)" class="btn-icon" title="Delete File" />
                                 </span>
                             </span>
