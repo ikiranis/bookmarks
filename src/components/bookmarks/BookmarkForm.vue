@@ -11,7 +11,7 @@
         </div>
 
         <vue-editor-markdown class="my-2" placeholder="Description" v-model="formData.description"
-                             @input="submitData"/>
+                             @input="submitData" :showPreview="false"/>
         <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
 
         <div class="row">
