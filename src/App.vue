@@ -125,6 +125,10 @@
         cursor: pointer;
     }
 
+    .btn-icon {
+        cursor: pointer;
+    }
+
 
 </style>
 

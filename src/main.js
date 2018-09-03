@@ -35,6 +35,19 @@ router.beforeEach((to, from, next) => {
     next()
 });
 
+// Material Design icons
+// @link https://materialdesignicons.com/
+import DeleteIcon from "vue-material-design-icons/Delete.vue";
+Vue.component("delete-icon", DeleteIcon);
+import EyeIcon from "vue-material-design-icons/Eye.vue";
+Vue.component("eye-icon", EyeIcon);
+import DownloadIcon from "vue-material-design-icons/Download.vue";
+Vue.component("download-icon", DownloadIcon);
+import PencilIcon from "vue-material-design-icons/Pencil.vue";
+Vue.component("pencil-icon", PencilIcon);
+import FileHiddenIcon from "vue-material-design-icons/FileHidden.vue";
+Vue.component("file-hidden-icon", FileHiddenIcon);
+
 new Vue({
     router,
     store,

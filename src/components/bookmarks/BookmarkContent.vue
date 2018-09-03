@@ -41,14 +41,14 @@
                             <span class="col-7">{{ file.filename }}</span>
                             <span class="col-5 text-right">
                                 <span v-if="checkFileExtension(file.filename)">
-                                    <span class="btn btn-sm btn-info" @click="getFile(file.id)">View</span>
+                                    <eye-icon @click.native="getFile(file.id)" class="btn-icon" title="View image" />
                                 </span>
                                 <span v-else>
-                                    <span class="btn btn-sm btn-info" @click="getFile(file.id)">Download</span>
+                                    <download-icon @click.native="getFile(file.id)" class="btn-icon" title="Download file" />
                                 </span>
 
                                 <span class="col-4 text-right">
-                                    <button class="btn btn-sm btn-danger" @click="deleteFile(file.id)">Delete</button>
+                                    <delete-icon @click.native="deleteFile(file.id)" class="btn-icon" title="Delete File" />
                                 </span>
                             </span>
                         </div>
@@ -72,13 +72,11 @@
             </div>
 
             <div class="card-footer text-center" v-if="!bookmarksList && bookmark.user_id === userId">
-                <button class="btn btn-sm btn-info mx-1" @click="editBookmark()">Edit</button>
-                <button class="btn btn-sm btn-danger mx-1"
-                        v-on:click="removeBookmark()">Remove
-                </button>
-                <button class="btn btn-sm mx-1" :class="bookmarkPublic ? 'btn-success' : 'btn-warning'"
-                        v-on:click="toggleBookmarkPublic()">{{ bookmarkPublic ? 'Make private' : 'Make public'}}
-                </button>
+                <pencil-icon class="btn-icon" @click.native="editBookmark()" title="Edit bookmark" />
+                <delete-icon class="btn-icon" @click.native="removeBookmark()" title="Delete bookmark" />
+
+                <file-hidden-icon v-if="bookmarkPublic" class="btn-icon" @click.native="toggleBookmarkPublic()" title="Make private" />
+                <earth-icon v-else class="btn-icon" @click.native="toggleBookmarkPublic()" title="Make public" />
             </div>
 
         </div>
@@ -94,10 +92,11 @@
     import utility from "@/library/utilities";
     import * as marked from 'marked';
     import { base64StringToBlob } from 'blob-util'
+    import EarthIcon from "vue-material-design-icons/Earth";
 
     export default {
 
-        components: {EditBookmark},
+        components: {EarthIcon, EditBookmark},
 
         data: function () {
             return {
@@ -225,6 +224,11 @@
                     })
             },
 
+
+            /**
+             * Delete file with id from database and storage
+             * @param id
+             */
             deleteFile(id) {
                 api.deleteFile(id)
                     .then(response => {
