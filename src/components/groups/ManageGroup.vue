@@ -10,14 +10,14 @@
                             {{ user.name }} ({{ user.email }})
                         </div>
                         <div class="col-lg-4 col-12 text-right">
-                            <span class="btn btn-sm btn-danger mx-1" v-on:click="removeUserFromGroup(user.id)">Remove user</span>
+                            <delete-icon class="btn-icon" @click.native="removeUserFromGroup(user.id)" title="Remove user" />
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
 
-        <div class="input-group mt-3">
+        <div class="input-group my-3">
             <div class="input-group-prepend">
                 <label for="email" class="input-group-text">Insert user in group</label>
             </div>

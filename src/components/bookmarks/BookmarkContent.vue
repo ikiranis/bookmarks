@@ -75,8 +75,8 @@
                 <pencil-icon class="btn-icon" @click.native="editBookmark()" title="Edit bookmark" />
                 <delete-icon class="btn-icon" @click.native="removeBookmark()" title="Delete bookmark" />
 
-                <file-hidden-icon v-if="bookmarkPublic" class="btn-icon" @click.native="toggleBookmarkPublic()" title="Make private" />
-                <earth-icon v-else class="btn-icon" @click.native="toggleBookmarkPublic()" title="Make public" />
+                <earth-icon v-if="bookmarkPublic" class="btn-icon" @click.native="toggleBookmarkPublic()" title="Make private" />
+                <file-hidden-icon v-else class="btn-icon" @click.native="toggleBookmarkPublic()" title="Make public" />
             </div>
 
         </div>

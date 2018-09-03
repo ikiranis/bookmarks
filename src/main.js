@@ -39,6 +39,8 @@ import PencilIcon from "vue-material-design-icons/Pencil.vue";
 Vue.component("pencil-icon", PencilIcon);
 import FileHiddenIcon from "vue-material-design-icons/FileHidden.vue";
 Vue.component("file-hidden-icon", FileHiddenIcon);
+import ExitIcon from "vue-material-design-icons/ExitRun.vue";
+Vue.component("exit-icon", ExitIcon);
 
 new Vue({
     router,

@@ -12,12 +12,12 @@
 
                     <div class="card-footer">
                         <div v-if="group.user_id === userId" class="text-center">
-                            <span class="btn btn-sm btn-info mx-1" v-on:click="editGroup(group.id)">Edit</span>
-                            <span class="btn btn-sm btn-danger mx-1" v-on:click="removeGroup(group.id)">Remove</span>
+                            <pencil-icon class="btn-icon" @click.native="editGroup(group.id)" title="Edit group" />
+                            <delete-icon class="btn-icon" @click.native="removeGroup(group.id)" title="Delete group" />
                         </div>
                         <div class="row" v-else>
                             <span class="mr-auto px-2">Created by {{ group.owner }}</span>
-                            <span class="btn btn-sm btn-danger mx-1 ml-auto" v-on:click="leaveGroup(group.id)">Leave</span>
+                            <exit-icon class="btn-icon ml-auto" @click.native="leaveGroup(group.id)" title="Leave group" />
                         </div>
                     </div>
                 </div>
