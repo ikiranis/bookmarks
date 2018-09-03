@@ -13,7 +13,8 @@
  */
 
 import api from '../api';
-import store from '../store'
+import store from '../store';
+import cryptoJS from 'crypto-js';
 
 // Uploading Files
 let uploadFiles = {
@@ -26,6 +27,7 @@ let uploadFiles = {
     filesInputElement: '',            // Το input element που παίρνει τα αρχεία
     user_id: '',                             // User Id
     files: [],
+    mdHashes: [],
 
     /**
      * Εκκίνηση του uploading
@@ -48,6 +50,7 @@ let uploadFiles = {
         this.reader = [];
         this.theFile = [];
         this.files = [];
+        this.mdHashes = [];
 
         // Check for sizes and remove files above limit
         for (let i = 0; i < this.filesUploadedCount; i++) {
@@ -60,6 +63,8 @@ let uploadFiles = {
             store.commit('setRejectedFiles', rejectedFiles);
         }
 
+
+
         // Start upload one by one
         for (let i = 0; i < this.filesUploadedCount; i++) {
             this.reader.push(new FileReader());
@@ -67,8 +72,29 @@ let uploadFiles = {
 
             let fileName = Math.round(+new Date()/1000).toString() + '_' + filesArray[i].name; // add unix timestamp
             this.uploadSliceOfFile(0, i, fileName);
+
         }
 
+    },
+
+    /**
+     * get md5 hash of a file
+     *
+     * @param i
+     */
+    getFileMD5Hash(i) {
+        let file = this.theFile[i];
+
+        this.reader[i].onloadend = function(event) {
+            if (event.target.readyState !== FileReader.DONE) {
+                return;
+            }
+
+            let content = event.target.result;
+            console.log(cryptoJS.MD5(content).toString());
+        };
+
+        this.reader[i].readAsDataURL(file);
     },
 
     /**
@@ -111,6 +137,7 @@ let uploadFiles = {
                         // More to upload, call function recursively
                         this.uploadSliceOfFile(next_slice, i, fileName);
                     } else {
+                        this.getFileMD5Hash(i);
                         this.insertFileToDatabase(response);
                     }
                 })
@@ -143,6 +170,7 @@ let uploadFiles = {
 
                 if (response.success === true) {
                     // console.log('File uploaded to path ' + response.path + ' with id ' + response.file_id);
+                    console.log('local md5: ' + ' remote md5: ' + response.md5hash);
                     this.files.push({
                         id: response.file_id,
                         name: response.filename
