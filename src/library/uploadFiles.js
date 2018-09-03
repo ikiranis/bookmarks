@@ -161,6 +161,7 @@ let uploadFiles = {
      * @param data {object} Τα data που επέστρεψε το ajax call
      */
     insertFileToDatabase: function (data, i) {
+        // TODO refactor with async/await
         let args = {
             user_id: this.user_id,
             fullPathFilename: data.fullPathFilename,
