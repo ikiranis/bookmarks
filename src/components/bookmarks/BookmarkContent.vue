@@ -33,6 +33,8 @@
             </div>
 
             <div class="card-body">
+                <display-error v-if="response.message" :response="response" />
+
                 <p class="card-text" v-html="compiledMarkdown"></p>
 
                 <ul class="list-group">
@@ -93,13 +95,19 @@
     import * as marked from 'marked';
     import { base64StringToBlob } from 'blob-util'
     import EarthIcon from "vue-material-design-icons/Earth";
+    import DisplayError from "@/components/basic/DisplayError";
 
     export default {
 
-        components: {EarthIcon, EditBookmark},
+        components: {EarthIcon, EditBookmark, DisplayError},
 
         data: function () {
             return {
+                response: {
+                    message: '',
+                    status: '',
+                    errors: []
+                },
                 bookmarkPublic: false,
                 image: {
                     src: null,
