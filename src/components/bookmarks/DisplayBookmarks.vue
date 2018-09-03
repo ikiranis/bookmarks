@@ -10,6 +10,8 @@
             <button class="btn btn-danger col-md-3 col-12 my-1" @click="clearSearch()">Clear Search</button>
         </form>
 
+        <display-error v-if="response.message" :response="response" />
+
         <div class="row">
 
             <div class="col-lg-2 col-12">
@@ -48,12 +50,18 @@
     import {mapState} from 'vuex';
     import GroupsList from "../groups/GroupsList";
     import TagsList from "../groups/TagsList";
+    import DisplayError from "@/components/basic/DisplayError";
 
     export default {
 
-        components: {TagsList, GroupsList, BookmarkContent},
+        components: {TagsList, GroupsList, BookmarkContent, DisplayError},
 
         data: () => ({
+            response: {
+                message: '',
+                status: '',
+                errors: []
+            },
             bookmarks: [],
             pagination: {
                 meta: null,
@@ -94,6 +102,12 @@
                     tag_id: this.routeName === 'tagSearch' ? this.searchId : ''
                 };
 
+                this.response =  {
+                    message: '',
+                    status: '',
+                    errors: []
+                };
+
                 api.getBookmarks(args, page)
                     .then(response => {
                         // console.log(response)
@@ -101,7 +115,10 @@
                         this.pagination.meta = response.meta;
                         this.pagination.links = response.links;
                     })
-                    .catch(error => console.log(error.response));
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    });
             },
 
             searchText() {
