@@ -43,6 +43,8 @@ import ExitIcon from "vue-material-design-icons/ExitRun.vue";
 Vue.component("exit-icon", ExitIcon);
 import FormatListBulletedIcon from "vue-material-design-icons/FormatListBulleted.vue";
 Vue.component("list-icon", FormatListBulletedIcon);
+import CreditCardSettingsIcon from "vue-material-design-icons/CreditCardSettings.vue";
+Vue.component("cards-icon", CreditCardSettingsIcon);
 
 new Vue({
     router,

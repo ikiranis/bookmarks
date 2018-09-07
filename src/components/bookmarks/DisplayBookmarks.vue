@@ -3,7 +3,8 @@
 
         <div class="row">
 
-            <list-icon class="btn ml-auto" @click.native="compact = !compact" title="Change Layout" />
+            <list-icon v-if="!compact" class="btn ml-auto" @click.native="compact = !compact" title="List layout" />
+            <cards-icon v-else class="btn ml-auto" @click.native="compact = !compact" title="Cards Layout" />
 
             <form @submit.prevent="searchText" class="row col-lg-6 col-12 ml-auto mr-auto">
 
@@ -76,7 +77,7 @@
                 links: null
             },
             search: '',
-            compact: true
+            compact: false
         }),
 
         props: {
