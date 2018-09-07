@@ -92,8 +92,7 @@ let uploadFiles = {
                     reject('error');
                 }
 
-                let content = event.target.result;
-                resolve(cryptoJS.MD5(content).toString());
+                resolve(cryptoJS.MD5(cryptoJS.enc.Latin1.parse(event.target.result)).toString(cryptoJS.enc.Hex));
             };
 
             this.reader[i].readAsBinaryString(file);
@@ -141,12 +140,11 @@ let uploadFiles = {
                         // More to upload, call function recursively
                         this.uploadSliceOfFile(next_slice, i, fileName);
                     } else {
-                        this.getFileMD5Hash(i);
                         this.insertFileToDatabase(response, i);
                     }
                 })
                 .catch(error => {
-                    console.log(error.response);
+                    console.log(error);
                 });
 
         }.bind(this); // Περνάει το this για να μπορεί να το δει μέσα στο callback
@@ -160,8 +158,10 @@ let uploadFiles = {
      *
      * @param data {object} Τα data που επέστρεψε το ajax call
      */
-    insertFileToDatabase: function (data, i) {
-        // TODO refactor with async/await
+    async insertFileToDatabase(data, i) {
+
+        let md5hash = null;
+
         let args = {
             user_id: this.user_id,
             fullPathFilename: data.fullPathFilename,
@@ -169,35 +169,36 @@ let uploadFiles = {
             uploadKind: 'finalizedFile'
         };
 
-        api.uploadFile(args)
-            .then(response => {
-                this.finishedUploads++;
+        try {
+            md5hash = await this.getFileMD5Hash(i);
+        } catch (error) {
+            console.log(error);
+        }
 
-                if (response.success === true) {
+        try {
+            let response = await api.uploadFile(args);
 
-                    this.getFileMD5Hash(i)
-                        .then(md5hash => {
-                            console.log('local md5: ' + md5hash + ' remote md5: ' + response.md5hash);
+            this.finishedUploads++;
 
-                            this.files.push({
-                                id: response.file_id,
-                                name: response.filename
-                            });
-                            store.commit('setFiles', this.files);
-                        })
-                        .catch(error => {
-                            console.log(error);
-                        });
+            if (response.success === true) {
 
-                } else {
-                    console.log('Problem with file ' + response.filename);
-                }
+                console.log('local md5: ' + md5hash + ' remote md5: ' + response.md5hash);
 
-                this.checkUploadTermination(); // Έλεγχος και τερματισμός της διαδικασίας του uploading
-            })
-            .catch(error => {
-                console.log(error.response);
-            });
+                this.files.push({
+                    id: response.file_id,
+                    name: response.filename
+                });
+                store.commit('setFiles', this.files);
+
+            } else {
+                console.log('Problem with file ' + response.filename);
+            }
+
+            this.checkUploadTermination(); // Έλεγχος και τερματισμός της διαδικασίας του uploading
+        } catch(error) {
+            console.log(error.response);
+        }
+
     },
 
     /**
