@@ -92,6 +92,7 @@
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        // TODO validation description error on mobile
                         if (error.response.data.errors) {
                             this.response.errors = error.response.data.errors;
                         }

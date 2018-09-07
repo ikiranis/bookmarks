@@ -98,10 +98,12 @@
                 </ul>
 
                 <div v-if="rejectedFiles.length > 0" class="mt-3">
-                    <div class="alert alert-warning w-100 text-center">Rejected files for size limit</div>
+                    <div class="alert alert-warning w-100 text-center">Rejected files for size limit or file error</div>
                     <ul class="list-group mt-2">
                         <li class="list-group-item bg-danger text-white my-1" v-for="file in rejectedFiles" :key="file.id">
-                            <span>{{ file.name }} ({{ file.size.toLocaleString()}} bytes)</span>
+                            <span v-if="file.size">File Limit: ({{ file.size.toLocaleString() }} bytes) </span>
+                            <span v-else>Uploaded file error: </span>
+                            <span>{{ file.name }}</span>
                         </li>
                     </ul>
                 </div>

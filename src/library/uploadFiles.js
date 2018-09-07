@@ -27,7 +27,7 @@ let uploadFiles = {
     filesInputElement: '',            // Το input element που παίρνει τα αρχεία
     user_id: '',                             // User Id
     files: [],
-    mdHashes: [],
+    rejectedFiles: [],
 
     /**
      * Εκκίνηση του uploading
@@ -38,7 +38,7 @@ let uploadFiles = {
     startUpload: function (user_id, inputElement) {
         this.filesInputElement = inputElement;
         this.user_id = user_id;
-        let rejectedFiles = [];
+        this.rejectedFiles = [];
 
         // To imput element που περιέχει τα επιλεγμένα αρχεία
         let filesArray = Array.from(document.querySelector(this.filesInputElement).files);
@@ -50,17 +50,16 @@ let uploadFiles = {
         this.reader = [];
         this.theFile = [];
         this.files = [];
-        this.mdHashes = [];
 
         // Check for sizes and remove files above limit
         for (let i = 0; i < this.filesUploadedCount; i++) {
             if(filesArray[i].size > 3000000) {
-                rejectedFiles.push(filesArray[i]);
+                this.rejectedFiles.push(filesArray[i]);
                 filesArray.splice(i, 1);
                 this.filesUploadedCount--;
                 i--;
             }
-            store.commit('setRejectedFiles', rejectedFiles);
+            store.commit('setRejectedFiles', this.rejectedFiles);
         }
 
 
@@ -181,14 +180,26 @@ let uploadFiles = {
             this.finishedUploads++;
 
             if (response.success === true) {
+                // console.log('local md5: ' + md5hash + ' remote md5: ' + response.md5hash);
 
-                console.log('local md5: ' + md5hash + ' remote md5: ' + response.md5hash);
-
-                this.files.push({
+                let fileAdded = {
                     id: response.file_id,
                     name: response.filename
-                });
-                store.commit('setFiles', this.files);
+                };
+
+                if (md5hash === response.md5hash) {
+                    this.files.push(fileAdded);
+                    store.commit('setFiles', this.files);
+                } else {
+                    this.rejectedFiles.push(fileAdded);
+                    store.commit('setRejectedFiles', this.rejectedFiles);
+
+                    try{
+                        api.deleteFile(response.file_id)
+                    } catch(error) {
+                        console.log(error.response.data.message);
+                    }
+                }
 
             } else {
                 console.log('Problem with file ' + response.filename);
