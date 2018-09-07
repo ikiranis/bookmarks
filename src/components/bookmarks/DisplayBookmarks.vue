@@ -1,28 +1,36 @@
 <template>
     <div>
 
-        <form @submit.prevent="searchText" class="row col-lg-6 col-12 ml-auto mr-auto">
-            <label for="search" class="sr-only">Search</label>
-            <input type="text" max="100" class="form-control col-md-5 col-12 my-1"
-                   id="search" name="search" v-model="search">
+        <div class="row">
 
-            <input type="submit" class="btn btn-success col-md-3 col-12 my-1 ml-auto mr-auto" value="Search">
-            <button class="btn btn-danger col-md-3 col-12 my-1" @click="clearSearch()">Clear Search</button>
-        </form>
+            <list-icon class="btn ml-auto" @click.native="compact = !compact" title="Change Layout" />
 
-        <display-error v-if="response.message" :response="response" />
+            <form @submit.prevent="searchText" class="row col-lg-6 col-12 ml-auto mr-auto">
+
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" max="100" class="form-control col-md-5 col-12 my-1"
+                       id="search" name="search" v-model="search">
+
+                <input type="submit" class="btn btn-success col-md-3 col-12 my-1 ml-auto mr-auto" value="Search">
+                <button class="btn btn-danger col-md-3 col-12 my-1" @click="clearSearch()">Clear Search</button>
+            </form>
+
+        </div>
+
+        <display-error v-if="response.message" :response="response"/>
 
         <div class="row">
 
             <div class="col-lg-2 col-12">
-                <GroupsList :groups="groups" v-if="groups.length > 0" />
+                <GroupsList :groups="groups" v-if="groups.length > 0"/>
 
-                <TagsList :tags="tags" v-if="tags.length > 0" />
+                <TagsList :tags="tags" v-if="tags.length > 0"/>
             </div>
 
             <div class="row col-lg-10 col-12 no-gutters">
-                <div class="col-lg-6 col-12 mt-3" v-for="bookmark in bookmarks" :key="bookmark.id">
-                    <BookmarkContent :bookmark="bookmark" :bookmarksList="true"/>
+                <div class="col-12 mt-3" :class="!compact ? 'col-lg-6' : ''" v-for="bookmark in bookmarks"
+                     :key="bookmark.id">
+                    <BookmarkContent :bookmark="bookmark" :bookmarksList="true" :compact="compact"/>
                 </div>
             </div>
 
@@ -67,7 +75,8 @@
                 meta: null,
                 links: null
             },
-            search: ''
+            search: '',
+            compact: true
         }),
 
         props: {
@@ -102,7 +111,7 @@
                     tag_id: this.routeName === 'tagSearch' ? this.searchId : ''
                 };
 
-                this.response =  {
+                this.response = {
                     message: '',
                     status: '',
                     errors: []

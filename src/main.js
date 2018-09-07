@@ -41,6 +41,8 @@ import FileHiddenIcon from "vue-material-design-icons/FileHidden.vue";
 Vue.component("file-hidden-icon", FileHiddenIcon);
 import ExitIcon from "vue-material-design-icons/ExitRun.vue";
 Vue.component("exit-icon", ExitIcon);
+import FormatListBulletedIcon from "vue-material-design-icons/FormatListBulleted.vue";
+Vue.component("list-icon", FormatListBulletedIcon);
 
 new Vue({
     router,

@@ -10,7 +10,7 @@
             <edit-bookmark :bookmark="bookmark" v-if="isEditBookmarkOn"/>
         </b-modal>
 
-        <div class="card mx-1">
+        <div v-if="!compact" class="card mx-1">
             <img v-if="bookmark.image" class="col-lg-8 col-12 ml-auto mr-auto" :src="bookmark.image"
                  alt="Bookmark image">
 
@@ -82,6 +82,17 @@
             </div>
 
         </div>
+
+        <div v-else class="card">
+            <div class="card-body">
+                <router-link v-if="bookmarksList" :to="{ name: 'bookmark', params: { id: bookmark.id } }"
+                             :key="$route.fullPath">
+                    <h3>{{ bookmark.title }}</h3>
+                </router-link>
+                <h3 v-else>{{ bookmark.title }}</h3>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -118,7 +129,8 @@
 
         props: {
             bookmark: Object,
-            bookmarksList: Boolean
+            bookmarksList: Boolean,
+            compact: Boolean
         },
 
         computed: {

@@ -6,6 +6,5 @@
 - Forgot my password
 - Don't display empty from bookmarks groups
 - Display only the most used tags in home screen
-- Check if saved attachment is ok (md5sum)
 - On delete action ask first
 - Display compact bookmarks list
