@@ -187,10 +187,10 @@ let uploadFiles = {
                     name: response.filename
                 };
 
-                if (md5hash === response.md5hash) {
+                if (md5hash === response.md5hash) { // if files match
                     this.files.push(fileAdded);
                     store.commit('setFiles', this.files);
-                } else {
+                } else { // if files don't match add it to rejected files
                     this.rejectedFiles.push(fileAdded);
                     store.commit('setRejectedFiles', this.rejectedFiles);
 
