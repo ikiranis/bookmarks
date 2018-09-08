@@ -3,8 +3,8 @@
 
         <div class="row">
 
-            <list-icon v-if="!compact" class="btn ml-auto" @click.native="compact = !compact" title="List layout" />
-            <cards-icon v-else class="btn ml-auto" @click.native="compact = !compact" title="Cards Layout" />
+            <list-icon v-if="!compact" class="btn ml-auto" @click.native="toggleCompact" title="List layout" />
+            <cards-icon v-else class="btn ml-auto" @click.native="toggleCompact" title="Cards Layout" />
 
             <form @submit.prevent="searchText" class="row col-lg-6 col-12 ml-auto mr-auto">
 
@@ -96,6 +96,10 @@
         },
 
         created: function () {
+            if(localStorage.compact === undefined) {
+                localStorage.compact = 'false';
+            }
+            this.compact = (localStorage.compact === 'true');
             this.getBookmarks(null);
         },
 
@@ -131,13 +135,27 @@
                     });
             },
 
+            /**
+             *
+             */
             searchText() {
                 this.getBookmarks(null);
             },
 
+            /**
+             *
+             */
             clearSearch() {
                 this.search = '';
                 this.getBookmarks(null);
+            },
+
+            /**
+             *
+             */
+            toggleCompact() {
+                localStorage.compact = (localStorage.compact === 'true') ? 'false' : 'true';
+                this.compact = (localStorage.compact === 'true');
             }
 
         }

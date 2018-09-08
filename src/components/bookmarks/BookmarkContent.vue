@@ -85,11 +85,19 @@
 
         <div v-else class="card">
             <div class="card-body">
-                <router-link v-if="bookmarksList" :to="{ name: 'bookmark', params: { id: bookmark.id } }"
+                <router-link  :to="{ name: 'bookmark', params: { id: bookmark.id } }"
                              :key="$route.fullPath">
                     <h3>{{ bookmark.title }}</h3>
                 </router-link>
-                <h3 v-else>{{ bookmark.title }}</h3>
+
+                <div class="text-right" v-if="bookmark.created_at">
+                    <small>Created at
+                        <span :title="moment(String(bookmark.created_at.date)).format('DD/MM/YYYY HH:mm')">
+							{{ moment(String(bookmark.created_at.date)).format('DD/MM/YYYY') }}
+						</span>
+                        by {{ bookmark.owner }}
+                    </small>
+                </div>
             </div>
         </div>
 
