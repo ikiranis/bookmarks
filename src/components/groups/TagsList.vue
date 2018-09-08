@@ -9,7 +9,6 @@
         </b-navbar-brand>
 
         <b-collapse is-nav id="tags_collapse">
-
             <b-navbar-nav class="ml-auto">
                 <b-nav-item class="row text-center">
                     <span v-for="tag in tags" :key="tag.id">

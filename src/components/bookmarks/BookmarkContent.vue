@@ -74,11 +74,11 @@
             </div>
 
             <div class="card-footer text-center" v-if="!bookmarksList && bookmark.user_id === userId">
-                <pencil-icon class="btn-icon" @click.native="editBookmark()" title="Edit bookmark" />
-                <delete-icon class="btn-icon" @click.native="removeBookmark()" title="Delete bookmark" />
+                <pencil-icon class="btn-icon" @click.native="editBookmark" title="Edit bookmark" />
+                <delete-icon class="btn-icon" @click.native="removeBookmark" title="Delete bookmark" />
 
-                <earth-icon v-if="bookmarkPublic" class="btn-icon" @click.native="toggleBookmarkPublic()" title="Make private" />
-                <file-hidden-icon v-else class="btn-icon" @click.native="toggleBookmarkPublic()" title="Make public" />
+                <earth-icon v-if="bookmarkPublic" class="btn-icon" @click.native="toggleBookmarkPublic" title="Make private" />
+                <file-hidden-icon v-else class="btn-icon" @click.native="toggleBookmarkPublic" title="Make public" />
             </div>
 
         </div>
@@ -189,14 +189,18 @@
              * Remove bookmark with this.bookmark.id
              */
             removeBookmark() {
-                api.removeBookmark(this.bookmark.id)
-                    .then(() => {
-                        this.$router.push({path: '/'}); // Force to load home page
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
-                    });
+                let choise = confirm('Are you sure you want to delete the bookmark?');
+
+                if(choise) {
+                    api.removeBookmark(this.bookmark.id)
+                        .then(() => {
+                            this.$router.push({path: '/'}); // Force to load home page
+                        })
+                        .catch(error => {
+                            this.response.message = error.response.data.message;
+                            this.response.status = false;
+                        });
+                }
             },
 
             /**
@@ -255,17 +259,22 @@
 
             /**
              * Delete file with id from database and storage
+             *
              * @param id
              */
             deleteFile(id) {
-                api.deleteFile(id)
-                    .then(response => {
-                        this.bookmark.files = utility.removeObjFromArray(this.bookmark.files, 'id', response.data.id);
-                    })
-                    .catch(error => {
-                        this.response.message = error.response.data.message;
-                        this.response.status = false;
-                    })
+                let choise = confirm('Are you sure you want to delete the file?');
+
+                if(choise) {
+                    api.deleteFile(id)
+                        .then(response => {
+                            this.bookmark.files = utility.removeObjFromArray(this.bookmark.files, 'id', response.data.id);
+                        })
+                        .catch(error => {
+                            this.response.message = error.response.data.message;
+                            this.response.status = false;
+                        })
+                }
             },
 
             /**
