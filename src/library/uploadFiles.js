@@ -81,9 +81,9 @@ let uploadFiles = {
      *
      * @param i
      */
-    async getFileMD5Hash(i) {
+    getFileMD5Hash(i) {
 
-        return await new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             let file = this.theFile[i];
 
             this.reader[i].onloadend = function(event) {
