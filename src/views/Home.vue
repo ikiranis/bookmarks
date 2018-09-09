@@ -32,6 +32,12 @@
 
         name: 'home',
 
+        components: {
+            DisplayBookmarks,
+            Login,
+            Register
+        },
+
         data: () => ({
             isUserLoggedIn: false
         }),
@@ -79,12 +85,6 @@
             displayLoginComponent() {
                 this.setDisplayRegister(false);
             }
-        },
-
-        components: {
-            DisplayBookmarks,
-            Login,
-            Register
         }
 
     }

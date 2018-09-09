@@ -128,6 +128,8 @@
                         this.bookmarks = response.data;
                         this.pagination.meta = response.meta;
                         this.pagination.links = response.links;
+
+                        window.scrollTo(0,0);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
