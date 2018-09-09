@@ -5,4 +5,3 @@
 - Evernote, browser bookmarks import
 - Forgot my password
 - Don't display empty from bookmarks groups
-- Go on top on every page load
