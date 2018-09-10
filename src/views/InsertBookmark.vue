@@ -37,7 +37,7 @@
 
         methods: {
 
-            ...mapMutations(['setFiles']),
+            ...mapMutations(['setFiles', 'setRejectedFiles']),
             ...mapActions(['getGroups', 'getTags']),
 
             /**
