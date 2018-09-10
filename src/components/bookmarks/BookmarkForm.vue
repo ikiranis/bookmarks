@@ -264,7 +264,8 @@
 
                     for (let tag in tags) {
                         let args = {
-                            name: tags[tag]
+                            name: tags[tag],
+                            user_id: this.userId
                         };
 
                         api.insertTag(args)
