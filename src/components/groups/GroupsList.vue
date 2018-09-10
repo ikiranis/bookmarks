@@ -15,7 +15,7 @@
                     <span v-for="group in groups" :key="group.id">
                         <router-link :to="{ name: 'groupSearch', params: { id: group.id } }"
                                      :key="group.id">
-                            <span class="btn btn-sm mx-1 btn-secondary mt-1">{{ group.name }}</span>
+                            <span class="btn btn-sm mx-1 btn-secondary mt-1">{{ group.name }}({{ group.count}})</span>
                         </router-link>
                     </span>
                 </b-nav-item>
