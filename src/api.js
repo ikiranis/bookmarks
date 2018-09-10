@@ -160,6 +160,12 @@ let api = {
         return await axios.post(ROOT_API + '/register', args);
     },
 
+    async updateUser(args) {
+        let {data} = await axios.patch(ROOT_API + '/user', args);
+
+        return data;
+    },
+
     /**
      * Generate and get new user api_key
      *
