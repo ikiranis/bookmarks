@@ -11,7 +11,7 @@
         </b-modal>
 
         <div v-if="!compact" class="card mx-1">
-            <img v-if="bookmark.image" class="col-lg-8 col-12 ml-auto mr-auto" :src="bookmark.image"
+            <img v-if="mainImage" class="col-lg-8 col-12 ml-auto mr-auto" :src="mainImage"
                  alt="Bookmark image">
 
             <div class="card-header">
@@ -131,7 +131,8 @@
                 image: {
                     src: null,
                     filename: null
-                }
+                },
+                mainImage: null
             }
         },
 
@@ -163,6 +164,7 @@
         },
 
         created: function () {
+            this.findImage();
             this.setIsEditBookmarkOn(false);
             this.bookmarkPublic = this.bookmark.public;
         },
@@ -248,6 +250,42 @@
                             link.setAttribute('download', response.data.filename);
                             document.body.appendChild(link);
                             link.click();
+                        }
+                    })
+                    .catch(error => {
+                        this.response.message = error.response.data.message;
+                        this.response.status = false;
+                    })
+            },
+
+            /**
+             * Find if there is bookmark image, else search images in attachments and take the first to display
+             */
+            findImage() {
+                if(this.bookmark.image) {
+                    this.mainImage =  this.bookmark.image;
+                }
+
+                if(this.bookmark.files) {
+                    for (let i=0; i<this.bookmark.files.length; i++) {
+                        if(this.checkFileExtension(this.bookmark.files[i].filename)) {
+                            this.getImage(this.bookmark.files[i].id);
+                            return;
+                        }
+                    }
+                }
+
+                return null;
+            },
+
+            /**
+             * Get the image and set the this.mainImage to display
+             */
+            getImage(id) {
+                api.getFile(id)
+                    .then(response => {
+                        if (response.headers["content-type"].includes('image')) {
+                            this.mainImage = 'data: ${response.headers["content-type"]};base64,' + response.data.content;
                         }
                     })
                     .catch(error => {
