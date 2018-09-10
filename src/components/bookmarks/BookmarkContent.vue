@@ -262,10 +262,12 @@
              * Find if there is bookmark image, else search images in attachments and take the first to display
              */
             findImage() {
+                // Check if bookmark have image
                 if(this.bookmark.image) {
                     this.mainImage =  this.bookmark.image;
                 }
 
+                // Search in attachments for image
                 if(this.bookmark.files) {
                     for (let i=0; i<this.bookmark.files.length; i++) {
                         if(this.checkFileExtension(this.bookmark.files[i].filename)) {
@@ -274,8 +276,6 @@
                         }
                     }
                 }
-
-                return null;
             },
 
             /**
