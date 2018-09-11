@@ -1,34 +1,45 @@
 <template>
-    <div class="mx-3">
-        <h3 class="text-center">List of Groups</h3>
+    <div>
+        <div class="mx-3" v-if="groups.length > 0">
+            <h3 class="text-center">List of Groups</h3>
 
-        <div class="row">
+            <div class="row">
 
-            <div class="col-lg-4 col-12 mt-3" v-for="group in groups" :key="group.id">
-                <div class="card">
-                    <div class="card-body">
-                        <router-link :to="{ name: 'group', params: { id: group.id } }">{{ group.name }}</router-link>
-                    </div>
-
-                    <div class="card-footer">
-                        <div v-if="group.user_id === userId" class="text-center">
-                            <pencil-icon class="btn-icon" @click.native="editGroup(group.id)" title="Edit group" />
-                            <delete-icon class="btn-icon" @click.native="removeGroup(group.id)" title="Delete group" />
+                <div class="col-lg-4 col-12 mt-3" v-for="group in groups" :key="group.id">
+                    <div class="card">
+                        <div class="card-body">
+                            <router-link :to="{ name: 'group', params: { id: group.id } }">{{ group.name }}
+                            </router-link>
                         </div>
-                        <div class="row" v-else>
-                            <span class="mr-auto px-2">Created by {{ group.owner }}</span>
-                            <exit-icon class="btn-icon ml-auto" @click.native="leaveGroup(group.id)" title="Leave group" />
+
+                        <div class="card-footer">
+                            <div v-if="group.user_id === userId" class="text-center">
+                                <pencil-icon class="btn-icon" @click.native="editGroup(group.id)" title="Edit group"/>
+                                <delete-icon class="btn-icon" @click.native="removeGroup(group.id)"
+                                             title="Delete group"/>
+                            </div>
+                            <div class="row" v-else>
+                                <span class="mr-auto px-2">Created by {{ group.owner }}</span>
+                                <exit-icon class="btn-icon ml-auto" @click.native="leaveGroup(group.id)"
+                                           title="Leave group"/>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
+            <display-error v-if="response.message" :response="response"/>
+
+            <edit-group :groupId="groupId" v-if="isEditGroupOn"/>
 
         </div>
 
-        <display-error v-if="response.message" :response="response" />
-
-        <edit-group :groupId="groupId" v-if="isEditGroupOn"/>
-
+        <div v-else class="text-center">
+            <b-alert class="mx-3" variant="danger" show>
+                Groups not found
+            </b-alert>
+        </div>
     </div>
 </template>
 
