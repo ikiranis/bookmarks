@@ -16,7 +16,8 @@ export default new Vuex.Store({
         tags: [],
         files: [],
         rejectedFiles: [],
-        progress: 0
+        progress: 0,
+        loading: true
     },
     mutations: {
 
@@ -118,6 +119,16 @@ export default new Vuex.Store({
          */
         setProgress(state, value) {
             state.progress = value;
+        },
+
+        /**
+         * loading setter
+         *
+         * @param state
+         * @param value
+         */
+        setLoading(state, value) {
+            state.loading = value;
         },
 
     },

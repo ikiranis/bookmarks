@@ -65,7 +65,7 @@
 <script>
     import api from '@/api';
     import BookmarkContent from "./BookmarkContent";
-    import {mapState} from 'vuex';
+    import {mapState, mapMutations} from 'vuex';
     import GroupsList from "../groups/GroupsList";
     import TagsList from "../groups/TagsList";
     import DisplayError from "@/components/basic/DisplayError";
@@ -102,11 +102,7 @@
         },
 
         computed: {
-            ...mapState(['userId', 'groups', 'tags']),
-
-            loading: function() {
-                return this.bookmarks.length === 0;
-            }
+            ...mapState(['userId', 'groups', 'tags', 'loading'])
         },
 
         created: function () {
@@ -118,6 +114,8 @@
         },
 
         methods: {
+
+            ...mapMutations(['setLoading']),
 
             /**
              * Get the list of bookmarks for user with userId
@@ -136,6 +134,8 @@
                     errors: []
                 };
 
+                this.setLoading(true);
+
                 api.getBookmarks(args, page)
                     .then(response => {
                         // console.log(response)
@@ -144,10 +144,12 @@
                         this.pagination.links = response.links;
 
                         window.scrollTo(0, 0);
+                        this.setLoading(false);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+                        this.setLoading(false);
                     });
             },
 
