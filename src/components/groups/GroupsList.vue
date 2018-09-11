@@ -15,9 +15,11 @@
                     <span v-for="group in groups" :key="group.id">
                         <router-link :to="{ name: 'groupSearch', params: { id: group.id } }"
                                      :key="group.id">
-                            <span class="btn btn-sm mx-1 btn-secondary mt-1">{{ group.name }}({{ group.count}})</span>
+                            <span class="badge badge-secondary mx-1 mt-1">{{ group.name }}({{ group.count}})</span>
                         </router-link>
                     </span>
+
+                    <div v-if="groups.length === 0" class="badge badge-secondary">No Groups</div>
                 </b-nav-item>
             </b-navbar-nav>
 

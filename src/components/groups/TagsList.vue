@@ -9,13 +9,16 @@
         </b-navbar-brand>
 
         <b-collapse is-nav id="tags_collapse">
+
             <b-navbar-nav class="ml-auto">
                 <b-nav-item class="row text-center">
                     <span v-for="tag in tags" :key="tag.id">
                         <router-link :to="{ name: 'tagSearch', params: { id: tag.id } }"
                                      :key="tag.id">
-                            <span class="btn btn-sm mx-1 btn-secondary mt-1">{{ tag.name }}({{ tag.count }})</span>
+                            <span class="badge badge-secondary mx-1 mt-1">{{ tag.name }}({{ tag.count }})</span>
                         </router-link>
+
+                        <div v-if="tags.length === 0" class="badge badge-secondary">No Tags</div>
                     </span>
                 </b-nav-item>
             </b-navbar-nav>

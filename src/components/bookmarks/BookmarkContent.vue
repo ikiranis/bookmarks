@@ -11,7 +11,7 @@
         </b-modal>
 
         <div v-if="!compact" class="card mx-1 mb-3">
-            <img v-if="mainImage" class="col-lg-8 col-12 ml-auto mr-auto" :src="mainImage"
+            <img v-if="mainImage" class="col-lg-8 col-12 mx-auto" :src="mainImage"
                  alt="Bookmark image">
 
             <div class="card-header">

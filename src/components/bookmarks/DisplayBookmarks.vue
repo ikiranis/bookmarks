@@ -29,13 +29,13 @@
             <div class="row">
 
                 <div class="col-lg-2 col-12" v-if="groups.length > 0 || tags.length > 0">
-                    <GroupsList :groups="groups" v-if="groups.length > 0"/>
+                    <GroupsList :groups="groups" />
 
-                    <TagsList :tags="tags" v-if="tags.length > 0"/>
+                    <TagsList :tags="tags" />
                 </div>
 
                 <!--TODO Problem if a bookmark has big text in length-->
-                <div class="row col-lg col-12 no-gutters">
+                <div class="row col-lg-10 col-12 no-gutters">
                     <div class="col-12 mt-3" :class="!compact ? 'col-lg-6' : ''" v-for="bookmark in bookmarks"
                          :key="bookmark.id">
                         <BookmarkContent :bookmark="bookmark" :bookmarksList="true" :compact="compact"/>
