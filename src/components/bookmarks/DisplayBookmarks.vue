@@ -29,6 +29,7 @@
                 <TagsList :tags="tags" v-if="tags.length > 0"/>
             </div>
 
+            <!--TODO Problem if a bookmark has big text in length-->
             <div class="row col-lg col-12 no-gutters">
                 <div class="col-12 mt-3" :class="!compact ? 'col-lg-6' : ''" v-for="bookmark in bookmarks"
                      :key="bookmark.id">
