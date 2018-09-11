@@ -28,6 +28,8 @@
     import {mapState, mapMutations} from 'vuex';
     import DisplayBookmarks from "@/components/bookmarks/DisplayBookmarks";
 
+    // TODO delete localStorage.accessToken if not vaild
+
     export default {
 
         name: 'home',

@@ -75,6 +75,15 @@
                     <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
                 </div>
 
+                <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                        <label for="Password" class="input-group-text bg-danger text-light">Password</label>
+                    </div>
+                    <input type="password" class="form-control form-control-sm" id="password" name="password"
+                           v-model="formData.password" @input="submitData" placeholder="Set a password to encrypt bookmark">
+                    <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
+                </div>
+
                 <div class="custom-file col-12 px-1 mt-3">
                     <label class="custom-file-label" for="files">Choose files</label>
                     <input type="file" class="custom-file-input" name="files" id="files"
@@ -149,7 +158,8 @@
                     groupName: '',
                     image: '',
                     tags: [],
-                    tag: ''
+                    tag: '',
+                    password: null
                 },
                 progressMax: 100
             }
