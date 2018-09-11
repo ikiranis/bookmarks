@@ -3,8 +3,8 @@
 
         <div class="row">
 
-            <list-icon v-if="!compact" class="btn ml-auto" @click.native="toggleCompact" title="List layout" />
-            <cards-icon v-else class="btn ml-auto" @click.native="toggleCompact" title="Cards Layout" />
+            <list-icon v-if="!compact" class="btn mx-auto" @click.native="toggleCompact" title="List layout" />
+            <cards-icon v-else class="btn mx-auto" @click.native="toggleCompact" title="Cards Layout" />
 
             <form @submit.prevent="searchText" class="row col-lg-6 col-12 ml-auto mr-auto">
 
@@ -14,6 +14,7 @@
 
                 <input type="submit" class="btn btn-success col-md-3 col-12 my-1 ml-auto mr-auto" value="Search">
                 <button class="btn btn-danger col-md-3 col-12 my-1" @click="clearSearch()">Clear Search</button>
+
             </form>
 
         </div>
