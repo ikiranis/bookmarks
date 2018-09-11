@@ -1,57 +1,64 @@
 <template>
+
     <div>
 
-        <div class="row">
+        <Loading :loading="loading"/>
 
-            <list-icon v-if="!compact" class="btn mx-auto" @click.native="toggleCompact" title="List layout" />
-            <cards-icon v-else class="btn mx-auto" @click.native="toggleCompact" title="Cards Layout" />
+        <div v-if="!loading">
 
-            <form @submit.prevent="searchText" class="row col-lg-6 col-12 ml-auto mr-auto">
+            <div class="row">
 
-                <label for="search" class="sr-only">Search</label>
-                <input type="text" max="100" class="form-control col-md-5 col-12 my-1"
-                       id="search" name="search" v-model="search">
+                <list-icon v-if="!compact" class="btn mx-auto" @click.native="toggleCompact" title="List layout"/>
+                <cards-icon v-else class="btn mx-auto" @click.native="toggleCompact" title="Cards Layout"/>
 
-                <input type="submit" class="btn btn-success col-md-3 col-12 my-1 ml-auto mr-auto" value="Search">
-                <button class="btn btn-danger col-md-3 col-12 my-1" @click="clearSearch()">Clear Search</button>
+                <form @submit.prevent="searchText" class="row col-lg-6 col-12 ml-auto mr-auto">
 
-            </form>
+                    <label for="search" class="sr-only">Search</label>
+                    <input type="text" max="100" class="form-control col-md-5 col-12 my-1"
+                           id="search" name="search" v-model="search">
 
-        </div>
+                    <input type="submit" class="btn btn-success col-md-3 col-12 my-1 ml-auto mr-auto" value="Search">
+                    <button class="btn btn-danger col-md-3 col-12 my-1" @click="clearSearch()">Clear Search</button>
 
-        <display-error v-if="response.message" :response="response"/>
+                </form>
 
-        <div class="row">
-
-            <div class="col-lg-2 col-12" v-if="groups.length > 0 || tags.length > 0">
-                <GroupsList :groups="groups" v-if="groups.length > 0"/>
-
-                <TagsList :tags="tags" v-if="tags.length > 0"/>
             </div>
 
-            <!--TODO Problem if a bookmark has big text in length-->
-            <div class="row col-lg col-12 no-gutters">
-                <div class="col-12 mt-3" :class="!compact ? 'col-lg-6' : ''" v-for="bookmark in bookmarks"
-                     :key="bookmark.id">
-                    <BookmarkContent :bookmark="bookmark" :bookmarksList="true" :compact="compact"/>
+            <display-error v-if="response.message" :response="response"/>
+
+            <div class="row">
+
+                <div class="col-lg-2 col-12" v-if="groups.length > 0 || tags.length > 0">
+                    <GroupsList :groups="groups" v-if="groups.length > 0"/>
+
+                    <TagsList :tags="tags" v-if="tags.length > 0"/>
                 </div>
+
+                <!--TODO Problem if a bookmark has big text in length-->
+                <div class="row col-lg col-12 no-gutters">
+                    <div class="col-12 mt-3" :class="!compact ? 'col-lg-6' : ''" v-for="bookmark in bookmarks"
+                         :key="bookmark.id">
+                        <BookmarkContent :bookmark="bookmark" :bookmarksList="true" :compact="compact"/>
+                    </div>
+                </div>
+
             </div>
 
+            <nav v-if="pagination.links" aria-label="Bookmarks navigation" class="row mt-3">
+                <ul class="pagination ml-auto mr-auto">
+                    <li class="page-item" :class="pagination.links.prev ? '' : 'disabled'">
+                        <span class="page-link" v-on:click="getBookmarks(pagination.links.prev)">Previous</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Page {{ pagination.meta.current_page }} of {{ pagination.meta.last_page }}</span>
+                    </li>
+                    <li class="page-item" :class="pagination.links.next ? '' : 'disabled' ">
+                        <span class="page-link" v-on:click="getBookmarks(pagination.links.next)">Next</span>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
-        <nav v-if="pagination.links" aria-label="Bookmarks navigation" class="row mt-3">
-            <ul class="pagination ml-auto mr-auto">
-                <li class="page-item" :class="pagination.links.prev ? '' : 'disabled'">
-                    <span class="page-link" v-on:click="getBookmarks(pagination.links.prev)">Previous</span>
-                </li>
-                <li class="page-item disabled">
-                    <span class="page-link">Page {{ pagination.meta.current_page }} of {{ pagination.meta.last_page }}</span>
-                </li>
-                <li class="page-item" :class="pagination.links.next ? '' : 'disabled' ">
-                    <span class="page-link" v-on:click="getBookmarks(pagination.links.next)">Next</span>
-                </li>
-            </ul>
-        </nav>
     </div>
 </template>
 
@@ -62,10 +69,11 @@
     import GroupsList from "../groups/GroupsList";
     import TagsList from "../groups/TagsList";
     import DisplayError from "@/components/basic/DisplayError";
+    import Loading from "../basic/Loading";
 
     export default {
 
-        components: {TagsList, GroupsList, BookmarkContent, DisplayError},
+        components: {Loading, TagsList, GroupsList, BookmarkContent, DisplayError},
 
         data: () => ({
             response: {
@@ -94,11 +102,15 @@
         },
 
         computed: {
-            ...mapState(['userId', 'groups', 'tags'])
+            ...mapState(['userId', 'groups', 'tags']),
+
+            loading: function() {
+                return this.bookmarks.length === 0;
+            }
         },
 
         created: function () {
-            if(localStorage.compact === undefined) {
+            if (localStorage.compact === undefined) {
                 localStorage.compact = 'false';
             }
             this.compact = (localStorage.compact === 'true');
@@ -131,7 +143,7 @@
                         this.pagination.meta = response.meta;
                         this.pagination.links = response.links;
 
-                        window.scrollTo(0,0);
+                        window.scrollTo(0, 0);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
