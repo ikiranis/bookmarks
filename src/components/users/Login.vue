@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card card-default">
@@ -34,6 +35,8 @@
 
                 <display-error v-if="response.message" :response="response"/>
 
+                <loading :loading="loading" />
+
             </div>
         </div>
     </div>
@@ -41,12 +44,14 @@
 
 <script>
     import api from '@/api';
+    import {mapState, mapMutations} from 'vuex';
     import user from "@/library/user";
     import DisplayError from "../basic/DisplayError";
+    import Loading from "../basic/Loading";
 
     export default {
 
-        components: {DisplayError},
+        components: {Loading, DisplayError},
 
         data: () => ({
             response: {
@@ -59,12 +64,20 @@
             }
         }),
 
+        computed: {
+            ...mapState(['loading'])
+        },
+
         methods: {
+
+            ...mapMutations(['setLoading']),
 
             /**
              * Do the login
              */
             login() {
+                this.setLoading(true);
+
                 api.login(this.credentials.username, this.credentials.password)
                     .then(response => {
                         // Store token to localStorage
@@ -75,10 +88,14 @@
 
                         // Get the current username and store it
                         this.$store.dispatch('getCurrentUser');
+
+                        this.setLoading(false);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+
+                        this.setLoading(false);
                     });
             }
 

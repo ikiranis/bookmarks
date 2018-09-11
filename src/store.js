@@ -17,7 +17,7 @@ export default new Vuex.Store({
         files: [],
         rejectedFiles: [],
         progress: 0,
-        loading: true
+        loading: false
     },
     mutations: {
 
