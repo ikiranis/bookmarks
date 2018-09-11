@@ -58,6 +58,8 @@
                     </div>
                 </div>
 
+                <loading :loading="loading" />
+
             </div>
 
         </div>
@@ -69,12 +71,14 @@
 <script>
 
     import api from '@/api';
+    import {mapState, mapMutations} from 'vuex';
     import DisplayError from "@/components/basic/DisplayError";
     import FormError from "@/components/basic/FormError";
+    import Loading from "../components/basic/Loading";
 
     export default {
 
-        components: {DisplayError, FormError},
+        components: {Loading, DisplayError, FormError},
 
         data: () => ({
             response: {
@@ -94,6 +98,9 @@
         }),
 
         computed: {
+
+            ...mapState(['loading']),
+
             apiUrl: function () {
                 return process.env.VUE_APP_API_HOST
                     + process.env.VUE_APP_API_SUFFIX
@@ -112,17 +119,25 @@
 
         methods: {
 
+            ...mapMutations(['setLoading']),
+
             /**
              * Get current user info
              */
             getCurrentUser() {
+                this.setLoading(true);
+
                 api.getCurrentUser()
                     .then(response => {
                         this.userInfo = response;
+
+                        this.setLoading(false);
                     })
                     .catch(error => {
                         this.response.message = error.respone.message;
                         this.response.status = false;
+
+                        this.setLoading(false);
                     });
             },
 
@@ -137,10 +152,14 @@
                         password: this.userInfo.password
                     };
 
+                    this.setLoading(true);
+
                     api.updateUser(args)
                         .then(response => {
                             this.response.message = `User ${response.name} updated`;
                             this.response.status = true;
+
+                            this.setLoading(false);
                         })
                         .catch(error => {
                             this.response.message = error.response.data.message;
@@ -148,10 +167,14 @@
                             if (error.response.data.errors) {
                                 this.response.errors = error.response.data.errors;
                             }
+
+                            this.setLoading(false);
                         });
                 } else {
                     this.response.message = 'Passwords not validated';
                     this.response.status = false;
+
+                    this.setLoading(false);
                 }
             },
 
@@ -159,13 +182,19 @@
              * Generate and get new user api_key
              */
             generateApiKey() {
+                this.setLoading(true);
+
                 api.generateApiKey(this.userInfo.id)
                     .then(response => {
                         this.userInfo.api_key = response.api_key;
+
+                        this.setLoading(false);
                     })
                     .catch(error => {
                         this.response.message = error.respone.message;
                         this.response.status = false;
+
+                        this.setLoading(false);
                     });
             }
 
