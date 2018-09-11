@@ -51,6 +51,8 @@
 
                 <display-error v-if="response.message" :response="response"/>
 
+                <loading :loading="loading" />
+
             </div>
         </div>
     </div>
@@ -59,13 +61,14 @@
 
 <script>
     import api from '@/api';
-    import {mapMutations} from 'vuex';
+    import {mapState, mapMutations} from 'vuex';
     import DisplayError from "../basic/DisplayError";
     import FormError from "../basic/FormError";
+    import Loading from "../basic/Loading";
 
     export default {
 
-        components: {DisplayError, FormError},
+        components: {Loading, DisplayError, FormError},
 
         data: () => ({
             response: {
@@ -82,19 +85,28 @@
             password_confirmation: ''
         }),
 
+        computed: {
+            ...mapState(['loading'])
+        },
+
         methods: {
-            ...mapMutations(['setDisplayRegister']),
+            ...mapMutations(['setDisplayRegister', 'setLoading']),
 
             /**
              * Register new user
              */
             register() {
+
+                this.setLoading(true);
+
                 if (this.userInfo.password === this.password_confirmation) {
                     api.register(this.userInfo)
                         .then(response => {
                             this.response.message = response.statusText;
                             this.response.status = true;
                             this.setDisplayRegister(false);
+
+                            this.setLoading(false);
                         })
                         .catch(error => {
                             this.response.message = error.response.data.message;
@@ -102,10 +114,14 @@
                             if (error.response.data.errors) {
                                 this.response.errors = error.response.data.errors;
                             }
+
+                            this.setLoading(false);
                         });
                 } else {
                     this.response.message = 'Passwords not validated';
                     this.response.status = false;
+
+                    this.setLoading(false);
                 }
             }
 

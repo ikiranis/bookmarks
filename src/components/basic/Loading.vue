@@ -1,5 +1,5 @@
 <template>
-    <div class="row my-5" v-if="loading">
+    <div class="row my-2" v-if="loading">
         <img src="@/assets/loader.gif" class="mx-auto">
     </div>
 </template>

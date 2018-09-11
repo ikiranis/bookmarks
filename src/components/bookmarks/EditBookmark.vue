@@ -7,6 +7,8 @@
             <span class="btn btn-success col-lg-6 col-12 my-3 ml-auto mr-auto" v-on:click="updateBookmark()">Update bookmark</span>
         </div>
 
+        <loading :loading="loading" />
+
         <display-error v-if="response.message" :response="response" />
     </div>
 
@@ -18,10 +20,11 @@
     import {mapState, mapMutations, mapActions} from 'vuex';
     import DisplayError from "../basic/DisplayError";
     import BookmarkForm from "./BookmarkForm";
+    import Loading from "../basic/Loading";
 
     export default {
 
-        components: {DisplayError, BookmarkForm},
+        components: {Loading, DisplayError, BookmarkForm},
 
         data: () => ({
             response: {
@@ -37,7 +40,7 @@
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn', 'files', 'rejectedFiles'])
+            ...mapState(['userId', 'isEditBookmarkOn', 'files', 'rejectedFiles', 'loading'])
         },
 
         created: function () {
@@ -46,7 +49,7 @@
 
         methods: {
 
-            ...mapMutations(['setIsEditBookmarkOn', 'setFiles', 'setRejectedFiles']),
+            ...mapMutations(['setIsEditBookmarkOn', 'setFiles', 'setRejectedFiles', 'setLoading']),
             ...mapActions(['getGroups', 'getTags']),
 
             /**
@@ -73,6 +76,8 @@
                     uploadedFiles: this.files.map(value => value.id)
                 };
 
+                this.setLoading(true);
+
                 api.updateBookmark(args)
                     .then(response => {
                         this.response.message = response.id;
@@ -82,6 +87,8 @@
                         this.getTags();
                         this.setFiles([]);
                         this.setRejectedFiles([]);
+
+                        this.setLoading(false);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
@@ -89,6 +96,8 @@
                         if (error.response.data.errors) {
                             this.response.errors = error.response.data.errors;
                         }
+
+                        this.setLoading(false);
                     });
             }
 

@@ -6,6 +6,8 @@
             <span class="btn btn-success col-lg-6 col-12 mt-3 ml-auto mr-auto" v-on:click="saveBookmark()">Insert bookmark</span>
         </div>
 
+        <loading :loading="loading" />
+
         <display-error v-if="response.message" :response="response" />
     </div>
 
@@ -17,10 +19,11 @@
     import {mapState, mapActions, mapMutations} from 'vuex';
     import DisplayError from "@/components/basic/DisplayError";
     import BookmarkForm from "@/components/bookmarks/BookmarkForm";
+    import Loading from "../components/basic/Loading";
 
     export default {
 
-        components: {BookmarkForm, DisplayError},
+        components: {Loading, BookmarkForm, DisplayError},
 
         data: () => ({
             response: {
@@ -32,12 +35,12 @@
         }),
 
         computed: {
-            ...mapState(['userId', 'files'])
+            ...mapState(['userId', 'files', 'loading'])
         },
 
         methods: {
 
-            ...mapMutations(['setFiles', 'setRejectedFiles']),
+            ...mapMutations(['setFiles', 'setRejectedFiles', 'setLoading']),
             ...mapActions(['getGroups', 'getTags']),
 
             /**
@@ -75,6 +78,7 @@
                     uploadedFiles: this.files.map(value => value.id)
                 };
 
+                this.setLoading(true);
 
                 // TODO if you have this post https://m.sport24.gr/football/omades/Giouventous/to-mystiko-toy-ronalnto-ekane-proponhsh-stis-2-ta-kshmerwmata-meta-apo-taksidia.5292742.html
                 // the image is invalid "//www.sport24.gr/incoming/article4760866.ece/BINARY/original/Default-og-image.png"
@@ -88,6 +92,8 @@
                         this.getTags();
                         this.setFiles([]);
                         this.setRejectedFiles([]);
+
+                        this.setLoading(false);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
@@ -96,6 +102,8 @@
                         if (error.response.data.errors) {
                             this.response.errors = error.response.data.errors;
                         }
+
+                        this.setLoading(false);
                     });
             }
 

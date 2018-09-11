@@ -13,7 +13,7 @@
 
     import api from '@/api';
     import BookmarkContent from "@/components/bookmarks/BookmarkContent";
-    import DisplayError from "../components/basic/DisplayError";
+    import DisplayError from "@/components/basic/DisplayError";
 
     export default {
         components: {DisplayError, BookmarkContent},

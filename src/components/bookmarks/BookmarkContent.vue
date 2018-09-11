@@ -10,7 +10,7 @@
             <edit-bookmark :bookmark="bookmark" v-if="isEditBookmarkOn"/>
         </b-modal>
 
-        <div v-if="!compact" class="card mx-1">
+        <div v-if="!compact" class="card mx-1 mb-3">
             <img v-if="mainImage" class="col-lg-8 col-12 ml-auto mr-auto" :src="mainImage"
                  alt="Bookmark image">
 
@@ -101,6 +101,8 @@
             </div>
         </div>
 
+        <loading :loading="loading" />
+
     </div>
 </template>
 
@@ -115,10 +117,11 @@
     import { base64StringToBlob } from 'blob-util'
     import EarthIcon from "vue-material-design-icons/Earth";
     import DisplayError from "@/components/basic/DisplayError";
+    import Loading from "../basic/Loading";
 
     export default {
 
-        components: {EarthIcon, EditBookmark, DisplayError},
+        components: {Loading, EarthIcon, EditBookmark, DisplayError},
 
         data: function () {
             return {
@@ -143,7 +146,7 @@
         },
 
         computed: {
-            ...mapState(['userId', 'isEditBookmarkOn']),
+            ...mapState(['userId', 'isEditBookmarkOn', 'loading']),
 
             urlParser: function () {
                 return utility.parse_url(this.bookmark.url);
@@ -183,7 +186,7 @@
 
         methods: {
 
-            ...mapMutations(['setIsEditBookmarkOn']),
+            ...mapMutations(['setIsEditBookmarkOn', 'setLoading']),
 
             moment,
 
@@ -194,13 +197,19 @@
                 let choise = confirm('Are you sure you want to delete the bookmark?');
 
                 if(choise) {
+                    this.setLoading(true);
+
                     api.removeBookmark(this.bookmark.id)
                         .then(() => {
                             this.$router.push({path: '/'}); // Force to load home page
+
+                            this.setLoading(false);
                         })
                         .catch(error => {
                             this.response.message = error.response.data.message;
                             this.response.status = false;
+
+                            this.setLoading(false);
                         });
                 }
             },
@@ -235,13 +244,13 @@
             getFile(id) {
                 api.getFile(id)
                     .then(response => {
-                        if (response.headers["content-type"].includes('image')) {
+                        if (response.headers["content-type"].includes('image')) { // If file is image
                             this.image = {
                                 src: 'data: ${response.headers["content-type"]};base64,' + response.data.content,
                                 filename: response.data.filename
                             };
                             this.$refs.attachmentModal.show();
-                        } else {
+                        } else { // If file is not image
                             const url = window.URL.createObjectURL(new Blob([
                                 base64StringToBlob(response.data.content, response.headers["content-type"])
                             ]));
@@ -304,13 +313,19 @@
                 let choise = confirm('Are you sure you want to delete the file?');
 
                 if(choise) {
+                    this.setLoading(true);
+
                     api.deleteFile(id)
                         .then(response => {
                             this.bookmark.files = utility.removeObjFromArray(this.bookmark.files, 'id', response.data.id);
+
+                            this.setLoading(false);
                         })
                         .catch(error => {
                             this.response.message = error.response.data.message;
                             this.response.status = false;
+
+                            this.setLoading(false);
                         })
                 }
             },
