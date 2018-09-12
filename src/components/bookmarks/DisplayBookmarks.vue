@@ -127,7 +127,6 @@
             }
             this.compact = (localStorage.compact === 'true');
             this.search = this.textSearch ? this.textSearch : '';
-            console.log(this.search)
             this.getBookmarks(null);
         },
 
