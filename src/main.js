@@ -5,9 +5,6 @@ import store from './store'
 
 Vue.config.productionTip = true; // Display console warning at development mode
 
-import DisableAutocomplete from 'vue-disable-autocomplete';
-Vue.use(DisableAutocomplete);
-
 // Bootstrap
 import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
