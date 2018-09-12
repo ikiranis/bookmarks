@@ -136,6 +136,10 @@
              * Get the list of bookmarks for user with userId
              */
             getBookmarks(page) {
+                if(this.routeName === 'tagSearch' || this.routeName === 'groupSearch') {
+                    this.search = '';
+                }
+
                 let args = {
                     user_id: this.userId,
                     group_id: this.routeName === 'groupSearch' ? this.searchId : '',
