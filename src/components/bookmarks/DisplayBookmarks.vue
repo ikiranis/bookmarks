@@ -107,7 +107,8 @@
 
         props: {
             searchId: String,
-            routeName: String
+            routeName: String,
+            textSearch: String
         },
 
         watch: {
@@ -125,6 +126,8 @@
                 localStorage.compact = 'false';
             }
             this.compact = (localStorage.compact === 'true');
+            this.search = this.textSearch ? this.textSearch : '';
+            console.log(this.search)
             this.getBookmarks(null);
         },
 
@@ -176,7 +179,7 @@
              *
              */
             searchText() {
-                this.getBookmarks(null);
+                this.$router.push({name: 'home', params: {textSearch: this.search} });
             },
 
             /**

@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <display-bookmarks v-if="username" :searchId="searchId" :routeName="routeName"/>
+        <display-bookmarks v-if="username" :searchId="searchId" :routeName="routeName" :textSearch="textSearch" />
 
         <Register v-if="displayRegister"/>
 
@@ -46,6 +46,10 @@
 
         computed: {
             ...mapState(['displayRegister', 'username']),
+
+            textSearch: function () {
+                return this.$route.params.textSearch;
+            },
 
             searchId: function () {
                 return this.$route.params.id;
