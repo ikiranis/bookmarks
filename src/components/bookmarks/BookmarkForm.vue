@@ -13,7 +13,7 @@
         <vue-editor-markdown class="my-2" placeholder="Description" v-model="formData.description"
                              @input="submitData" :showPreview="false"/>
         <div class="row">
-            <small class="bg-danger text-light px-3 mx-auto">On mobile, press enter on every line to take the last text</small>
+            <small class="bg-warning text-dark px-3 mx-auto">On mobile, press enter on every line to take the last text</small>
         </div>
         <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
 
