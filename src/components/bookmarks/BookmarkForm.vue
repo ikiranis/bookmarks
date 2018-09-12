@@ -17,6 +17,10 @@
         <div class="row">
             <div class="col-lg-9 col-12">
 
+                <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+                <input style="display:none" type="text" name="fakeusernameremembered"/>
+                <input style="display:none" type="password" name="fakepasswordremembered"/>
+
                 <div class="input-group mt-3">
                     <div class="input-group-prepend">
                         <label for="url" class="input-group-text">url</label>
@@ -65,7 +69,7 @@
                         </div>
                         <input type="text" max="50" class="form-control" placeholder="Group name"
                                id="group_name" name="group_name" v-model="formData.groupName" @input="submitData"
-                               data-lpignore="true" autocomplete="off">
+                               data-lpignore="true">
 
                     </div>
 
@@ -82,7 +86,7 @@
                     </div>
                     <input type="password" class="form-control form-control-sm" id="password" name="password"
                            v-model="formData.password" @input="submitData" placeholder="Set a password to encrypt bookmark"
-                           data-lpignore="true" autocomplete="off">
+                           data-lpignore="true" >
                     <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
                 </div>
 
