@@ -33,7 +33,24 @@
             </div>
 
             <div class="card-body">
-                <p class="card-text" v-html="compiledMarkdown"></p>
+                <div v-if="bookmark.password === null" class="card-text" v-html="compiledMarkdown"></div>
+                <div v-else>
+                    <div class="blur text-truncate" v-html="randomLines"></div>
+
+                    <loading :loading="loadDecrypt" />
+
+                    <div class="input-group mt-3 col-xl-8 col-12 mx-auto">
+                        <div class="input-group-prepend">
+                            <label for="Password" class="input-group-text mt-1 bg-danger text-light">Password</label>
+                        </div>
+                        <input type="password" class="form-control form-control-sm mt-1" id="password" name="password"
+                               v-model="password">
+                        <!--<form-error v-if="response.errors.password" :error="response.errors.password[0]"/>-->
+
+                        <button class="btn btn-warning col-md-4 col-12 mt-1 mx-md-1" v-on:click="decryptDescription()">Decrypt text</button>
+                    </div>
+
+                </div>
 
                 <ul class="list-group">
                     <li class="list-group-item" v-for="file in bookmark.files" :key="file.id">
@@ -135,7 +152,9 @@
                     src: null,
                     filename: null
                 },
-                mainImage: null
+                mainImage: null,
+                password: null,
+                loadDecrypt: false
             }
         },
 
@@ -162,6 +181,20 @@
 
             rootApi: function () {
                 return api.rootApi() + '/serveFile/';
+            },
+
+            randomLines: function() {
+                let lines = '';
+
+                for(let i=0; i <  Math.floor((Math.random() * 5) + 3); i++) {
+                    let line = '';
+                    for(let j=0; j < Math.floor((Math.random() * 60) + 30); j++) {
+                        line += '#';
+                    }
+                    lines += `<p>${line}</p>`;
+                }
+
+                return lines;
             }
 
         },
@@ -341,6 +374,40 @@
                 let fileExtension = file.substr(file.lastIndexOf('.') + 1);
 
                 return imageExtensions.includes(fileExtension); // Return true if file is image
+            },
+
+            /**
+             * Get decrypted description
+             *
+             * @returns {Promise<void>}
+             */
+            async decryptDescription() {
+                let args = {
+                    id: this.bookmark.id,
+                    password: this.password
+                };
+
+                this.loadDecrypt = true;
+
+                this.response = {
+                    message: '',
+                    status: '',
+                    errors: []
+                };
+
+                try {
+                    let response = await api.decryptDescription(args);
+
+                    this.bookmark.description = response.description;
+                    this.bookmark.password = null;
+
+                    this.loadDecrypt = false;
+                } catch(error) {
+                    this.response.message = error.response.data.message;
+                    this.response.status = false;
+
+                    this.loadDecrypt = false;
+                }
             }
 
 
@@ -389,6 +456,11 @@
         padding: 1em 1.5em;
         display: block;
         word-wrap: break-word;
+    }
+
+    .blur {
+        text-shadow: 0 0 1em black;
+        color: transparent;
     }
 
 </style>

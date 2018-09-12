@@ -94,6 +94,18 @@ let api = {
     },
 
     /**
+     * Decrypt and get description of bookmark
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async decryptDescription(args) {
+        let {data} = await axios.get(ROOT_API + '/decryptDescription', {params: args});
+
+        return data;
+    },
+
+    /**
      * Remove bookmark woth bookmarkId
      *
      * @param bookmarkId
