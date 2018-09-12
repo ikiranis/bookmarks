@@ -17,9 +17,6 @@
         <div class="row">
             <div class="col-lg-9 col-12">
 
-                <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
-                <input style="display:none" type="text" name="fakeusernameremembered"/>
-                <input style="display:none" type="password" name="fakepasswordremembered"/>
 
                 <div class="input-group mt-3">
                     <div class="input-group-prepend">
@@ -79,6 +76,10 @@
 
                     <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
                 </div>
+
+                <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+                <input style="display:none" type="text" name="fakeusernameremembered"/>
+                <input style="display:none" type="password" name="fakepasswordremembered"/>
 
                 <div class="input-group mt-3">
                     <div class="input-group-prepend">
