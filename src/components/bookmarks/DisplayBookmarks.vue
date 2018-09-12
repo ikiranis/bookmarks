@@ -28,7 +28,7 @@
 
             <div class="row">
 
-                <div class="col-lg-2 col-12" v-if="groups.length > 0 || tags.length > 0">
+                <div class="col-lg-2 col-12">
                     <GroupsList :groups="groups" />
 
                     <TagsList :tags="tags" />

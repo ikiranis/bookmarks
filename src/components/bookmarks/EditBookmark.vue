@@ -73,7 +73,8 @@
                     group_id: this.formData.group_id,
                     image: this.formData.image,
                     tags: this.formData.tags.map(value => value.id),
-                    uploadedFiles: this.files.map(value => value.id)
+                    uploadedFiles: this.files.map(value => value.id),
+                    password: this.formData.password
                 };
 
                 this.setLoading(true);
