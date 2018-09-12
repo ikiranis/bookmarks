@@ -6,7 +6,7 @@
                 <label for="title" class="input-group-text">Title</label>
             </div>
             <input type="text" max="500" class="form-control form-control-sm" id="title" name="title"
-                   v-model="formData.title" @input="submitData">
+                   v-model="formData.title" @input="submitData" data-lpignore="true">
             <form-error v-if="response.errors.title" :error="response.errors.title[0]"/>
         </div>
 
@@ -85,6 +85,11 @@
                     <div class="input-group-prepend">
                         <label for="Password" class="input-group-text bg-danger text-light">Password</label>
                     </div>
+
+                    <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+                    <input style="display:none" type="text" name="fakeusernameremembered"/>
+                    <input style="display:none" type="password" name="fakepasswordremembered"/>
+
                     <input type="password" class="form-control form-control-sm" id="password" name="password"
                            v-model="formData.password" @input="submitData" placeholder="Set a password to encrypt bookmark"
                            data-lpignore="true" >
