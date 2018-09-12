@@ -240,7 +240,6 @@
                     html: ''
                 };
                 this.formData.image = '';
-                this.formData.password = null;
             },
 
             /**
