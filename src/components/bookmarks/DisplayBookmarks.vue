@@ -34,8 +34,23 @@
                     <TagsList :tags="tags" />
                 </div>
 
-                <!--TODO Problem if a bookmark has big text in length-->
                 <div class="row col-lg-10 col-12 no-gutters">
+
+                    <nav v-if="pagination.links" aria-label="Bookmarks navigation" class="col-12 row mt-3">
+                        <ul class="pagination ml-auto mr-auto">
+                            <li class="page-item" :class="pagination.links.prev ? '' : 'disabled'">
+                                <span class="page-link" v-on:click="getBookmarks(pagination.links.prev)">Previous</span>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">Page {{ pagination.meta.current_page }} of {{ pagination.meta.last_page }}</span>
+                            </li>
+                            <li class="page-item" :class="pagination.links.next ? '' : 'disabled' ">
+                                <span class="page-link" v-on:click="getBookmarks(pagination.links.next)">Next</span>
+                            </li>
+                        </ul>
+                    </nav>
+
+
                     <div class="col-12 mt-3" :class="!compact ? 'col-lg-6' : ''" v-for="bookmark in bookmarks"
                          :key="bookmark.id">
                         <BookmarkContent :bookmark="bookmark" :bookmarksList="true" :compact="compact"/>
