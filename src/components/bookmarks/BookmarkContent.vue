@@ -45,7 +45,6 @@
                         </div>
                         <input type="password" class="form-control form-control-sm mt-1" id="password" name="password"
                                v-model="password">
-                        <!--<form-error v-if="response.errors.password" :error="response.errors.password[0]"/>-->
 
                         <button class="btn btn-warning col-md-4 col-12 mt-1 mx-md-1" v-on:click="decryptDescription()">Decrypt text</button>
                     </div>
