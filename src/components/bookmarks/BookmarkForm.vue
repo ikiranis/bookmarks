@@ -188,6 +188,8 @@
                 markdown: this.formData.description,
                 html: marked(this.formData.description, {sanitize: true})
             };
+
+            this.formData.password = null;
         },
 
         methods: {

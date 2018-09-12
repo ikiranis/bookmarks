@@ -202,7 +202,7 @@
             this.findImage();
             this.setIsEditBookmarkOn(false);
             this.bookmarkPublic = this.bookmark.public;
-            this.bookmark.password = '';
+            this.bookmark.password = null;
         },
 
         watch: {
