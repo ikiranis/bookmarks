@@ -5,7 +5,6 @@
             <div v-if="image.src"><img :src="image.src" width="100%"></div>
         </b-modal>
 
-        <!-- TODO make modal bigger -->
         <b-modal ref="editBookmarkModal" size="lg" centered hide-footer title="Edit Bookmark">
             <edit-bookmark :bookmark="bookmark" v-if="isEditBookmarkOn"/>
         </b-modal>

@@ -50,7 +50,6 @@
                         </ul>
                     </nav>
 
-
                     <div class="col-12 mt-3" :class="!compact ? 'col-lg-6' : ''" v-for="bookmark in bookmarks"
                          :key="bookmark.id">
                         <BookmarkContent :bookmark="bookmark" :bookmarksList="true" :compact="compact"/>

@@ -11,7 +11,6 @@
 
 <script>
 
-    // TODO close old errors on new action
     export default {
 
         data() {

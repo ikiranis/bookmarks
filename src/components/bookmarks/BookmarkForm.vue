@@ -12,6 +12,9 @@
 
         <vue-editor-markdown class="my-2" placeholder="Description" v-model="formData.description"
                              @input="submitData" :showPreview="false"/>
+        <div class="row">
+            <small class="bg-danger text-light px-3 mx-auto">On mobile, press enter on every line to take the last text</small>
+        </div>
         <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
 
         <div class="row">
@@ -83,7 +86,8 @@
                     </div>
 
                     <input type="password" class="form-control form-control-sm" id="password" name="password"
-                           v-model="formData.password" @input="submitData" placeholder="Set a password to encrypt bookmark"
+                           v-model="formData.password" @input="submitData"
+                           placeholder="Set a password to encrypt bookmark"
                            data-lpignore="true" readonly onfocus="this.removeAttribute('readonly');">
                     <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
                 </div>
@@ -113,7 +117,8 @@
                 <div v-if="rejectedFiles.length > 0" class="mt-3">
                     <div class="alert alert-warning w-100 text-center">Rejected files for size limit or file error</div>
                     <ul class="list-group mt-2">
-                        <li class="list-group-item bg-danger text-white my-1" v-for="file in rejectedFiles" :key="file.id">
+                        <li class="list-group-item bg-danger text-white my-1" v-for="file in rejectedFiles"
+                            :key="file.id">
                             <span v-if="file.size">File Limit: ({{ file.size.toLocaleString() }} bytes) </span>
                             <span v-else>Uploaded file error: </span>
                             <span>{{ file.name }}</span>
