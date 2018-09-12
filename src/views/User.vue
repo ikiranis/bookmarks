@@ -12,7 +12,7 @@
                     <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control" v-model="userInfo.email"
-                               required>
+                               required data-lpignore="true">
                         <form-error v-if="response.errors.email" :error="response.errors.email[0]"/>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                     <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                     <div class="col-md-6">
                         <input id="password" type="password" class="form-control"
-                               v-model="userInfo.password">
+                               v-model="userInfo.password" data-lpignore="true">
                         <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                         Password</label>
                     <div class="col-md-6">
                         <input id="password-confirm" type="password" class="form-control"
-                               v-model="password_confirmation">
+                               v-model="password_confirmation" data-lpignore="true">
                     </div>
                 </div>
 
