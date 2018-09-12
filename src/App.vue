@@ -13,6 +13,7 @@
 
                 <b-collapse is-nav id="nav_collapse">
 
+                    <!--TODO fix cursor pointer after choose a menu-->
                     <!-- Right aligned nav items -->
                     <b-navbar-nav class="ml-auto">
 
