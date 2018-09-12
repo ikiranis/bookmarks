@@ -65,7 +65,7 @@
                         </div>
                         <input type="text" max="50" class="form-control" placeholder="Group name"
                                id="group_name" name="group_name" v-model="formData.groupName" @input="submitData"
-                               data-lpignore="true">
+                               data-lpignore="true" autocomplete="off">
 
                     </div>
 
