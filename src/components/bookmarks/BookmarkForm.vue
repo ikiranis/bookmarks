@@ -64,7 +64,8 @@
                             <label for="group_name" class="sr-only">Group name</label>
                         </div>
                         <input type="text" max="50" class="form-control" placeholder="Group name"
-                               id="group_name" name="group_name" v-model="formData.groupName" @input="submitData">
+                               id="group_name" name="group_name" v-model="formData.groupName" @input="submitData"
+                               data-lpignore="true">
 
                     </div>
 
@@ -80,7 +81,8 @@
                         <label for="Password" class="input-group-text bg-danger text-light">Password</label>
                     </div>
                     <input type="password" class="form-control form-control-sm" id="password" name="password"
-                           v-model="formData.password" @input="submitData" placeholder="Set a password to encrypt bookmark">
+                           v-model="formData.password" @input="submitData" placeholder="Set a password to encrypt bookmark"
+                           data-lpignore="true">
                     <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
                 </div>
 
