@@ -250,8 +250,13 @@
              * Display edit bookmark window
              */
             editBookmark() {
-                this.$refs.editBookmarkModal.show();
-                this.setIsEditBookmarkOn(true);
+                if(this.bookmark.password === null) {
+                    this.$refs.editBookmarkModal.show();
+                    this.setIsEditBookmarkOn(true);
+                } else {
+                    this.response.message = 'You must decrypt the text to edit this bookmark';
+                    this.response.status = false;
+                }
             },
 
             /**
