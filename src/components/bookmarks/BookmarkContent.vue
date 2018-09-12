@@ -44,7 +44,7 @@
                             <label for="Password" class="input-group-text mt-1 bg-danger text-light">Password</label>
                         </div>
                         <input type="password" class="form-control form-control-sm mt-1" id="password" name="password"
-                               v-model="password" data-lpignore="true" autocomplete="off">
+                               v-model="password" data-lpignore="true" readonly onfocus="this.removeAttribute('readonly');">
 
                         <button class="btn btn-warning col-md-4 col-12 mt-1 mx-md-1" v-on:click="decryptDescription()">Decrypt text</button>
                     </div>
@@ -465,6 +465,11 @@
     .blur {
         text-shadow: 0 0 1em black;
         color: transparent;
+    }
+
+    input[readonly] {
+        cursor: text;
+        background-color: #fff;
     }
 
 </style>

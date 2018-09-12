@@ -66,7 +66,7 @@
                         </div>
                         <input type="text" max="50" class="form-control" placeholder="Group name"
                                id="group_name" name="group_name" v-model="formData.groupName" @input="submitData"
-                               data-lpignore="true">
+                               data-lpignore="true" readonly onfocus="this.removeAttribute('readonly');">
 
                     </div>
 
@@ -76,10 +76,6 @@
 
                     <form-error v-if="response.errors.name" :error="response.errors.name[0]"/>
                 </div>
-
-                <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
-                <input style="display:none" type="text" name="fakeusernameremembered"/>
-                <input style="display:none" type="password" name="fakepasswordremembered"/>
 
                 <div class="input-group mt-3">
                     <div class="input-group-prepend">
