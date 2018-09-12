@@ -86,13 +86,9 @@
                         <label for="Password" class="input-group-text bg-danger text-light">Password</label>
                     </div>
 
-                    <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
-                    <input style="display:none" type="text" name="fakeusernameremembered"/>
-                    <input style="display:none" type="password" name="fakepasswordremembered"/>
-
                     <input type="password" class="form-control form-control-sm" id="password" name="password"
                            v-model="formData.password" @input="submitData" placeholder="Set a password to encrypt bookmark"
-                           data-lpignore="true" >
+                           data-lpignore="true" readonly onfocus="this.removeAttribute('readonly');">
                     <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
                 </div>
 
