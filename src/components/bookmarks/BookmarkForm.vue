@@ -23,7 +23,7 @@
                         <label for="url" class="input-group-text">url</label>
                     </div>
                     <input type="text" max="800" class="form-control form-control-sm" id="url" name="url"
-                           v-model="formData.url" @input="submitData">
+                           v-model="formData.url" @input="submitData" data-lpignore="true">
                     <span class="btn btn-info mx-1" v-on:click="getMetadata()">Get Metadata</span>
                     <form-error v-if="response.errors.url" :error="response.errors.url[0]"/>
                 </div>
