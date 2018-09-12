@@ -82,7 +82,7 @@
                     </div>
                     <input type="password" class="form-control form-control-sm" id="password" name="password"
                            v-model="formData.password" @input="submitData" placeholder="Set a password to encrypt bookmark"
-                           data-lpignore="true">
+                           data-lpignore="true" autocomplete="off">
                     <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
                 </div>
 
