@@ -18,7 +18,7 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" v-model="userInfo.email"
-                                           required data-lpignore="true" autocomplete="off">
+                                           required data-lpignore="true" readonly onfocus="this.removeAttribute('readonly');">
                                     <form-error v-if="response.errors.email" :error="response.errors.email[0]"/>
                                 </div>
                             </div>
@@ -26,7 +26,8 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control"
-                                           v-model="userInfo.password" required data-lpignore="true" autocomplete="off">
+                                           v-model="userInfo.password" required data-lpignore="true"
+                                           readonly onfocus="this.removeAttribute('readonly');">
                                     <form-error v-if="response.errors.password" :error="response.errors.password[0]"/>
                                 </div>
                             </div>
@@ -35,7 +36,7 @@
                                     Password</label>
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
-                                           v-model="password_confirmation" required data-lpignore="true" autocomplete="off">
+                                           v-model="password_confirmation" required data-lpignore="true">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -128,3 +129,12 @@
         }
     }
 </script>
+
+<style scoped>
+
+    input[readonly] {
+        cursor: text;
+        background-color: #fff;
+    }
+
+</style>

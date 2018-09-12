@@ -359,4 +359,9 @@
     #removeTag {
         cursor: pointer;
     }
+
+    input[readonly] {
+        cursor: text;
+        background-color: #fff;
+    }
 </style>
