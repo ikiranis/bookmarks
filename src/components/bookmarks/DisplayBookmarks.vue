@@ -175,18 +175,18 @@
             },
 
             /**
-             *
+             * Search for the text
              */
             searchText() {
-                if(this.routeName === 'home') {
+                if(this.routeName === 'home') { // If you are at home just search the bookmarks
                     this.getBookmarks(null);
-                } else {
+                } else { // Else go to home and then search
                     this.$router.push({name: 'home', params: {textSearch: this.search}});
                 }
             },
 
             /**
-             *
+             * Clear the search text and get the bookmarks
              */
             clearSearch() {
                 this.search = '';
@@ -194,7 +194,7 @@
             },
 
             /**
-             *
+             * Changing the layout
              */
             toggleCompact() {
                 localStorage.compact = (localStorage.compact === 'true') ? 'false' : 'true';
