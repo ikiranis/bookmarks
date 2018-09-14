@@ -178,7 +178,11 @@
              *
              */
             searchText() {
-                this.$router.push({name: 'home', params: {textSearch: this.search} });
+                if(this.routeName === 'home') {
+                    this.getBookmarks(null);
+                } else {
+                    this.$router.push({name: 'home', params: {textSearch: this.search}});
+                }
             },
 
             /**
