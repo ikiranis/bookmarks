@@ -29,6 +29,8 @@
                                 </div>
                             </div>
 
+                            <router-link to="/forgotPassword" class="nav-link">Forgot Password</router-link>
+
                         </form>
                     </div>
                 </div>

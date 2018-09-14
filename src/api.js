@@ -326,6 +326,16 @@ let api = {
     },
 
     /**
+     * Send email to user with reset token
+     *
+     * @param args
+     * @returns {Promise<any>}
+     */
+    async sendResetToken(args) {
+        return await axios.post(ROOT_API + '/sendResetToken', args);
+    },
+
+    /**
      *
      * @returns {*}
      */
