@@ -29,7 +29,9 @@
                                 </div>
                             </div>
 
-                            <router-link to="/forgotPassword" class="nav-link">Forgot Password</router-link>
+                            <!--<router-link to="/forgotPassword" class="nav-link">Forgot Password</router-link>-->
+
+                            <a href="http://localhost:7891/password/reset">Forgot Password</a>
 
                         </form>
                     </div>

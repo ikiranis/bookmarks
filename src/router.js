@@ -7,6 +7,7 @@ import Group from './views/Group.vue';
 import User from './views/User.vue';
 import Bookmark from './views/Bookmark.vue';
 import ForgotPassword from './views/ForgotPassword.vue';
+import ResetPassword from './views/ResetPassword.vue';
 
 Vue.use(Router);
 
@@ -93,6 +94,14 @@ export default new Router({
             component: ForgotPassword,
             meta: {
                 title: 'Forgot Password - Bookmarks'
+            }
+        },
+        {
+            path: '/resetPassword',
+            name: 'resetPassword',
+            component: ResetPassword,
+            meta: {
+                title: 'Reset Password - Bookmarks'
             }
         }
     ]
