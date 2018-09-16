@@ -12,6 +12,7 @@
                                     <input id="email" type="email" class="form-control" v-model="email"
                                            required data-lpignore="true" readonly
                                            onfocus="this.removeAttribute('readonly');">
+                                    <form-error v-if="response.errors.email" :error="response.errors.email[0]"/>
                                 </div>
                             </div>
 
@@ -42,10 +43,11 @@
     import Loading from "@/components/basic/Loading";
     import {mapState, mapMutations} from 'vuex';
     import DisplayError from "@/components/basic/DisplayError";
+    import FormError from "@/components/basic/FormError";
 
     export default {
 
-        components: {Loading, DisplayError},
+        components: {Loading, DisplayError, FormError},
 
         data: () => ({
             response: {
@@ -71,6 +73,12 @@
                     app_path: window.location.origin + '/resetPassword/'
                 };
 
+                this.response = {
+                    message: '',
+                    status: '',
+                    errors: []
+                };
+
                 this.setLoading(true);
 
                 try {
@@ -83,6 +91,10 @@
                 } catch (error) {
                     this.response.message = error.response.data.message;
                     this.response.status = false;
+
+                    if (error.response.data.errors) {
+                        this.response.errors = error.response.data.errors;
+                    }
 
                     this.setLoading(false);
                 }

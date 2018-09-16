@@ -100,6 +100,12 @@
                         token: this.token
                     };
 
+                    this.response = {
+                        message: '',
+                        status: '',
+                        errors: []
+                    };
+
                     this.setLoading(true);
 
                     api.resetPassword(args)
@@ -114,6 +120,7 @@
                         .catch(error => {
                             this.response.message = error.response.data.message;
                             this.response.status = false;
+
                             if (error.response.data.errors) {
                                 this.response.errors = error.response.data.errors;
                             }
