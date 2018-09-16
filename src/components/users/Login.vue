@@ -29,7 +29,9 @@
                                 </div>
                             </div>
 
-                            <router-link to="/forgotPassword" class="nav-link">Forgot Password</router-link>
+                            <div class="row">
+                                <router-link to="/forgotPassword" class="nav-link mx-auto">Forgot Password</router-link>
+                            </div>
 
                         </form>
                     </div>
@@ -37,7 +39,7 @@
 
                 <display-error v-if="response.message" :response="response"/>
 
-                <loading :loading="loading" />
+                <loading :loading="loading"/>
 
             </div>
         </div>

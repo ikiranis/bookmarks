@@ -16,6 +16,8 @@
             </div>
         </div>
 
+        <display-error v-if="response.message" :response="response"/>
+
         <loading :loading="loading" />
 
     </div>
@@ -24,15 +26,21 @@
 <script>
 
     import api from "../api";
-    import Loading from "../components/basic/Loading";
+    import Loading from "@/components/basic/Loading";
     import {mapState, mapMutations} from 'vuex';
+    import DisplayError from "@/components/basic/DisplayError";
 
     export default {
 
-        components: {Loading},
+        components: {Loading, DisplayError},
 
         data: () => ({
-            email: 'rocean74@gmail.com'
+            response: {
+                message: '',
+                status: '',
+                errors: []
+            },
+            email: ''
         }),
 
         computed: {
@@ -46,7 +54,8 @@
 
             async sendToken() {
                 let args = {
-                    email: this.email
+                    email: this.email,
+                    app_path: window.location.origin + '/resetPassword/'
                 };
 
                 this.setLoading(true);
@@ -54,11 +63,13 @@
                 try {
                     let response = await api.sendResetToken(args);
 
-                    console.log(response);
+                    this.response.message = response.data.message;
+                    this.response.status = true;
 
                     this.setLoading(false);
                 } catch(error) {
-                    console.log(error.response.data);
+                    this.response.message = error.response.data.message;
+                    this.response.status = false;
 
                     this.setLoading(false);
                 }

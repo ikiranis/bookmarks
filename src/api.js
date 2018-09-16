@@ -336,6 +336,16 @@ let api = {
     },
 
     /**
+     * Reset the password
+     *
+     * @param args
+     * @returns {Promise<any>}
+     */
+    async resetPassword(args) {
+        return await axios.patch(ROOT_API + '/resetPassword', args);
+    },
+
+    /**
      *
      * @returns {*}
      */

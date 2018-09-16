@@ -56,7 +56,7 @@
                     </div>
 
                     <nav v-if="pagination.links" aria-label="Bookmarks navigation" class="col-12 row mt-3">
-                        <ul class="pagination ml-auto mr-auto">
+                        <ul class="pag3ination ml-auto mr-auto">
                             <li class="page-item" :class="pagination.links.prev ? '' : 'disabled'">
                                 <span class="page-link" v-on:click="getBookmarks(pagination.links.prev)">Previous</span>
                             </li>
@@ -165,11 +165,13 @@
                         this.pagination.links = response.links;
 
                         window.scrollTo(0, 0);
+
                         this.setLoading(false);
                     })
                     .catch(error => {
                         this.response.message = error.response.data.message;
                         this.response.status = false;
+
                         this.setLoading(false);
                     });
             },
