@@ -17,6 +17,8 @@
                             <li><a href="https://bitbucket.org/rocean/bookmarks-api">Backend (Laravel)</a></li>
                         </ul>
 
+                        <p>Send your feedback at <strong><u>info (at) apps4net.eu</u></strong></p>
+
                         <div id="accept_paypal_payment_form">
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                                 <input name="cmd" value="_xclick" type="hidden">
