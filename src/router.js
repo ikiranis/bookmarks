@@ -8,6 +8,7 @@ import User from './views/User.vue';
 import Bookmark from './views/Bookmark.vue';
 import ForgotPassword from './views/ForgotPassword.vue';
 import ResetPassword from './views/ResetPassword.vue';
+import About from './views/About.vue';
 
 Vue.use(Router);
 
@@ -103,7 +104,15 @@ export default new Router({
             meta: {
                 title: 'Reset Password - Bookmarks'
             }
-        }
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About,
+            meta: {
+                title: 'About - Bookmarks'
+            }
+        },
     ]
 })
 

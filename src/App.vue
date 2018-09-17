@@ -26,6 +26,9 @@
                         <b-nav-item href="#">
                             <CurrentUser/>
                         </b-nav-item>
+                        <b-nav-item href="#">
+                            <router-link to="/about" class="nav-link">About</router-link>
+                        </b-nav-item>
                         <b-nav-item href="#"><a class="nav-link" id="logout" @click="logout()"
                                                 v-if="username">Logout</a></b-nav-item>
 
