@@ -5,7 +5,7 @@
                 <div class="card card-default">
                     <div class="card-header">About</div>
                     <div class="card-body">
-                        <p><strong>Boobkmarks App</strong> created by <strong><a href="http://apps4net.eu">apps4net</a></strong>
+                        <p><strong>Bookmarks App</strong> created by <strong><a href="http://apps4net.eu">apps4net</a></strong>
                             for experimental purposes and personal use. If you like the app you can support the
                             development, by donating</p>
 
