@@ -59,6 +59,20 @@
                     </div>
                 </div>
 
+                <div class="bg-warning text-light p-3 mt-3">
+                    <div>Upload xml file to import bookmarks and notes</div>
+                    <div class="custom-file col-12 px-1 mt-3">
+                        <label class="custom-file-label" for="file">Choose file</label>
+                        <input type="file" class="custom-file-input" name="file" id="file"
+                               accept="application/xml" @change="uploadFile">
+                    </div>
+                </div>
+
+                <div class="mt-3" v-if="progress > 0">
+                    <b-progress height="2rem" :value="parseInt(progress)" :max="progressMax" show-progress animated
+                                variant="success"></b-progress>
+                </div>
+
                 <loading :loading="loading" />
 
             </div>
@@ -76,6 +90,7 @@
     import DisplayError from "@/components/basic/DisplayError";
     import FormError from "@/components/basic/FormError";
     import Loading from "../components/basic/Loading";
+    import uploadFiles from "../library/uploadFiles";
 
     export default {
 
@@ -95,7 +110,8 @@
                 role_id: 2,
                 api_key: null
             },
-            password_confirmation: ''
+            password_confirmation: '',
+            progressMax: 100
         }),
 
         computed: {
@@ -197,7 +213,14 @@
 
                         this.setLoading(false);
                     });
-            }
+            },
+
+            /**
+             * Start uploading file
+             */
+            uploadFile() {
+                uploadFiles.startUpload(this.userId, '#file');
+            },
 
         }
     }

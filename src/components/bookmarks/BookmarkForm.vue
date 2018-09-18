@@ -323,7 +323,7 @@
             },
 
             /**
-             *
+             * Start uploading files
              */
             uploadFiles() {
                 uploadFiles.startUpload(this.userId, '#files');
