@@ -341,11 +341,24 @@
 
             },
 
+            removeFile(fileId){
+                try{
+                    api.deleteFile(fileId)
+                } catch(error) {
+                    console.log(error.response.data.message);
+                }
+            },
+
+            handleError(error) {
+                this.response.message = error.response.data.message;
+                this.response.status = false;
+            },
+
             /**
              * Start uploading files
              */
             uploadFiles() {
-                uploadFiles.startUpload(this.userId, '#files', this.storeFile);
+                uploadFiles.startUpload(this.userId, '#files', this.storeFile, this.removeFile, this.handleError);
             },
 
             /**

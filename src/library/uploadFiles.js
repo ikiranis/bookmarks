@@ -23,35 +23,42 @@ let uploadFiles = {
     percent_done: [],                       // Το ποσοστό που έχει ανέβει από κάθε αρχείο
     reader: [],                             // To fileReader object για κάθε αρχείο
     theFile: [],                            // Το κάθε αρχείο
-    slice_size: 700 * 1024,                // Το μέγεθος του slice
-    filesInputElement: '',            // Το input element που παίρνει τα αρχεία
-    user_id: '',                             // User Id
-    files: [],
-    rejectedFiles: [],
+    slice_size: 700 * 1024,                 // Το μέγεθος του slice
+    filesInputElement: '',                  // Το input element που παίρνει τα αρχεία
+    user_id: '',                            // User Id
+    files: [],                              // array with the uploaded files
+    rejectedFiles: [],                      // array of rejected files
+    successFileCallback: null,              // callback function to run after any uploaded file
+    failFileCallback: null,                 // callback function to run after any fail on uploading the file
+    handleError: null,                      // callback function to handle/display every error
 
     /**
-     * Εκκίνηση του uploading
+     * Start the uploading
      *
      * @param user_id
      * @param inputElement
-     * @param callback
+     * @param successFileCallback
+     * @param failFileCallback
+     * @param handleError
      */
-    startUpload: function (user_id, inputElement, callback) {
+    startUpload: function (user_id, inputElement, successFileCallback, failFileCallback, handleError) {
+        // Init values
         this.filesInputElement = inputElement;
         this.user_id = user_id;
         this.rejectedFiles = [];
+        this.percent_done = [];
+        this.reader = [];
+        this.theFile = [];
+        this.files = [];
+        this.successFileCallback = successFileCallback;
+        this.failFileCallback = failFileCallback;
+        this.handleError = handleError;
 
         // To imput element που περιέχει τα επιλεγμένα αρχεία
         let filesArray = Array.from(document.querySelector(this.filesInputElement).files);
 
         this.finishedUploads = 0;
         this.filesUploadedCount = filesArray.length;
-
-        this.percent_done = [];
-        this.reader = [];
-        this.theFile = [];
-        this.files = [];
-        this.callback = callback;
 
         // Check for sizes and remove files above limit
         for (let i = 0; i < this.filesUploadedCount; i++) {
@@ -203,14 +210,13 @@ let uploadFiles = {
                     }
 
                 } else { // if files don't match add it to rejected files
-                    // TODO run callback function to delete or something else
-                    this.rejectedFiles.push(fileAdded);
-                    store.commit('setRejectedFiles', this.rejectedFiles);
+                    try {
+                        let response = await this.failFileCallback(response.file_id);
 
-                    try{
-                        api.deleteFile(response.file_id)
+                        this.rejectedFiles.push(fileAdded);
+                        store.commit('setRejectedFiles', this.rejectedFiles);
                     } catch(error) {
-                        console.log(error.response.data.message);
+                        this.handleError(error);
                     }
                 }
 
