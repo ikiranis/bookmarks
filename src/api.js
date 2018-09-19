@@ -140,6 +140,18 @@ let api = {
     },
 
     /**
+     * Store file to database
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async storeFile(args) {
+        let {data} = await axios.post(ROOT_API + '/file', args);
+
+        return data;
+    },
+
+    /**
      *
      * @param args
      * @returns {Promise<void>}

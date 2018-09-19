@@ -13,7 +13,9 @@
         <vue-editor-markdown class="my-2" placeholder="Description" v-model="formData.description"
                              @input="submitData" :showPreview="false"/>
         <div class="row">
-            <small class="bg-warning text-dark px-3 mx-auto">On mobile, press enter on every line to take the last text</small>
+            <small class="bg-warning text-dark px-3 mx-auto">On mobile, press enter on every line to take the last
+                text
+            </small>
         </div>
         <form-error v-if="response.errors.description" :error="response.errors.description[0]"/>
 
@@ -106,7 +108,7 @@
                 <ul class="list-group mt-3">
                     <li class="list-group-item bg-success my-1" v-for="file in files" :key="file.id">
                         <div class="row">
-                            <span class="col-8 text-white">{{ file.name }}</span>
+                            <span class="col-8 text-white">{{ file.name }} {{file.id}}</span>
                             <span class="col-4 text-right">
                                 <button class="btn btn-sm btn-danger" @click="deleteFile(file.id)">Delete</button>
                             </span>
@@ -323,10 +325,27 @@
             },
 
             /**
+             * Store file to database
+             */
+             storeFile(fileAdded) {
+                return new Promise(async (resolve, reject) => {
+                    try {
+                        let response = await api.storeFile(fileAdded);
+
+                        resolve(response);
+
+                    } catch (error) {
+                        reject(error.response.data.message);
+                    }
+                })
+
+            },
+
+            /**
              * Start uploading files
              */
             uploadFiles() {
-                uploadFiles.startUpload(this.userId, '#files');
+                uploadFiles.startUpload(this.userId, '#files', this.storeFile);
             },
 
             /**

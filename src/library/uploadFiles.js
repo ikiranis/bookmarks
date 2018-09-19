@@ -34,8 +34,9 @@ let uploadFiles = {
      *
      * @param user_id
      * @param inputElement
+     * @param callback
      */
-    startUpload: function (user_id, inputElement) {
+    startUpload: function (user_id, inputElement, callback) {
         this.filesInputElement = inputElement;
         this.user_id = user_id;
         this.rejectedFiles = [];
@@ -50,6 +51,7 @@ let uploadFiles = {
         this.reader = [];
         this.theFile = [];
         this.files = [];
+        this.callback = callback;
 
         // Check for sizes and remove files above limit
         for (let i = 0; i < this.filesUploadedCount; i++) {
@@ -61,8 +63,6 @@ let uploadFiles = {
             }
             store.commit('setRejectedFiles', this.rejectedFiles);
         }
-
-
 
         // Start upload one by one
         for (let i = 0; i < this.filesUploadedCount; i++) {
@@ -183,14 +183,27 @@ let uploadFiles = {
                 // console.log('local md5: ' + md5hash + ' remote md5: ' + response.md5hash);
 
                 let fileAdded = {
-                    id: response.file_id,
-                    name: response.filename
+                    id: null,
+                    name: response.filename,
+                    path: response.path,
+                    user_id: this.user_id
                 };
 
-                if (md5hash === response.md5hash) { // if files match
-                    this.files.push(fileAdded);
-                    store.commit('setFiles', this.files);
+                if (md5hash === response.md5hash) { // if files match, add file to files
+                    try {
+                        // Run callback function to do something with uploaded file. Store or anything else
+                        let response = await this.callback(fileAdded);
+
+                        fileAdded.id = response.file_id;
+
+                        this.files.push(fileAdded);
+                        store.commit('setFiles', this.files);
+                    } catch(error) {
+                        console.log(error);
+                    }
+
                 } else { // if files don't match add it to rejected files
+                    // TODO run callback function to delete or something else
                     this.rejectedFiles.push(fileAdded);
                     store.commit('setRejectedFiles', this.rejectedFiles);
 
