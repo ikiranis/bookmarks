@@ -199,34 +199,34 @@ let uploadFiles = {
                 if (md5hash === response.md5hash) { // if files match, add file to files
                     try {
                         // Run callback function to do something with uploaded file. Store or anything else
-                        let response = await this.callback(fileAdded);
+                        let response = await this.successFileCallback(fileAdded);
 
                         fileAdded.id = response.file_id;
 
                         this.files.push(fileAdded);
                         store.commit('setFiles', this.files);
                     } catch(error) {
-                        console.log(error);
+                        this.handleError(error);
                     }
 
                 } else { // if files don't match add it to rejected files
                     try {
-                        let response = await this.failFileCallback(response.file_id);
+                        await this.failFileCallback(fileAdded);
 
                         this.rejectedFiles.push(fileAdded);
                         store.commit('setRejectedFiles', this.rejectedFiles);
                     } catch(error) {
-                        this.handleError(error);
+                        this.handleError(error.response.data.message);
                     }
                 }
 
             } else {
-                console.log('Problem with file ' + response.filename);
+                this.handleError('Problem with file ' + response.filename);
             }
 
             this.checkUploadTermination(); // Έλεγχος και τερματισμός της διαδικασίας του uploading
         } catch(error) {
-            console.log(error.response);
+            this.handleError(error.response);
         }
 
     },

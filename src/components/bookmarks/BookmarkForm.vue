@@ -333,24 +333,35 @@
                         let response = await api.storeFile(fileAdded);
 
                         resolve(response);
-
                     } catch (error) {
                         reject(error.response.data.message);
                     }
-                })
+                });
 
             },
 
-            removeFile(fileId){
-                try{
-                    api.deleteFile(fileId)
-                } catch(error) {
-                    console.log(error.response.data.message);
-                }
+            /**
+             * Remove file on file error
+             */
+            removeFile(file){
+                return new Promise(async (resolve, reject) => {
+                    try {
+                        let response = await api.removeFile(file);
+
+                        console.log(response);
+                        resolve(response);
+                    } catch(error) {
+                        console.log(error)
+                        reject(error);
+                    }
+                });
             },
 
+            /**
+             * Display the error on every error
+             */
             handleError(error) {
-                this.response.message = error.response.data.message;
+                this.response.message = error;
                 this.response.status = false;
             },
 

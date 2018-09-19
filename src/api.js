@@ -47,10 +47,10 @@ let api = {
         if (page !== null) {
             page = '?' + page.split('?')[1];
         } else {
-            page='';
+            page = '';
         }
 
-        let {data} = await axios.get(ROOT_API + '/bookmarks' + page, {params: args} );
+        let {data} = await axios.get(ROOT_API + '/bookmarks' + page, {params: args});
 
         return data;
     },
@@ -169,7 +169,7 @@ let api = {
      * @param args
      */
     async getMetadata(args) {
-        let {data} = await axios.get(ROOT_API + '/metadata', {params: args} );
+        let {data} = await axios.get(ROOT_API + '/metadata', {params: args});
 
         return data;
     },
@@ -335,6 +335,18 @@ let api = {
      */
     async deleteFile(id) {
         return await axios.delete(ROOT_API + '/file/' + id);
+    },
+
+    /**
+     * Remove file by fullpath name
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async removeFile(args) {
+        let {data} = await axios.post(ROOT_API + '/removeFile', args);
+
+        return data;
     },
 
     /**
