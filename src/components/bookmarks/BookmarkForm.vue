@@ -108,7 +108,7 @@
                 <ul class="list-group mt-3">
                     <li class="list-group-item bg-success my-1" v-for="file in files" :key="file.id">
                         <div class="row">
-                            <span class="col-8 text-white">{{ file.name }} {{file.id}}</span>
+                            <span class="col-8 text-white">{{ file.name }}</span>
                             <span class="col-4 text-right">
                                 <button class="btn btn-sm btn-danger" @click="deleteFile(file.id)">Delete</button>
                             </span>
@@ -348,10 +348,8 @@
                     try {
                         let response = await api.removeFile(file);
 
-                        console.log(response);
                         resolve(response);
                     } catch(error) {
-                        console.log(error)
                         reject(error);
                     }
                 });

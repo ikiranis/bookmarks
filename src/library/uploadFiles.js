@@ -201,7 +201,9 @@ let uploadFiles = {
                         // Run callback function to do something with uploaded file. Store or anything else
                         let response = await this.successFileCallback(fileAdded);
 
-                        fileAdded.id = response.file_id;
+                        if(response.file_id !== null) {
+                            fileAdded.id = response.file_id;
+                        }
 
                         this.files.push(fileAdded);
                         store.commit('setFiles', this.files);

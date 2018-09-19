@@ -73,6 +73,29 @@
                                 variant="success"></b-progress>
                 </div>
 
+                <ul class="list-group mt-3">
+                    <li class="list-group-item bg-success my-1" v-for="file in files" :key="file.name">
+                        <div class="row">
+                            <span class="col-8 text-white">{{ file.name }}</span>
+                            <span class="col-4 text-right">
+                                <button class="btn btn-sm btn-danger" @click="importDataFromXML(file)">Import Data</button>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+
+                <div v-if="rejectedFiles.length > 0" class="mt-3">
+                    <div class="alert alert-warning w-100 text-center">Rejected files for size limit or file error</div>
+                    <ul class="list-group mt-2">
+                        <li class="list-group-item bg-danger text-white my-1" v-for="file in rejectedFiles"
+                            :key="file.id">
+                            <span v-if="file.size">File Limit: ({{ file.size.toLocaleString() }} bytes) </span>
+                            <span v-else>Uploaded file error: </span>
+                            <span>{{ file.name }}</span>
+                        </li>
+                    </ul>
+                </div>
+
                 <loading :loading="loading" />
 
             </div>
@@ -116,7 +139,7 @@
 
         computed: {
 
-            ...mapState(['loading']),
+            ...mapState(['loading', 'files', 'progress', 'rejectedFiles']),
 
             apiUrl: function () {
                 return process.env.VUE_APP_API_HOST
@@ -216,11 +239,59 @@
             },
 
             /**
+             * Read XML file and import data
+             */
+            fileUploaded(fileAdded) {
+                return new Promise((resolve, reject) => {
+                    if(fileAdded) {
+                        resolve(fileAdded);
+                    } else {
+                        reject('File error');
+                    }
+                });
+            },
+
+            /**
+             * Remove file on file error
+             */
+            removeFile(file){
+                return new Promise(async (resolve, reject) => {
+                    try {
+                        let response = await api.removeFile(file);
+
+                        resolve(response);
+                    } catch(error) {
+                        reject(error);
+                    }
+                });
+            },
+
+            /**
+             * Display the error on every error
+             */
+            handleError(error) {
+                this.response.message = error;
+                this.response.status = false;
+            },
+
+            /**
              * Start uploading file
              */
             uploadFile() {
-                uploadFiles.startUpload(this.userId, '#file');
+                uploadFiles.startUpload(this.userId, '#file', this.fileUploaded, this.removeFile, this.handleError);
             },
+
+            async importDataFromXML(file) {
+                try {
+                    let response = await api.importDataFromXML(file);
+
+                    console.log(response);
+                } catch(error) {
+                    console.log(error.response)
+                    this.response.message = error.response.data.message;
+                    this.response.status = false;
+                }
+            }
 
         }
     }

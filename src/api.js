@@ -350,6 +350,18 @@ let api = {
     },
 
     /**
+     * Start importing the data from XML file
+     *
+     * @param args
+     * @returns {Promise<void>}
+     */
+    async importDataFromXML(args) {
+        let {data} = await axios.post(ROOT_API + '/importDataFromXML', args);
+
+        return data;
+    },
+
+    /**
      * Send email to user with reset token
      *
      * @param args
