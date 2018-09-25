@@ -282,6 +282,8 @@
             },
 
             async importDataFromXML(file) {
+                file.user_id = this.userInfo.id;
+
                 try {
                     let response = await api.importDataFromXML(file);
 
