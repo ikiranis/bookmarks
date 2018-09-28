@@ -31,6 +31,7 @@ let uploadFiles = {
     successFileCallback: null,              // callback function to run after any uploaded file
     failFileCallback: null,                 // callback function to run after any fail on uploading the file
     handleError: null,                      // callback function to handle/display every error
+    fileLimit: 3000000,                     // File limit in bytes
 
     /**
      * Start the uploading
@@ -41,7 +42,7 @@ let uploadFiles = {
      * @param failFileCallback
      * @param handleError
      */
-    startUpload: function (user_id, inputElement, successFileCallback, failFileCallback, handleError) {
+    startUpload: function (user_id, inputElement, successFileCallback, failFileCallback, handleError, fileLimit) {
         // Init values
         this.filesInputElement = inputElement;
         this.user_id = user_id;
@@ -53,6 +54,7 @@ let uploadFiles = {
         this.successFileCallback = successFileCallback;
         this.failFileCallback = failFileCallback;
         this.handleError = handleError;
+        this.fileLimit = fileLimit;
 
         // To imput element που περιέχει τα επιλεγμένα αρχεία
         let filesArray = Array.from(document.querySelector(this.filesInputElement).files);
@@ -62,7 +64,7 @@ let uploadFiles = {
 
         // Check for sizes and remove files above limit
         for (let i = 0; i < this.filesUploadedCount; i++) {
-            if(filesArray[i].size > 3000000) {
+            if(filesArray[i].size > this.fileLimit) {
                 this.rejectedFiles.push(filesArray[i]);
                 filesArray.splice(i, 1);
                 this.filesUploadedCount--;

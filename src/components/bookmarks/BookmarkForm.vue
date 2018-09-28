@@ -367,7 +367,7 @@
              * Start uploading files
              */
             uploadFiles() {
-                uploadFiles.startUpload(this.userId, '#files', this.storeFile, this.removeFile, this.handleError);
+                uploadFiles.startUpload(this.userId, '#files', this.storeFile, this.removeFile, this.handleError, 3000000);
             },
 
             /**

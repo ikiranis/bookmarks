@@ -278,19 +278,25 @@
              * Start uploading file
              */
             uploadFile() {
-                uploadFiles.startUpload(this.userId, '#file', this.fileUploaded, this.removeFile, this.handleError);
+                uploadFiles.startUpload(this.userId, '#file', this.fileUploaded, this.removeFile, this.handleError, 500000000);
             },
 
             async importDataFromXML(file) {
+                this.setLoading(true);
+
                 file.user_id = this.userInfo.id;
 
                 try {
                     let response = await api.importDataFromXML(file);
 
-                    console.log(response);
+                    this.response.message = response.message;
+                    this.response.status = true;
+
+                    this.setLoading(false);
                 } catch(error) {
-                    console.log(error.response)
-                    this.response.message = error.response.data.message;
+                    this.setLoading(false);
+
+                    this.response.message = error;
                     this.response.status = false;
                 }
             }

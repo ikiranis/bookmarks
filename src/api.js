@@ -356,7 +356,7 @@ let api = {
      * @returns {Promise<void>}
      */
     async importDataFromXML(args) {
-        let {data} = await axios.post(ROOT_API + '/importDataFromXML', args);
+        let {data} = await axios.post(ROOT_API + '/importDataFromXML', args, { timeout: 100000 });
 
         return data;
     },
