@@ -159,7 +159,7 @@
 
         methods: {
 
-            ...mapMutations(['setLoading']),
+            ...mapMutations(['setLoading', 'setFiles']),
 
             /**
              * Get current user info
@@ -296,6 +296,7 @@
                         this.response.status = true;
 
                         this.setLoading(false);
+                        this.setFiles([]);
                     } catch (error) {
                         this.setLoading(false);
 
