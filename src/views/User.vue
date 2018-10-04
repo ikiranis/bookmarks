@@ -64,7 +64,7 @@
                     <div class="custom-file col-12 px-1 mt-3">
                         <label class="custom-file-label" for="file">Choose file</label>
                         <input type="file" class="custom-file-input" name="file" id="file"
-                               accept="application/xml" @change="uploadFile">
+                               accept=".enex" @change="uploadFile">
                     </div>
                 </div>
 
@@ -299,10 +299,12 @@
                     } catch (error) {
                         this.setLoading(false);
 
-                        this.response.message = error;
+                        this.response.message = error.response.data.message ? error.response.data.message : error;
                         this.response.status = false;
                     }
                 }
+
+                // TODO else delete uploaded file
             }
 
         }
