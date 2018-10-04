@@ -201,6 +201,7 @@
             this.findImage();
             this.setIsEditBookmarkOn(false);
             this.bookmarkPublic = this.bookmark.public;
+            this.truncateDescription();
         },
 
         watch: {
@@ -411,6 +412,13 @@
 
                     this.loadDecrypt = false;
                 }
+            },
+
+            truncateDescription() {
+                // TODO make it dynamic with parameters
+                let text = this.bookmark.description;
+
+                this.bookmark.description = text.slice(0, 1000) + ((text.length > 1000) ? ' ...' : '');
             }
 
 
