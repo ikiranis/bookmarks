@@ -201,7 +201,10 @@
             this.findImage();
             this.setIsEditBookmarkOn(false);
             this.bookmarkPublic = this.bookmark.public;
-            this.truncateDescription();
+
+            if(this.bookmarksList) {
+                this.truncateDescription();
+            }
         },
 
         watch: {
@@ -416,6 +419,7 @@
 
             truncateDescription() {
                 // TODO make it dynamic with parameters
+                // TODO display link for more
                 let text = this.bookmark.description;
 
                 this.bookmark.description = text.slice(0, 1000) + ((text.length > 1000) ? ' ...' : '');
