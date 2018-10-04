@@ -282,22 +282,26 @@
             },
 
             async importDataFromXML(file) {
-                this.setLoading(true);
+                let choise = confirm('Are you sure you want to import bookmarks?');
 
-                file.user_id = this.userInfo.id;
+                if(choise) {
+                    this.setLoading(true);
 
-                try {
-                    let response = await api.importDataFromXML(file);
+                    file.user_id = this.userInfo.id;
 
-                    this.response.message = response.message;
-                    this.response.status = true;
+                    try {
+                        let response = await api.importDataFromXML(file);
 
-                    this.setLoading(false);
-                } catch(error) {
-                    this.setLoading(false);
+                        this.response.message = response.message;
+                        this.response.status = true;
 
-                    this.response.message = error;
-                    this.response.status = false;
+                        this.setLoading(false);
+                    } catch (error) {
+                        this.setLoading(false);
+
+                        this.response.message = error;
+                        this.response.status = false;
+                    }
                 }
             }
 
