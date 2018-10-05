@@ -32,6 +32,7 @@ let uploadFiles = {
     failFileCallback: null,                 // callback function to run after any fail on uploading the file
     handleError: null,                      // callback function to handle/display every error
     fileLimit: 3000000,                     // File limit in bytes
+    tempFile: false,                        // True if it is a temp file
 
     /**
      * Start the uploading
@@ -41,8 +42,10 @@ let uploadFiles = {
      * @param successFileCallback
      * @param failFileCallback
      * @param handleError
+     * @param fileLimit
+     * @param tempFile
      */
-    startUpload: function (user_id, inputElement, successFileCallback, failFileCallback, handleError, fileLimit) {
+    startUpload: function (user_id, inputElement, successFileCallback, failFileCallback, handleError, fileLimit, tempFile) {
         // Init values
         this.filesInputElement = inputElement;
         this.user_id = user_id;
@@ -55,6 +58,7 @@ let uploadFiles = {
         this.failFileCallback = failFileCallback;
         this.handleError = handleError;
         this.fileLimit = fileLimit;
+        this.tempFile = tempFile;
 
         // To imput element που περιέχει τα επιλεγμένα αρχεία
         let filesArray = Array.from(document.querySelector(this.filesInputElement).files);
@@ -128,7 +132,8 @@ let uploadFiles = {
                 user_id: this.user_id,
                 file: fileName,
                 uploadKind: 'slice',
-                file_data: event.target.result
+                file_data: event.target.result,
+                tempFile: this.tempFile
             };
 
             api.uploadFile(args)
@@ -174,7 +179,8 @@ let uploadFiles = {
             user_id: this.user_id,
             fullPathFilename: data.fullPathFilename,
             fileName: data.fileName,
-            uploadKind: 'finalizedFile'
+            uploadKind: 'finalizedFile',
+            tempFile: this.tempFile
         };
 
         try {
