@@ -362,6 +362,7 @@
                             this.setLoading(false);
                         })
                         .catch(error => {
+                            // TODO remove from bookmarks.files too, when deleted from database but returns error
                             this.response.message = error.response.data.message;
                             this.response.status = false;
 
