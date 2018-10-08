@@ -295,10 +295,14 @@
                         this.response.message = response.message;
                         this.response.status = true;
 
+                        console.log(response)
+
                         this.setLoading(false);
                         this.setFiles([]);
                     } catch (error) {
                         this.setLoading(false);
+
+                        console.log(error.response)
 
                         this.response.message = error.response.data.message ? error.response.data.message : error;
                         this.response.status = false;
