@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="bg-warning text-light p-3 mt-3">
-                    <div>Upload enex (Evernote) file to import bookmarks and notes</div>
+                    <div>Upload enex (Evernote) file to import bookmarks and notes (20mb limit)</div>
                     <div class="custom-file col-12 px-1 mt-3">
                         <label class="custom-file-label" for="file">Choose file</label>
                         <input type="file" class="custom-file-input" name="file" id="file"
