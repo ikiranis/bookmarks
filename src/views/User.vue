@@ -278,7 +278,7 @@
              * Start uploading file
              */
             uploadFile() {
-                uploadFiles.startUpload(this.userId, '#file', this.fileUploaded, this.removeFile, this.handleError, 500000000, true);
+                uploadFiles.startUpload(this.userId, '#file', this.fileUploaded, this.removeFile, this.handleError, 20000000, true);
             },
 
             async importDataFromXML(file) {
@@ -295,14 +295,10 @@
                         this.response.message = response.message;
                         this.response.status = true;
 
-                        console.log(response)
-
                         this.setLoading(false);
                         this.setFiles([]);
                     } catch (error) {
                         this.setLoading(false);
-
-                        console.log(error.response)
 
                         this.response.message = error.response.data.message ? error.response.data.message : error;
                         this.response.status = false;
