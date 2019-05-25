@@ -1,6 +1,6 @@
 <template>
 
-    <b-navbar type="light" variant="light" class="my-3">
+    <b-navbar toggleable type="light" variant="light" class="my-3">
 
         <b-navbar-toggle target="tags_collapse"></b-navbar-toggle>
 
