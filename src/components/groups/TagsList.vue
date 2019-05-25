@@ -8,7 +8,7 @@
             <small>Tags</small>
         </b-navbar-brand>
 
-        <b-collapse is-nav id="tags_collapse">
+        <b-collapse id="tags_collapse">
 
             <b-navbar-nav class="ml-auto">
                 <b-nav-item class="row text-center">

@@ -2,13 +2,13 @@
 
     <b-navbar type="light" variant="light" class="my-3">
 
-        <b-navbar-toggle target="groups_collapse"></b-navbar-toggle>
+        <b-navbar-toggle target="groups_collapse" />
 
         <b-navbar-brand>
             <small>Groups</small>
         </b-navbar-brand>
 
-        <b-collapse is-nav id="groups_collapse">
+        <b-collapse id="groups_collapse">
 
             <b-navbar-nav class="ml-auto">
                 <b-nav-item class="row text-center">
